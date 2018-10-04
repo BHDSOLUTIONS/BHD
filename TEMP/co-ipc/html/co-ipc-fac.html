@@ -1,0 +1,69 @@
+<div id="mainView" class="tab-content" >
+				
+    <div id="setupFac" class="tab-pane fade in active">
+        <h4>SETUP FACILITIES</h4>
+        <div class="row">
+            <div class="col-sm-5">
+            
+                
+                    <label for="fac">FAC</label>
+                    <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
+
+                    <label for="ftyp">FTYP</label>
+                    <select class="form-control" id="sel-ftyp">
+                    <option></option>
+                    <option>CP</option>
+                    <option>OE</option>
+                    <option>DSL</option>
+                    <option>ME</option>
+                    </select>
+                    <label for="ort">ORT</label>
+                    <select class="form-control" id="sel-ort">
+                    <option></option>
+                    <option>CP</option>
+                    <option>OE</option>
+                    <option>ME.D</option>
+                    <option>ME.P</option>
+                    </select>
+                    <label for="spcfnc">SPCFNC</label>
+                    <select class="form-control" id="sel-spcfnc">
+                    <option></option>
+                    <option>SP</option>
+                    <option>RE</option>
+                    <option>ADAS</option>
+                    <option>DAML</option>
+                    </select>
+                    <br>
+                 
+                
+              
+                <button id="addFac">Add</button>
+                <button id="updFac">Update</button>
+                <button id="delFac">Delete</button>
+                <button id="clrFac">Cancel</button>
+                <button id="searchFac">Search</button>
+            </div>
+            <div class="col-sm-7">
+                <div class="panel panel-default">
+        
+                            <table class="table table-fixed">
+                                <thead style="width:100%">
+                                    <tr style="width:97%; background-color:#f5f5f5">
+                                        <th style="width:40%">FAC</th>
+                                        <th style="width:10%">FTYP</th>
+                                        <th style="width:10%">ORT</th>
+                                        <th style="width:17%">SPCFNC</th>
+                                        <th style="width:20%">PORT</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="tableFac" style="width:100%">
+                            
+                                </tbody>
+                            </table>
+                </div>
+                    
+                
+            </div>
+        </div>
+    </div>
