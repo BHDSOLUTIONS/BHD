@@ -1,8 +1,8 @@
  ///-----------------PORT MAP--------------------------------------
 
  var portArray;
- var tableIndex;
- var maxTableIndex;
+ var portTableIndex;
+ var maxPortTableIndex;
  $(document).on("click","#tablePort tr",function(){
      var dataRow= $(this).children("td").map(function(){
          return $(this).text();
@@ -10,13 +10,14 @@
      
 
      //Populate the information 
-     $("#node").val(dataRow[0]).change();
-     $("#slot").val(dataRow[1]).change();
-     $("#pnum").val(dataRow[2]).change();
-     $("#sel-ptyp").val(dataRow[3]).change();
-     $("#sel-psta").val(dataRow[4]).change();
-     $("#fac").val(dataRow[5]).change();
-     $("#ckt").val(dataRow[6]).change();
+     $("#node").val(dataRow[1]).change();
+     $("#slot").val(dataRow[2]).change();
+     $("#pnum").val(dataRow[3]).change();
+     $("#sel-ptyp").val(dataRow[4]).change();
+     $("#sel-psta").val(dataRow[5]).change();
+     $("#facNum").val(dataRow[6]).change();
+     $("#ckt").val(dataRow[7]).change();
+     $("#port_id").val(dataRow[0]).change();
      
 
      //Add color to the row
@@ -28,36 +29,53 @@
  function clearPortTable(){
      $("#tablePort").empty();
  }
- function queryPort() {
-    tableIndex=0;
-    maxTableIndex=0;
-    portArray={};
+
+ function queryPort(action) {
+
 
     $.post("./php/coQueryPort.php",
     {
-        port: "all" 
+        act:action,
+        node:$("#node").val(),
+        slot:$("#slot").val(),
+        pnum:$("#pnum").val(),
+        ptyp:$("#sel-ptyp").val(),
+        psta:$("#sel-psta").val(),
+        fac:$("#facNum").val(),
+        ckt:$("#ckt").val(),
     },
     function (data, status) {
         var obj = JSON.parse(data);
         if(obj["rslt"]=="fail"){
             alert(obj['reason']);
         }else{
-
-            portArray = obj;
-            var len = portArray['rows'].length; 
-            maxTableIndex = Math.ceil(len/100.0);
-            tableIndex++;
+            if(obj['rows'].length==0){
+                alert("There is no matching data!");
+            }
+            else{
+                portTableIndex=0;
+                portArray = obj["rows"];
+                var len = portArray.length; 
+                maxPortTableIndex = Math.ceil(len/100.0);
+                portTableIndex++;
+                
+                displayPort(portTableIndex);
+            }
             
-            displayPort(tableIndex);
         }
     });
 }
+
+$("#searchPort").click(function(){
+    queryPort('query')
+});
 
 function displayPort(index){
     
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = portArray['rows'].length;
+    var len = portArray.length;
+
     if(len>=startIndex){
 
         clearPortTable();
@@ -65,34 +83,32 @@ function displayPort(index){
             stopIndex=len;
         var a = [];
         for (var i=startIndex; i<stopIndex; i++) {
-            if(portArray['rows'][i].fac == null) portArray['rows'][i].fac = "";
-            if(portArray['rows'][i].ckt == null) portArray['rows'][i].cktid = "";
-            a.push('<tr> <td style="width:10%">' + portArray['rows'][i].node + '</td>');
-            a.push('<td style="width:10%">' + portArray['rows'][i].slot + '</td>');
-            a.push('<td style="width:10%">' + portArray['rows'][i].pnum + '</td>');
-            a.push('<td style="width:10%">' + portArray['rows'][i].ptyp + '</td>');
-            a.push('<td style="width:10%">' + portArray['rows'][i].psta + '</td>');
-            a.push('<td style="width:25%">' + portArray['rows'][i].fac + '</td>');
-            a.push('<td style="width:25%">' + portArray['rows'][i].cktid + '</td></tr>');
+            if(portArray[i].fac == null) portArray[i].fac = "";
+            if(portArray[i].ckt == null) portArray[i].cktid = "";
+            a.push('<tr> <td style="display:none">' + portArray[i].id + '</td>')  
+            a.push('<td style="width:10%">' + portArray[i].node + '</td>');
+            a.push('<td style="width:10%">' + portArray[i].slot + '</td>');
+            a.push('<td style="width:10%">' + portArray[i].pnum + '</td>');
+            a.push('<td style="width:10%">' + portArray[i].ptyp + '</td>');
+            a.push('<td style="width:10%">' + portArray[i].psta + '</td>');
+            a.push('<td style="width:25%">' + portArray[i].fac + '</td>');
+            a.push('<td style="width:25%">' + portArray[i].cktid + '</td></tr>');
         }
         document.getElementById("tablePort").innerHTML = a.join("");
-    }
-   
+    }   
 }
-    
 
-
-$("#next").click(function(){
-    if(tableIndex<maxTableIndex){
-        tableIndex++;
-        displayPort(tableIndex);
+$("#nextPort").click(function(){
+    if(portTableIndex<maxPortTableIndex){
+        portTableIndex++;
+        displayPort(portTableIndex);
     }
     
 })
-$("#previous").click(function(){
-    if(tableIndex>1){
-        tableIndex--;
-        displayPort(tableIndex);   
+$("#previousPort").click(function(){
+    if(portTableIndex>1){
+        portTableIndex--;
+        displayPort(portTableIndex);   
     }
          
 })

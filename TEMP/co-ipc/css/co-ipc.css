@@ -21,7 +21,7 @@
 
 @media only screen and (max-width: 768px) {
     /*for mobile phone */
-    [class*="col-sm-4"] {
+    [class*="col-sm-3"] {
         width: 100%;
     }
 }
@@ -31,7 +31,7 @@
   /* cursor:pointer; */
   position: absolute;
   bottom: 0;
-    left: 0;
+  left: 0;
   display: none;
 }
 
@@ -39,20 +39,15 @@
 @media only screen and (max-width: 1100px) {
   #menu{
     display: none;
-    position: absolute;
     z-index: 1;
-
-    background-color:white;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
+    overflow: hidden;
+    position: absolute;
+    background-color: white;
     }
   #displayMenu{
     display:block;
-
   }
 }
-
 /* ---------------------------------------------------------- */
 .port {
     margin: 2px;
@@ -62,6 +57,23 @@
     background-color: lightblue;
 }
 
+.btn-primary { 
+  color: #ffffff; 
+  background-color: #04B9D1; 
+  border-color: #130269; 
+  margin: 10px;
+} 
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active, 
+.btn-primary.active, 
+.open .dropdown-toggle.btn-primary { 
+  color: #ffffff; 
+  background-color: #0295A8; 
+  border-color: #130269; 
+} 
+ 
 .ckt {
     margin: 2px;
     min-width: 45%;
