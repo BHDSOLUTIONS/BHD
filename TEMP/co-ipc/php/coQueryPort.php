@@ -91,7 +91,6 @@
 			mysqli_close($db);
 			return $map;
 		}
-		echo "here 1\n";
 		$node = $map["rows"][0]["node"];
 		$slot = $map["rows"][0]["slot"];
 		$pnum = $map["rows"][0]["pnum"];
@@ -100,9 +99,9 @@
 		$psta = $map["rows"][0]["psta"];
 		$ssta = $map["rows"][0]["ssta"];
 		$evt = "PT_UNMAP";
-		echo "here 2\n";
+		
 		$sms = getSms($psta, $ssta, $evt);
-		echo "here 3\n";
+		
 		if ($sms["rslt"] == "fail") {
 			mysqli_close($db);
 			return $sms;
@@ -181,9 +180,9 @@
 		
 		echo $node . "-" . $slot . "-" . $ptyp . "-" . $pnum . ", " . $psta . "\n";
 		
-		$qry = "SELECT t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, t_facs.fac, t_ckts.ckid ";
+		$qry = "SELECT t_port.id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, t_facs.id, t_facs.fac, t_ckts.ckid ";
 		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";
-		$qry .= " WHERE t_ports.pnum LIKE '%$pnum%%' AND t_ports.ptyp LIKE '%$ptyp%%' AND t_ports.node=" . $node;
+		$qry .= " WHERE t_ports.pnum LIKE '%$pnum%%' AND t_ports.ptyp LIKE '%$ptyp%%' AND t_ports.node LIKE '%$node%%'";
 		$qry .= " AND t_ports.slot LIKE '%$slot%%' AND t_ports.psta LIKE '%$psta%%'";
         
         $res = $db->query($qry);
