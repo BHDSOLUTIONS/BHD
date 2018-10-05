@@ -1,5 +1,5 @@
 <?php /* coQueryFac.php */
-    // asfsdf
+
     $act = $_POST['act'];
     $fac = $_POST['fac'];
     $ftyp = $_POST['ftyp'];
