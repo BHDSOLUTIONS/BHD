@@ -1,5 +1,6 @@
 <?php /* coQueryPort.php */
     ///Hello chu Ninh
+    //Hi co Thu
     $port = $_POST['port'];
 
     //$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
