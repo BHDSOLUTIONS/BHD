@@ -1,5 +1,6 @@
 <?php /* coQueryPort.php date:2018-10-05*/
   
+    ///Hello chu Ninh
     $act = $_POST['act'];
     $port_id = $_POST['port_id'];
     $pnum = $_POST['pnum'];
@@ -39,6 +40,24 @@
         if (!$res) {
             $result["rslt"] = "fail";
             $result["reason"] = mysqli_error($db_ct100);
+=======
+<?php /* coQueryPort.php */
+    ///Hello chu Ninh
+    $port = $_POST['port'];
+
+    //$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
+    $db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
+    if (mysqli_connect_errno())
+    {
+        $result["rslt"] = "fail";
+        $result["reason"] = mysqli_connect_error();
+    }
+
+    else {
+        if ($port != "all") {
+            $result["rslt"] = "failed";
+            $result["reason"] = "is under development";
+>>>>>>> 90731cf1c32e5f893e4ddb7083ab3dcca8ceacb9
         }
         else {
             $rows = [];
