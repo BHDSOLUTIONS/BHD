@@ -1,5 +1,5 @@
-<?php /* coQueryPort.php */
-    
+<?php /* coQueryPort.php date:2018-10-05*/
+  
     $act = $_POST['act'];
     $port_id = $_POST['port_id'];
     $pnum = $_POST['pnum'];
