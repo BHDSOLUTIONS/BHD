@@ -26,16 +26,16 @@
                 </select>
             </div>
                 
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <label for="sel-psta">PSTA</label>
                 <select class="form-control" id="sel-psta">
                     <option></option>
-                    <option>UAF</option>
+                    <option>UAS</option>
                     <option>SF</option>
                 </select>
             </div>
 
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 <label for="facNum">FAC</label>
                 <input type="text" class="form-control" id="facNum" >
             </div>
@@ -46,17 +46,25 @@
             </div>
             
 
-            <div class="btn-group col-sm-12">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a type="button" id="mapPort" data-toggle="modal" data-target="#exampleModal">Map</a></li>
-                        <li><a id="unmapPort">UnMap</a></li>
-                    </ul>
-                    <button id="submitPort" type="button" class="btn btn-primary">Submit</button>
-                    <button id="clrPort" type="button" class="btn btn-primary">Cancel</button>
+            <div class="col-sm-3" style="margin:10px 0 10px 0">
+                <select class="form-control" id="portAction" >
+                    <option selected disabled hidden>Action</option>
+                    <option>Map</option>
+                    <option>Unmap</option>
+                </select>
+            </div> 
+                
+            <div class="col-sm-9">
+                <button id="openFacModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#facModal">
+                        Select Fac
+                      </button>
+                <button id="submitPort" type="button" class="btn btn-primary">Submit</button>
+                <button id="clrPort" type="button" class="btn btn-primary">Cancel</button>
             </div>
+            <br>
+              
             <input type="number" id="port_id" style="width:50px;">
+            <input type="number" id="fac_id_P" style="width:50px;">
                 
                
         </div>
