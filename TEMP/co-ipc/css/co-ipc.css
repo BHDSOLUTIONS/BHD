@@ -49,6 +49,11 @@
   }
 }
 /* ---------------------------------------------------------- */
+
+.line-up{
+    float:left;
+    padding:0px 20px;
+}
 .port {
     margin: 2px;
     min-width: 18%;
