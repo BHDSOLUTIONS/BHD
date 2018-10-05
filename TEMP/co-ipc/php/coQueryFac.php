@@ -160,34 +160,22 @@
 				}
 				$qry .= " where fac='" . $fac . "'";
 				$res = $db_ct100->query($qry);
+				$qry = "select * FROM t_facs";
+				$res = $db_ct100->query($qry);
 				if (!$res) {
 					$result["rslt"] = "fail";
 					$result["reason"] = mysqli_error($db_ct100);
 				}
 				else {
-					if ($res->num_rows == 0) {
-						$result["rslt"] = "fail";
-						$result["reason"] = "Invalid FAC " . $fac;
-					}
-					else {
-						$qry = "select * FROM t_facs";
-						$res = $db_ct100->query($qry);
-						if (!$res) {
-							$result["rslt"] = "fail";
-							$result["reason"] = mysqli_error($db_ct100);
-						}
-						else {
-							$rows = [];
-							if ($res->num_rows > 0) {
-								while ($row = $res->fetch_assoc()) {
-									$rows[] = $row;
-								}
-								$result["rslt"] = "success";
-								$result["rows"] = $rows;
-							}
+					$rows = [];
+					if ($res->num_rows > 0) {
+						while ($row = $res->fetch_assoc()) {
+							$rows[] = $row;
 						}
 					}
-				}
+					$result["rslt"] = "success";
+					$result["rows"] = $rows;
+				}				
 			}
 			else {
 				$result["rslt"] = "fail";
