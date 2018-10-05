@@ -1,5 +1,5 @@
 <?php /* coQueryPort.php */
-    
+    ///Hello chu Ninh
     $port = $_POST['port'];
 
     //$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
@@ -9,6 +9,7 @@
         $result["rslt"] = "fail";
         $result["reason"] = mysqli_connect_error();
     }
+
     else {
         if ($port != "all") {
             $result["rslt"] = "failed";
