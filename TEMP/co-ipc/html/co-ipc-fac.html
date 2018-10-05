@@ -4,46 +4,72 @@
         <h4>SETUP FACILITIES</h4>
         <div class="row">
             <div class="col-sm-5">
-            
-                
-                    <label for="fac">FAC</label>
-                    <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
 
+                <div class="col-sm-12">
+                        <label for="fac">FAC</label>
+                        <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
+                </div>
+
+                <div class="col-sm-6">
                     <label for="ftyp">FTYP</label>
                     <select class="form-control" id="sel-ftyp">
-                    <option></option>
-                    <option>CP</option>
-                    <option>OE</option>
-                    <option>DSL</option>
-                    <option>ME</option>
+                        <option></option>
+                        <option>CP</option>
+                        <option>OE</option>
+                        <option>DSL</option>
+                        <option>ME</option>
                     </select>
+                </div> 
+                
+                <div class="col-sm-6">
                     <label for="ort">ORT</label>
                     <select class="form-control" id="sel-ort">
-                    <option></option>
-                    <option>CP</option>
-                    <option>OE</option>
-                    <option>ME.D</option>
-                    <option>ME.P</option>
+                        <option></option>
+                        <option>CP</option>
+                        <option>OE</option>
+                        <option>ME.D</option>
+                        <option>ME.P</option>
                     </select>
+                </div> 
+
+                <div class="col-sm-6">
                     <label for="spcfnc">SPCFNC</label>
                     <select class="form-control" id="sel-spcfnc">
-                    <option></option>
-                    <option>SP</option>
-                    <option>RE</option>
-                    <option>ADAS</option>
-                    <option>DAML</option>
+                        <option></option>
+                        <option>SP</option>
+                        <option>RE</option>
+                        <option>ADAS</option>
+                        <option>DAML</option>
                     </select>
-                    <br>
+
+                </div> 
+                <div class="col-sm-6">
+                    <label for="port">PORT</label>
+                    <input type="text" class="form-control" id="port">
+                </div> 
+ 
+                <div class="btn-group col-sm-12">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a id="addFac">Add</a></li>
+                        <li><a id="updFac">Update</a></li>
+                        <li><a id="delFac">Delete</a></li>
+                    </ul>
+                    <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
+                    <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
+                </div>
+                <input type="number" id="fac_id" style="width:50px;">
                  
                 
-              
-                <button id="addFac">Add</button>
-                <button id="updFac">Update</button>
-                <button id="delFac">Delete</button>
-                <button id="clrFac">Cancel</button>
-                <button id="searchFac">Search</button>
             </div>
             <div class="col-sm-7">
+            
+                <button id="searchFac" type="button" class="btn btn-primary">Search</button>
+                <a  id="previousFac">Previous</a> |
+                <a  id="nextFac">Next</a>
+                &nbsp&nbsp&nbsp<label id="indexFac"></label>
+
                 <div class="panel panel-default">
         
                             <table class="table table-fixed">
