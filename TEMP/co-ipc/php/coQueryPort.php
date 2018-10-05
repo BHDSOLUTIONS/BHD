@@ -1,16 +1,16 @@
 <?php /* coQueryPort.php date:2018-10-05*/
   
     ///Expected inputs
-    $act = "map"; //$_POST['act'];
-    $port_id = 1; 	//$_POST['port_id'];
-    $pnum = 1; 		//$_POST['pnum'];
-    $ptyp = ""; 	//$_POST['ptyp'];
-    $psta = "SF";	//$_POST['psta'];
-	$node = 1;	//$_POST['node'];
-	$slot = 1;		//$_POST['slot'];
-	$fac_id = 2;	//$_POST['fac_id'];
-	$fac = "";		//$_POST['fac'];
-	$ftyp = "CP";	//$_POST['ftyp'];
+    $act = $_POST['act'];
+    $port_id = $_POST['port_id'];
+    $pnum = $_POST['pnum'];
+    $ptyp = $_POST['ptyp'];
+    $psta = $_POST['psta'];
+	$node = $_POST['node'];
+	$slot = $_POST['slot'];
+	$fac_id = $_POST['fac_id'];
+	$fac = $_POST['fac'];
+	$ftyp = $_POST['ftyp'];
 	
 	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
