@@ -23,6 +23,7 @@ $(document).on("click","#tableFac tr",function(){
     $("#sel-ftyp").val(dataRow[2]).change();
     $("#sel-ort").val(dataRow[3]).change();
     $("#sel-spcfnc").val(dataRow[4]).change();
+    $("#portInfo").val(dataRow[5]).change();
     $("#fac_id").val(dataRow[0]).change();
 
     //Add color to the row
@@ -32,9 +33,9 @@ $(document).on("click","#tableFac tr",function(){
 
 
 $(document).ready(function() {  
-    
     queryFac('query');
     queryPort('query');
+    queryAlm('query');
 });
 
 function queryFac(action){
@@ -62,19 +63,19 @@ function queryFac(action){
                 maxFacTableIndex = Math.ceil(len/100.0);
                 facTableIndex++;
                 displayFac(facTableIndex);
+                if(action=="add") alert("Facility is added successfully!");
+                else if(action=="del") alert("Facility is deleted successfully!");
+                else if(action=="upd") alert("Facility is updated successfully!");
             }  
         } 
     });
 }
 
-$("#searchFac").click(function(){
-    queryFac('query')
-});
-
 function displayFac(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = facArray.length;    
+    var len = facArray.length;
+
     if(len>=startIndex){
         if(len < stopIndex)
             stopIndex=len;            
@@ -89,27 +90,38 @@ function displayFac(index){
             a.push('<td style="width:20%">' +  facArray[i].port + '</td></tr>');
         }
         document.getElementById("tableFac").innerHTML = a.join("");
-        $("#indexFac").text("From "+startIndex+" to "+stopIndex);
+        $("#indexFac").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
    
 $("#nextFac").click(function(){
     if(facTableIndex<maxFacTableIndex){
         facTableIndex++;
-        displayPort(facTableIndex);
+        displayFac(facTableIndex);
     }  
 })
 
 $("#previousFac").click(function(){
     if(facTableIndex>1){
         facTableIndex--;
-        displayPort(facTableIndex);   
+        displayFac(facTableIndex);   
     }         
 })
 
+$("#searchFac").click(function(){
+    queryFac('query');
+});
 
-
-
+$("#submitFac").click(function(){
+    if($("#facAction").val()=="Add"){
+        queryFac('add');
+    } else if($("#facaction").val()=="Update"){
+        queryFac('upd');
+    } else if($("#facaction").val()=="Delete"){
+        queryFac('del');
+    }
+    $("#facAction").val("Action");
+})
 
 
 

@@ -44,24 +44,28 @@
 
                 </div> 
                 <div class="col-sm-6">
-                    <label for="port">PORT</label>
-                    <input type="text" class="form-control" id="port">
+                    <label for="portInfo">PORT</label>
+                    <input type="text" class="form-control" id="portInfo">
                 </div> 
  
-                <div class="btn-group col-sm-12">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a id="addFac">Add</a></li>
-                        <li><a id="updFac">Update</a></li>
-                        <li><a id="delFac">Delete</a></li>
-                    </ul>
+     
+                <div class="col-sm-4" style="margin:10px 0 10px 0">
+                    <select class="form-control" id="facAction" >
+                        <option selected disabled hidden>Action</option>
+                        <option>Add</option>
+                        <option>Update</option>
+                        <option>Delete</option>
+                    </select>
+
+                </div> 
+                
+                <div class="col-sm-8">
                     <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
                     <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
                 </div>
+                <br>
                 <input type="number" id="fac_id" style="width:50px;">
-                 
-                
+             
             </div>
             <div class="col-sm-7">
             

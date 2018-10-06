@@ -5,19 +5,20 @@
  var maxPortTableIndex;
  $(document).on("click","#tablePort tr",function(){
      var dataRow= $(this).children("td").map(function(){
-         return $(this).text();
+         return $(this).text(); 
      }).get();
      
 
      //Populate the information 
-     $("#node").val(dataRow[1]).change();
-     $("#slot").val(dataRow[2]).change();
-     $("#pnum").val(dataRow[3]).change();
-     $("#sel-ptyp").val(dataRow[4]).change();
-     $("#sel-psta").val(dataRow[5]).change();
-     $("#facNum").val(dataRow[6]).change();
-     $("#ckt").val(dataRow[7]).change();
+     $("#node").val(dataRow[2]).change();
+     $("#slot").val(dataRow[3]).change();
+     $("#pnum").val(dataRow[4]).change();
+     $("#sel-ptyp").val(dataRow[5]).change();
+     $("#sel-psta").val(dataRow[6]).change();
+     $("#facNum").val(dataRow[7]).change();
+     $("#ckt").val(dataRow[8]).change();
      $("#port_id").val(dataRow[0]).change();
+     $("#fac_id_P").val(dataRow[1]).change();
      
 
      //Add color to the row
@@ -42,7 +43,9 @@
         ptyp:$("#sel-ptyp").val(),
         psta:$("#sel-psta").val(),
         fac:$("#facNum").val(),
-        ckt:$("#ckt").val(),
+        fac_id:$("#fac_id_P").val(),
+        port_id:$("#port_id").val()
+        // ckt:$("#ckt").val(),
     },
     function (data, status) {
         var obj = JSON.parse(data);
@@ -85,7 +88,8 @@ function displayPort(index){
         for (var i=startIndex; i<stopIndex; i++) {
             if(portArray[i].fac == null) portArray[i].fac = "";
             if(portArray[i].ckt == null) portArray[i].cktid = "";
-            a.push('<tr> <td style="display:none">' + portArray[i].id + '</td>')  
+            a.push('<tr> <td style="display:none">' + portArray[i].id + '</td>') 
+            a.push('<td style="display:none">' + portArray[i].fac_id + '</td>')   
             a.push('<td style="width:10%">' + portArray[i].node + '</td>');
             a.push('<td style="width:10%">' + portArray[i].slot + '</td>');
             a.push('<td style="width:10%">' + portArray[i].pnum + '</td>');
@@ -95,6 +99,7 @@ function displayPort(index){
             a.push('<td style="width:25%">' + portArray[i].cktid + '</td></tr>');
         }
         document.getElementById("tablePort").innerHTML = a.join("");
+        $("#indexPort").text("From "+(startIndex+1)+" to "+stopIndex);
     }   
 }
 
@@ -112,6 +117,24 @@ $("#previousPort").click(function(){
     }
          
 })
+
+
+// $('#portAction').change(function() { 
+//     if($(this).val()=="Map"){ 
+//         $('#facModal').modal("show"); 
+//     }
+// });
+
+$("#submitPort").click(function(){
+
+    if($("#portAction").val()=="Map"){
+        queryPort('map');
+    } else if($("#portAction").val()=="Unmap"){
+        queryPort('unmap');
+    } 
+    $("#portAction").val("Action");
+})
+
 
  $("#facid").change(function(){
 
