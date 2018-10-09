@@ -33,9 +33,9 @@ function queryFac(action){
     {     
         act:action,
         fac:$("#fac").val(),
-        ftyp:$("#sel-ftyp option:selected").text(),
-        ort:$("#sel-ort option:selected").text(),
-        spcfnc:$("#sel-spcfnc option:selected").text()
+        ftyp:$("#sel-ftyp").val(),
+        ort:$("#sel-ort").val(),
+        spcfnc:$("#sel-spcfnc").val()
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -116,9 +116,9 @@ function clearFacForm(){
 $("#submitFac").click(function(){
     if($("#facAction").val()=="Add"){
         queryFac('add');
-    } else if($("#facaction").val()=="Update"){
+    } else if($("#facAction").val()=="Update"){
         queryFac('upd');
-    } else if($("#facaction").val()=="Delete"){
+    } else if($("#facAction").val()=="Delete"){
         queryFac('del');
     }
     $("#facAction").val("");
