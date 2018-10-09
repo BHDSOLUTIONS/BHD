@@ -3,14 +3,7 @@ var facArray;
 var facTableIndex;
 var maxFacTableIndex;
 
-$(document).on("click","#displayMenu",function(){
-   
-    if($('#menu').css('display') == 'block')
-        $('#menu').css('display','none')
-    else 
-        $('#menu').css('display','block')
-});
-    
+
 function clearFacTable() {
     $("#tableFac").empty();
 }
@@ -32,11 +25,7 @@ $(document).on("click","#tableFac tr",function(){
 });
 
 
-$(document).ready(function() {  
-    queryFac('query');
-    queryPort('query');
-    queryAlm('query');
-});
+
 
 function queryFac(action){
     
@@ -93,7 +82,7 @@ function displayFac(index){
         $("#indexFac").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
-   
+
 $("#nextFac").click(function(){
     if(facTableIndex<maxFacTableIndex){
         facTableIndex++;
@@ -112,6 +101,18 @@ $("#searchFac").click(function(){
     queryFac('query');
 });
 
+$("#clrFac").click(clearFacForm);
+
+function clearFacForm(){
+    $("#fac").val("").change();
+    $("#sel-ftyp").val("").change();
+    $("#sel-ort").val("").change();
+    $("#sel-spcfnc").val("").change();
+    $("#portInfo").val("").change();
+    $("#fac_id").val("").change();
+    $("#facAction").val("");
+}
+
 $("#submitFac").click(function(){
     if($("#facAction").val()=="Add"){
         queryFac('add');
@@ -120,7 +121,7 @@ $("#submitFac").click(function(){
     } else if($("#facaction").val()=="Delete"){
         queryFac('del');
     }
-    $("#facAction").val("Action");
+    $("#facAction").val("");
 })
 
 

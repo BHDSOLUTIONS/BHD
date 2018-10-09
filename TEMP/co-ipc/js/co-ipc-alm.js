@@ -10,12 +10,16 @@ $(document).on("click","#tableAlm tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
-    //Populate the information 
-    // $("#fac").val(dataRow[1]).change();
-    // $("#sel-ftyp").val(dataRow[2]).change();
-    // $("#sel-ort").val(dataRow[3]).change();
-    // $("#sel-spcfnc").val(dataRow[4]).change();
-    // $("#fac_id").val(dataRow[0]).change();
+
+    $("#almId").val(dataRow[1]);
+    $("#almDate").val(dataRow[4]);
+    $("#almTime").val(dataRow[5]);
+    $("#almSev").val(dataRow[9]);
+    $("#almAck").val(dataRow[2]);
+    $("#almCond").val(dataRow[8]);
+
+    clearAlmModalForm();
+    $("#almModal").modal();
 
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
@@ -45,9 +49,7 @@ function queryAlm(action){
                 maxAlmTableIndex = Math.ceil(len/100.0);
                 almTableIndex++;
                 displayAlm(almTableIndex);
-                // if(action=="add") alert("Facility is added successfully!");
-                // else if(action=="del") alert("Facility is deleted successfully!");
-                // else if(action=="upd") alert("Facility is updated successfully!");
+
             }  
         } 
     });
@@ -76,10 +78,24 @@ function displayAlm(index){
             a.push('<td style="width:10%">' +  almArray[i].sev + '</td></tr>');
         }
         document.getElementById("tableAlm").innerHTML = a.join("");
-        // $("#indexFac").text("From "+(startIndex+1)+" to "+stopIndex);
+        $("#indexAlm").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
-   
+
+function clearAlmForm(){
+    $("#searchAlmAck").val("");
+    $("#searchAlmSa").val("");
+    $("#searchAlmDate").val("");
+    $("#searchAlmTime").val("");
+    $("#searchAlmSrc").val("");
+    $("#searchAlmType").val("");
+    $("#searchAlmCond").val("");
+    $("#searchAlmSev").val("");
+}
+
+$("#clrAlm").click(clearAlmForm);
+
+
 // $("#nextFac").click(function(){
 //     if(facTableIndex<maxFacTableIndex){
 //         facTableIndex++;

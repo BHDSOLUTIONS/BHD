@@ -2,95 +2,103 @@
 				
     <div id="setupFac" class="tab-pane fade in active">
         <h4>SETUP FACILITIES</h4>
+
         <div class="row">
             <div class="col-sm-5">
-
-                <div class="col-sm-12">
-                        <label for="fac">FAC</label>
-                        <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
+                <div class="form-group">
+                    <div class="row">
+                    <div class="col-sm-12">
+                            <label for="fac">FAC</label>
+                            <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
+                    </div>
+    
+                    <div class="col-sm-6">
+                        <label for="ftyp">FTYP</label>
+                        <select class="form-control" id="sel-ftyp">
+                            <option></option>
+                            <option>CP</option>
+                            <option>OE</option>
+                            <option>DSL</option>
+                            <option>ME</option>
+                        </select>
+                    </div> 
+                    
+                    <div class="col-sm-6">
+                        <label for="ort">ORT</label>
+                        <select class="form-control" id="sel-ort">
+                            <option></option>
+                            <option>CP</option>
+                            <option>OE</option>
+                            <option>ME.D</option>
+                            <option>ME.P</option>
+                        </select>
+                    </div>  
+                    <div class="col-sm-6">
+                            <label for="spcfnc">SPCFNC</label>
+                            <select class="form-control" id="sel-spcfnc">
+                                <option></option>
+                                <option>SP</option>
+                                <option>RE</option>
+                                <option>ADAS</option>
+                                <option>DAML</option>
+                            </select>
+        
+                        </div> 
+                        <div class="col-sm-6">
+                            <label for="portInfo">PORT</label>
+                            <input type="text" class="form-control" id="portInfo" readonly>
+                        </div>                 
+                    </div>
                 </div>
 
-                <div class="col-sm-6">
-                    <label for="ftyp">FTYP</label>
-                    <select class="form-control" id="sel-ftyp">
-                        <option></option>
-                        <option>CP</option>
-                        <option>OE</option>
-                        <option>DSL</option>
-                        <option>ME</option>
-                    </select>
-                </div> 
-                
-                <div class="col-sm-6">
-                    <label for="ort">ORT</label>
-                    <select class="form-control" id="sel-ort">
-                        <option></option>
-                        <option>CP</option>
-                        <option>OE</option>
-                        <option>ME.D</option>
-                        <option>ME.P</option>
-                    </select>
-                </div> 
-
-                <div class="col-sm-6">
-                    <label for="spcfnc">SPCFNC</label>
-                    <select class="form-control" id="sel-spcfnc">
-                        <option></option>
-                        <option>SP</option>
-                        <option>RE</option>
-                        <option>ADAS</option>
-                        <option>DAML</option>
-                    </select>
-
-                </div> 
-                <div class="col-sm-6">
-                    <label for="portInfo">PORT</label>
-                    <input type="text" class="form-control" id="portInfo">
-                </div> 
- 
-     
-                <div class="col-sm-4" style="margin:10px 0 10px 0">
-                    <select class="form-control" id="facAction" >
-                        <option selected disabled hidden>Action</option>
-                        <option>Add</option>
-                        <option>Update</option>
-                        <option>Delete</option>
-                    </select>
-
-                </div> 
-                
-                <div class="col-sm-8">
-                    <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
-                    <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
+                <div class="form-inline">
+                    <div class="row">
+                        
+                        <div class="col-sm-6">
+                            <label for="facAction">ACTION</label>
+                            <select class="form-control" id="facAction" >
+                                <option></option>
+                                <option>Add</option>
+                                <option>Update</option>
+                                <option>Delete</option>
+                            </select>
+                        </div>
+                            <div class="col-sm-6">
+                                <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
+                                <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
+                            </div>
+                        
+                    </div>
                 </div>
-                <br>
+                <hr style="visibility: hidden">
                 <input type="number" id="fac_id" style="width:50px;">
-             
+                                
             </div>
             <div class="col-sm-7">
+                <div class="form-group">
             
-                <button id="searchFac" type="button" class="btn btn-primary">Search</button>
-                <a  id="previousFac">Previous</a> |
-                <a  id="nextFac">Next</a>
-                &nbsp&nbsp&nbsp<label id="indexFac"></label>
+                    <button id="searchFac" type="button" class="btn btn-primary">Search</button>
+                    <a  id="previousFac">Previous</a> |
+                    <a  id="nextFac">Next</a>
+                    &nbsp&nbsp&nbsp<label id="indexFac"></label>
+                </div>
 
                 <div class="panel panel-default">
-        
-                            <table class="table table-fixed">
-                                <thead style="width:100%">
-                                    <tr style="width:97%; background-color:#f5f5f5">
-                                        <th style="width:40%">FAC</th>
-                                        <th style="width:10%">FTYP</th>
-                                        <th style="width:10%">ORT</th>
-                                        <th style="width:17%">SPCFNC</th>
-                                        <th style="width:20%">PORT</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody id="tableFac" style="width:100%">
-                            
-                                </tbody>
-                            </table>
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:40%">FAC</th>
+                                <th style="width:10%">FTYP</th>
+                                <th style="width:10%">ORT</th>
+                                <th style="width:17%">SPCFNC</th>
+                                <th style="width:20%">PORT</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="tableFac">
+                    
+                        </tbody>
+                    </table>
                 </div>
                     
                 

@@ -63,6 +63,8 @@
                 portTableIndex++;
                 
                 displayPort(portTableIndex);
+                if(action=="map") alert("Port is mapped successfully!");
+                else if(action=="unmap") alert("Port is unmapped successfully!");
             }
             
         }
@@ -119,32 +121,51 @@ $("#previousPort").click(function(){
 })
 
 
-// $('#portAction').change(function() { 
-//     if($(this).val()=="Map"){ 
-//         $('#facModal').modal("show"); 
-//     }
-// });
+$(document).on('mouseup', '[id*=portAction]', function () {
+    if($("#portAction").val()=="Map"){
+        clearFacModalForm();
+        queryFacModal();
+        $("#facModal").modal();
+    }
+});
 
 $("#submitPort").click(function(){
-
     if($("#portAction").val()=="Map"){
         queryPort('map');
+        
     } else if($("#portAction").val()=="Unmap"){
         queryPort('unmap');
+      
     } 
-    $("#portAction").val("Action");
+    $("#portAction").val("");
 })
 
+$("#clrPort").click(clearPortForm)
 
- $("#facid").change(function(){
+function clearPortForm(){
+    $("#node").val("").change();
+    $("#slot").val("").change();
+    $("#pnum").val("").change();
+    $("#sel-ptyp").val("").change();
+    $("#sel-psta").val("").change();
+    $("#facNum").val("").change();
+    $("#ckt").val("").change();
+    $("#port_id").val("").change();
+    $("#fac_id_P").val("").change();
+    $("#portAction").val("").change();
+}
 
-     if($("#facid").val()>0){
-         $("#unmap").attr("disabled",false);
-         $("#map").attr("disabled",true);
-     }
-     else{
-         $("#unmap").attr("disabled",true);
-         $("#map").attr("disabled",false);
-     }
- })
+//  $("#facNum").change(function(){
+
+//      if($("#facNum").val()!=""){
+//         $("#mapOption").attr("disabled",true);
+//          $("#unmapOption").attr("disabled",false);
+         
+//      }
+//      else{
+//         $("#mapOption").attr("disabled",false);
+//          $("#unmapOption").attr("disabled",true);
+        
+//      }
+//  })
 
