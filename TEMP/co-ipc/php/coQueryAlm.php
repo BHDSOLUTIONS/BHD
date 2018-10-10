@@ -138,7 +138,7 @@
 			return $result;
 		}
 			
-		$qry = "UPDATE t_alms SET ack='', cond='UN-ACK', remark='" . $remark . "' WHERE almid=" . $almid;
+		$qry = "UPDATE t_alms SET ack='', cond='UN-ACK', remark=concat('" . $remark . "',remark) WHERE almid=" . $almid;
 		$res = $db->query($qry);
 		if (!$res) {
 			$result["rslt"] = "fail";
