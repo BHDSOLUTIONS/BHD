@@ -1,7 +1,18 @@
-<?php /* coQueryPort.php date:2018-10-05*/
-  
+<?php
+/*
+ * Copy Right @ 2018
+ * BHD Solutions, LLC.
+ * Project: CO-IPC
+ * Filename: coQueryPort.php
+ * Change history: 
+ * 2018-10-05: created (Ninh)
+ */
+
+	include "coCommonFunctions.php";
+
     ///Expected inputs
     $act = $_POST['act'];
+    $user = $_POST['user'];
     $port_id = $_POST['port_id'];
     $pnum = $_POST['pnum'];
     $ptyp = $_POST['ptyp'];
@@ -23,8 +34,18 @@
 		return;
 	}
 	
-	if ($act == "query") {
+	if ($act == "query" || $act == "pmFindPort") {
 		$result = queryPort($node, $slot, $ptyp, $pnum, $psta);
+		echo json_encode($result);
+		return;
+	}
+	if ($act == "portmapFindFac") {
+		$result = pmQueryFac($fac);
+		echo json_encode($result);
+		return;
+	}
+	if ($act == "pmFindCkid") {
+		$result = pmQueryCkid($ckid);
 		echo json_encode($result);
 		return;
 	}
@@ -50,6 +71,12 @@
 		global $db;
 		
 		$result =[];
+		if (!($fac_id > 0)) {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing FAC";
+			return $result;
+		}
+		
 		$map = getMap($port_id, $fac_id, "map");
 		if ($map["rslt"] == "fail") {
 			$result = $map;
@@ -154,7 +181,7 @@
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db_ct100);
+            $result["reason"] = mysqli_error($db);
         }
         else {
             $rows = [];
@@ -178,9 +205,9 @@
 	function queryPort($node, $slot, $ptyp, $pnum, $psta) {
 		global $db;
 		
-		echo $node . "-" . $slot . "-" . $ptyp . "-" . $pnum . ", " . $psta . "\n";
 		
-		$qry = "SELECT t_port.id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, t_facs.id, t_facs.fac, t_ckts.ckid ";
+		$qry = "SELECT t_ports.id as id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, ";
+		$qry .= "t_facs.id as fac_id, t_facs.fac, t_ckts.ckid ";
 		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";
 		$qry .= " WHERE t_ports.pnum LIKE '%$pnum%%' AND t_ports.ptyp LIKE '%$ptyp%%' AND t_ports.node LIKE '%$node%%'";
 		$qry .= " AND t_ports.slot LIKE '%$slot%%' AND t_ports.psta LIKE '%$psta%%'";
@@ -195,7 +222,82 @@
             $result["rslt"] = "success";
 			if ($res->num_rows > 0) {
                 while ($row = $res->fetch_assoc()) {
-                    $rows[] = $row;
+                    if($row["ckid"] == null)
+						$row["ckid"] = "";
+					if ($row["fac"] == null)
+						$row["fac"] = "";
+					if ($row["fac_id"] == null)
+						$row["fac_id"] = "0";
+					$rows[] = $row;
+                }
+            }
+            $result["rows"] = $rows;
+		}
+		return $result;
+	}
+
+	
+	
+	function pmQueryFac($fac) {
+		global $db;
+		
+		
+		$qry = "SELECT t_ports.id as id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, ";
+		$qry .= "t_facs.id as fac_id, t_facs.fac, t_ckts.ckid ";
+		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";
+		$qry .= " WHERE t_facs.fac LIKE '%$fac%%'";
+        
+        $res = $db->query($qry);
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+        }
+        else {
+            $rows = [];
+            $result["rslt"] = "success";
+			if ($res->num_rows > 0) {
+                while ($row = $res->fetch_assoc()) {
+                    if($row["ckid"] == null)
+						$row["ckid"] = "";
+					if ($row["fac"] == null)
+						$row["fac"] = "";
+					if ($row["fac_id"] == null)
+						$row["fac_id"] = "0";
+					$rows[] = $row;
+                }
+            }
+            $result["rows"] = $rows;
+		}
+		return $result;
+	}
+
+	
+	function pmQueryCkid($ckid) {
+		global $db;
+		
+		
+		$qry = "SELECT t_ports.id as id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, ";
+		$qry .= "t_facs.id as fac_id, t_facs.fac, t_ckts.ckid ";
+		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";
+		$qry .= " WHERE t_ckts.ckid LIKE '%$ckid%%'";
+        
+        $res = $db->query($qry);
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+        }
+        else {
+            $rows = [];
+            $result["rslt"] = "success";
+			if ($res->num_rows > 0) {
+                while ($row = $res->fetch_assoc()) {
+                    if($row["ckid"] == null)
+						$row["ckid"] = "";
+					if ($row["fac"] == null)
+						$row["fac"] = "";
+					if ($row["fac_id"] == null)
+						$row["fac_id"] = "0";
+					$rows[] = $row;
                 }
             }
             $result["rows"] = $rows;

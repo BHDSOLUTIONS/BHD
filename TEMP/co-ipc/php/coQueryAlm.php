@@ -18,7 +18,8 @@
     
     //test data
     //$act="ack";
-	//$ack="NINH";
+	//$ack="";
+	//$user="NINH";
 	//$almid = 1;
 	//$descr = "ABC";
 	
@@ -39,7 +40,7 @@
 	}
 	
 	if ($act == "ack") {
-		$result = ackAlm($ack);
+		$result = ackAlm();
 		echo json_encode($result);
 		return;
 	}
@@ -77,10 +78,10 @@
 
 
 	function ackAlm() {
-		global $db, $almid, $ack, $descr;
+		global $db, $almid, $ack, $descr, $user;
 		
         //validate $ack: check user permission for acknowledge alarm
-        if (userPermission("almadm",$ack) == false) {
+        if (userPermission("almadm",$user) == false) {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Permission Denied";
 			return $result;
@@ -92,7 +93,7 @@
 			return $result;
 		}
 			
-		$qry = "UPDATE t_alms SET ack='" . $ack . "', cond='ACK', descr='" . "' WHERE almid=" . $almid;
+		$qry = "UPDATE t_alms SET ack='" . $user . "', cond='ACK', descr='" . $descr . "' WHERE almid=" . $almid;
 		$res = $db->query($qry);
 		if (!$res) {
 			$result["rslt"] = "fail";

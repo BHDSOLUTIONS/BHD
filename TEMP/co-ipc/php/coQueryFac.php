@@ -1,5 +1,15 @@
-<?php /* coQueryFac.php */
-    
+<?php
+/*
+ * Copy Right @ 2018
+ * BHD Solutions, LLC.
+ * Project: CO-IPC
+ * Filename: coQueryFac.php
+ * Change history: 
+ * 2018-10-05: created (Ninh)
+ */
+
+ 	include "coCommonFunctions.php";
+  
     $act = $_POST['act'];
     $fac_id = $_POST['fac_id'];
     $fac = $_POST['fac'];
@@ -31,7 +41,7 @@
 	}
 	
 	function queryFac() {
-		global $act, $fac, $ftyp, $ort, $spcnfc;
+		global $act, $fac, $ftyp, $ort, $spcfnc;
 		
 		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
@@ -44,7 +54,7 @@
 		}
          
         
-        $qry = "SELEC id, fac, ftyp, ort, spcfnc, port FROM t_facs where fac like '%$fac%%' and ftyp like '%$ftyp%%' and ort like '%$ort%%' and spcfnc like '%$spcfnc%%'"; 
+        $qry = "SELECT id, fac, ftyp, ort, spcfnc, port FROM t_facs WHERE fac LIKE '%$fac%%' AND ftyp LIKE '%$ftyp%%' AND ort LIKE '%$ort%%' AND spcfnc LIKE '%$spcfnc%%'"; 
         $res = $db_ct100->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
@@ -71,7 +81,7 @@
 	}
    
 	function addFac() {
-		global $act, $fac_id, $fac, $ftyp, $ort, $spcnfc;
+		global $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
 		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
@@ -139,7 +149,7 @@
 	}
 
 	function updFac() {
-		global $act, $fac_id, $fac, $ftyp, $ort, $spcnfc;
+		global $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
 		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
@@ -192,7 +202,7 @@
 
 	
 	function delFac() {
-		global $act, $fac_id, $fac, $ftyp, $ort, $spcnfc;
+		global $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
 		if ($fac == "") {
 			$result["rslt"] = "fail";
