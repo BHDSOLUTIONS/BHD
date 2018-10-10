@@ -13,7 +13,7 @@
     $act = $_POST['act'];
     $ack = $_POST['ack'];
     $almid = $_POST['almid'];
-    $descr = $_POST['descr'];
+    $remark = $_POST['remark'];
     $user = $_POST['user'];
     
     //test data
@@ -21,7 +21,7 @@
 	//$ack="";
 	//$user="NINH";
 	//$almid = 1;
-	//$descr = "ABC";
+	//$remark = "ABC";
 	
 	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
@@ -78,7 +78,7 @@
 
 
 	function ackAlm() {
-		global $db, $almid, $ack, $descr, $user;
+		global $db, $almid, $ack, $remark, $user;
 		
         //validate $ack: check user permission for acknowledge alarm
         if (userPermission("almadm",$user) == false) {
@@ -87,13 +87,13 @@
 			return $result;
 		}
 
-		if ($descr == "") {
+		if ($remark == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing Remark";
 			return $result;
 		}
 			
-		$qry = "UPDATE t_alms SET ack='" . $user . "', cond='ACK', descr='" . $descr . "' WHERE almid=" . $almid;
+		$qry = "UPDATE t_alms SET ack='" . $user . "', cond='ACK', remark='" . $remark . "' WHERE almid=" . $almid;
 		$res = $db->query($qry);
 		if (!$res) {
 			$result["rslt"] = "fail";
@@ -117,21 +117,28 @@
 		 
 
 	function unackAlm() {
-		global $db, $almid, $ack, $descr;
+		global $db, $almid, $ack, $remark, $user;
 		
         //validate $ack: check user permission for acknowledge alarm
-        if (userPermission("almadm",$ack) == false) {
+        if (userPermission("almadm",$user) == false) {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Permission Denied";
 			return $result;
 		}
+		
+		if ($ack == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Un-Ack not possible";
+			return $result;
+		}
+			
 		if ($descr == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing Remark";
 			return $result;
 		}
 			
-		$qry = "UPDATE t_alms SET ack='" . $ack . "', cond='ACK', descr='" . "' WHERE almid=" . $almid;
+		$qry = "UPDATE t_alms SET ack='', cond='UN-ACK', remark='" . $remark . "' WHERE almid=" . $almid;
 		$res = $db->query($qry);
 		if (!$res) {
 			$result["rslt"] = "fail";
@@ -153,10 +160,5 @@
 		return $result;
 	}
 		 
-/*
-	function userPermission($fnc, $user) {
-		//temporary permit all users
-		return true;
-	}
-*/
+
 ?>
