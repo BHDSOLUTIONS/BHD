@@ -7,33 +7,42 @@
             <div class="col-sm-5">
                 <div class="form-group">
                     <div class="row">
-                    <div class="col-sm-12">
+                        <div class="col-sm-8 modifyPadding">
                             <label for="fac">FAC</label>
                             <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
-                    </div>
-    
-                    <div class="col-sm-6">
-                        <label for="ftyp">FTYP</label>
-                        <select class="form-control" id="sel-ftyp">
-                            <option></option>
-                            <option>CP</option>
-                            <option>OE</option>
-                            <option>DSL</option>
-                            <option>ME</option>
-                        </select>
-                    </div> 
-                    
-                    <div class="col-sm-6">
-                        <label for="ort">ORT</label>
-                        <select class="form-control" id="sel-ort">
-                            <option></option>
-                            <option>CP</option>
-                            <option>OE</option>
-                            <option>ME.D</option>
-                            <option>ME.P</option>
-                        </select>
-                    </div>  
-                    <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-2 modifyPadding">
+                            <label for="portInfo">PORT</label>
+                            <input type="text" class="form-control" id="portInfo" readonly>
+                        </div> 
+                        <div class="col-sm-2 modifyPadding">
+                            <button id="findFac1" class="btn btn-primary" style="margin-top:22px">Find</button>
+                        </div> 
+
+                        <!-- --------------------------------------------- -->
+                        
+                        <div class="col-sm-3 modifyPadding">
+                            <label for="ftyp">FTYP</label>
+                            <select class="form-control" id="sel-ftyp">
+                                <option></option>
+                                <option>CP</option>
+                                <option>OE</option>
+                                <option>DSL</option>
+                                <option>ME</option>
+                            </select>
+                        </div> 
+                        
+                        <div class="col-sm-3 modifyPadding">
+                            <label for="ort">ORT</label>
+                            <select class="form-control" id="sel-ort">
+                                <option></option>
+                                <option>CP</option>
+                                <option>OE</option>
+                                <option>ME.D</option>
+                                <option>ME.P</option>
+                            </select>
+                        </div>  
+                        <div class="col-sm-4 modifyPadding">
                             <label for="spcfnc">SPCFNC</label>
                             <select class="form-control" id="sel-spcfnc">
                                 <option></option>
@@ -42,19 +51,27 @@
                                 <option>ADAS</option>
                                 <option>DAML</option>
                             </select>
-        
                         </div> 
-                        <div class="col-sm-6">
-                            <label for="portInfo">PORT</label>
-                            <input type="text" class="form-control" id="portInfo" readonly>
-                        </div>                 
-                    </div>
-                </div>
+                        <div class="col-sm-2 modifyPadding">
+                            <button id="findFac2" class="btn btn-primary" style="margin-top:22px">Find</button>
+                        </div> 
+                        <!---------------------------------------  -->
 
+                        <div class="col-sm-10 modifyPadding">
+                            <label for="cktFac">CKT</label>
+                            <input type="text" class="form-control" id="cktFac">
+                        </div>
+                        <div class="col-sm-2 modifyPadding">
+                            <button id="findFac3" class="btn btn-primary" style="margin-top:22px">Find</button>
+                        </div> 
+                    </div> 
+                    <!-- End of div class row -->
+                </div>
+                <!-- End of div form group -->
                 <div class="form-inline">
                     <div class="row">
                         
-                        <div class="col-sm-6">
+                        <div class="col-sm-4 modifyPadding">
                             <label for="facAction">ACTION</label>
                             <select class="form-control" id="facAction" >
                                 <option></option>
@@ -63,11 +80,10 @@
                                 <option>Delete</option>
                             </select>
                         </div>
-                            <div class="col-sm-6">
-                                <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
-                                <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
-                            </div>
-                        
+                        <div class="col-sm-6 modifyPadding">
+                            <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
+                            <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
+                        </div>
                     </div>
                 </div>
                 <hr style="visibility: hidden">
@@ -76,8 +92,6 @@
             </div>
             <div class="col-sm-7">
                 <div class="form-group">
-            
-                    <button id="searchFac" type="button" class="btn btn-primary">Search</button>
                     <a  id="previousFac">Previous</a> |
                     <a  id="nextFac">Next</a>
                     &nbsp&nbsp&nbsp<label id="indexFac"></label>

@@ -4,22 +4,22 @@
         <div class="col-sm-5">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2 modifyPadding">
                         <label for="node">NODE</label>
                         <input type="number" class="form-control" id="node">
                     </div>
                         
-                    <div class="col-sm-3">
+                    <div class="col-sm-2 modifyPadding">
                         <label for="slot">SLOT</label>
                         <input type="number" class="form-control" id="slot">
                     </div>
         
-                    <div class="col-sm-3">
+                    <div class="col-sm-2 modifyPadding">
                         <label for="pnum">PNUM</label>
                         <input type="number" class="form-control" id="pnum">
                     </div>   
         
-                    <div class="col-sm-3">
+                    <div class="col-sm-2 modifyPadding">
                         <label for="sel-ptyp">PTYP</label>
                         <select class="form-control" id="sel-ptyp">
                             <option></option>
@@ -28,7 +28,7 @@
                         </select>
                     </div>
                         
-                    <div class="col-sm-4">
+                    <div class="col-sm-2 modifyPadding">
                         <label for="sel-psta">PSTA</label>
                         <select class="form-control" id="sel-psta">
                             <option></option>
@@ -36,16 +36,31 @@
                             <option>SF</option>
                         </select>
                     </div>
-        
-                    <div class="col-sm-8">
+                    
+                    <div class="col-sm-2 modifyPadding">
+                        <button id="findPort1" class="btn btn-primary" style="margin-top:22px">Find</button>
+                    </div> 
+
+                    <!-- ---------------------------------------------- -->
+
+                    <div class="col-sm-10 modifyPadding">
                         <label for="facNum">FAC</label>
                         <input type="text" class="form-control" id="facNum" readonly>
                     </div>
+
+                    <div class="col-sm-2 modifyPadding">
+                        <button id="findPort2" class="btn btn-primary" style="margin-top:22px">Find</button>
+                    </div> 
+
+                    <!-- ----------------------------------------------- -->
             
-                    <div class="col-sm-12">
+                    <div class="col-sm-10 modifyPadding">
                         <label for="ckt">CKT</label>
                         <input type="text" class="form-control" id="ckt" readonly>
                     </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button id="findPort3" class="btn btn-primary" style="margin-top:22px">Find</button>
+                    </div> 
                 </div>
                     
             </div>
@@ -53,7 +68,7 @@
             <div class="form-inline">
                 <div class="row">
                     
-                    <div class="col-sm-6" > 
+                    <div class="col-sm-4 modifyPadding" > 
                         <label for="portAction">ACTION</label>    
                         <select class="form-control" id="portAction" >
                             <option></option>
@@ -62,7 +77,7 @@
                             
                         </select>
                     </div> 
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 modifyPadding">
                         <button id="submitPort" type="button" class="btn btn-primary">Submit</button>
                         <button id="clrPort" type="button" class="btn btn-primary">Cancel</button>
                     </div>
@@ -75,7 +90,7 @@
         </div>
         <div class="col-sm-7">
             <div class="form-group">
-                <button id="searchPort" type="button" class="btn btn-primary">Search</button>
+               
                 <a  id="previousPort">Previous</a> |
                 <a  id="nextPort">Next</a>
                 &nbsp&nbsp&nbsp<label id="indexPort"></label>
