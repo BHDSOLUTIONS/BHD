@@ -1,0 +1,166 @@
+<div id="prov" class="tab-pane fade in">
+    <h4>PROVISIONING</h4>
+    <div class="row">
+        <div class="col-sm-6">
+
+            <div class="col-sm-4 modifyPadding">
+                <label for="ckid">CKID</label>
+                <input type="text" class="form-control" id="ckid">
+            </div>
+                
+            <div class="col-sm-2 modifyPadding">
+                <label for="cls">CLS</label>
+                <select class="form-control" id="cls">
+                    <option></option>
+                    <option>RES</option>
+                    <option>BUS</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="adsr">ADSR</label>
+                <select class="form-control" id="adsr">
+                    <option></option>
+                    <option>SSM</option>
+                    <option>SSP</option>
+                </select>
+            </div>   
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="prot">PROT</label>
+                <select class="form-control" id="prot">
+                    <option></option>
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2 modifyPadding">
+                <button id="findProv1" class="btn btn-primary">Find</button>
+            </div> 
+            
+            <!-- ----------------------------------------- -->
+            <div class="col-sm-4 modifyPadding">
+                <label for="ordno">ORDNO</label>
+                <input type="text" class="form-control" id="ordno">
+            </div>
+            
+            <div class="col-sm-2 modifyPadding">
+                <label for="mlo">MLO</label>
+                <select class="form-control" id="mlo">
+                    <option></option>
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </div> 
+
+            <div class="col-sm-4"></div> 
+            
+
+            <div class="col-sm-2 modifyPadding">
+                <button id="findProv2" class="btn btn-primary">Find</button>
+            </div> 
+
+            <!-- ---------------------------------------------- -->
+
+            <div class="col-sm-12 modifyPadding">
+                <div class="col-sm-2 modifyPadding">
+                    <label for="ctyp">CTYP</label>
+                    <select class="form-control" id="ctyp">
+                        <option></option>
+                        <option>GEN</option>
+                        <option>LPBK</option>
+                        <option>MTL</option>
+                    </select>
+                </div>  
+                <div class="col-sm-5 modifyPadding">
+                    <label for="facx">FAC(X)</label>
+                    <select class="form-control" id="facx">
+                        <option></option>
+                       
+                    </select>
+                </div> 
+                <div class="col-sm-5 modifyPadding">
+                    <label for="facy">FAC(Y)</label>
+                    <select class="form-control" id="facy">
+                        <option></option>
+                    </select>
+                </div> 
+            </div>
+            
+
+            <!-- ------------------------------------------------- -->
+            
+            <div class="col-sm-3 modifyPadding" > 
+                <label for="cktAct">ACTION</label>    
+                <select class="form-control" id="cktAct" >
+                    <option></option>
+                    <option>New CKT</option>
+                    <option>Connect</option>
+                    <option>Dis-connect</option>
+                </select>
+            </div> 
+            <div class="col-sm-6 modifyPadding">
+                <button id="submitCkt" type="button" class="btn btn-primary">Submit</button>
+                <button id="clrCkt" type="button" class="btn btn-primary">Cancel</button>
+            </div>
+            <div class="col-sm-12 modifyPadding"> 
+                <div class="col-sm-6 modifyPadding">
+                
+                    <a  id="previousCktCon">Previous</a> |
+                    <a  id="nextCktCon">Next</a>
+                    &nbsp&nbsp&nbsp<label id="indexCktCon"></label>
+                </div>
+            </div>
+            <div class="col-sm-12 modifyPadding">
+                <div class="panel panel-default">
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:20%">CKTCON</th>
+                                <th style="width:20%">CTYP</th>
+                                <th style="width:30%">FAC(X)</th>
+                                <th style="width:30%">FAC(Y)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableCktCon" style="height:150px;">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                
+           
+                   
+        </div>
+        <div class="col-sm-6">
+            <div class="col-sm-6">
+               
+                <a  id="previousCkt">Previous</a> |
+                <a  id="nextCkt">Next</a>
+                &nbsp&nbsp&nbsp<label id="indexCkt"></label>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:25%">CKID</th>
+                                <th style="width:15%">CLS</th>
+                                <th style="width:10%">ADSR</th>
+                                <th style="width:10%">PROT</th>
+                                <th style="width:20%">ORDNO</th>
+                                <th style="width:20%">DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablepCkt" style="height:460px">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
