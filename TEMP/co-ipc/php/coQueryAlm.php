@@ -45,6 +45,12 @@
 		return;
 	}
 
+	if ($act == "unack") {
+		$result = unackAlm();
+		echo json_encode($result);
+		return;
+	}
+
 
 	
 	function queryAlm() {
@@ -132,7 +138,7 @@
 			return $result;
 		}
 			
-		if ($descr == "") {
+		if ($remark == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing Remark";
 			return $result;

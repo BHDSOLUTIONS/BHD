@@ -17,81 +17,100 @@
     $ort = $_POST['ort'];
     $spcfnc = $_POST['spcfnc'];
 
+	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
+	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
+	if (mysqli_connect_errno())
+	{
+		$result["rslt"] = "fail";
+		$result["reason"] = mysqli_connect_error();
+		mysqli_close($db);
+		echo json_encode($result);
+		return;
+	}
+
 	if ($act == "query") {
-		queryFac();
+		$result = queryFac("$act");
+		echo json_encode($result);
 		return;
 	}
+	
+	if ($act == "findFac") {
+		$result = queryFac($act);
+		echo json_encode($result);
+		return;
+	}
+
+	if ($act == "findFOS") {
+		$result = queryFac($act);
+		echo json_encode($result);
+		return;
+	}
+	
 	if ($act == "add") {
-		addFac();
+		$result = addFac();
+		echo json_encode($result);
 		return;
 	}
+	
 	if ($act == "upd") {
-		updFac();
+		$result = updFac();
+		echo json_encode($result);
 		return;
 	}
+	
 	if ($act == "del") {
-		delFac();
+		$result = delFac();
+		echo json_encode($result);
 		return;
 	}
 	else {
  		$result["rslt"] = "fail";
 		$result["reason"] = "ACTION " . $act . " is under development or not supported";
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
 	
-	function queryFac() {
-		global $act, $fac, $ftyp, $ort, $spcfnc;
+			
 		
-		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-		if (mysqli_connect_errno())
-		{
-			$result["rslt"] = "fail";
-			$result["reason"] = mysqli_connect_error();
-			echo json_encode($result);
-			return;
+	function queryFac($act) {
+		global $db, $fac, $ftyp, $ort, $spcfnc;
+		
+		if ($act == "query")
+			$qry = "SELECT * FROM t_facs"
+        else if ($act == "findFac")
+			$qry = "SELECT * FROM t_facs WHERE fac LIKE '%$fac%%'";
+		else if ($act == "findFOS")
+			$qry = "SELECT * FROM t_facs WHERE ftyp LIKE '%$ftyp%%' AND ort LIKE '%$ort%%' AND spcfnc LIKE '%$spcfnc%%'"; 
+        else {
+	 		$result["rslt"] = "fail";
+			$result["reason"] = "ACTION " . $act . " is not supported";
+			mysqli_close($db);
+			return $result;
 		}
-         
-        
-        $qry = "SELECT id, fac, ftyp, ort, spcfnc, port FROM t_facs WHERE fac LIKE '%$fac%%' AND ftyp LIKE '%$ftyp%%' AND ort LIKE '%$ort%%' AND spcfnc LIKE '%$spcfnc%%'"; 
-        $res = $db_ct100->query($qry);
+		
+        $res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db_ct100);
+            $result["reason"] = mysqli_error($db);
         }
         else {
-            $rows = array();
-            if ($res->num_rows == NULL) {
-                $result["rslt"] = "fail";
-                $result["reason"] = "There is no matching data!";
-            }
-            else
-            {
+            $rows = [];
+            $result["rslt"] = "success";
+            if ($res->num_rows > 0) {
                 while ($row = $res->fetch_assoc()) {
                     $rows[] = $row;
                 }
-                $result["rslt"] = "success";
-                $result["rows"] = $rows;
             }
-         
+            $result["rows"] = $rows;
         }
-		echo json_encode($result);
-		mysqli_close($db_ct100);
+		mysqli_close($db);
+		return $result;
 	}
    
 	function addFac() {
-		global $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
+		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
-		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-		if (mysqli_connect_errno())
-		{
-			$result["rslt"] = "fail";
-			$result["reason"] = mysqli_connect_error();
-			echo json_encode($result);
-			return;
-		}
 		$qry = "insert into t_facs values(0,'";
 		if ($fac != "") {
 			$qry .= $fac . "','";
@@ -106,27 +125,27 @@
 						$qry .= "'";
 					}
 					$qry .= ",'',0)";
-					$res = $db_ct100->query($qry);
+					$res = $db->query($qry);
 					if (!$res) {
 						$result["rslt"] = "fail";
-						$result["reason"] = mysqli_error($db_ct100);
+						$result["reason"] = mysqli_error($db);
 					}
 					else {
 						$qry = "select * FROM t_facs";
-						$res = $db_ct100->query($qry);
+						$res = $db->query($qry);
 						if (!$res) {
 							$result["rslt"] = "fail";
-							$result["reason"] = mysqli_error($db_ct100);
+							$result["reason"] = mysqli_error($db);
 						}
 						else {
 							$rows = [];
+							$result["rslt"] = "success";
 							if ($res->num_rows > 0) {
 								while ($row = $res->fetch_assoc()) {
 									$rows[] = $row;
 								}
-								$result["rslt"] = "success";
-								$result["rows"] = $rows;
 							}
+							$result["rows"] = $rows;
 						}
 					}
 				}
@@ -144,22 +163,13 @@
 			$result["rslt"] = "fail";
 			$result["reason"] = "Invalid FAC:" . $fac;
 		}
-		echo json_encode($result);
-		mysqli_close($db_ct100);
+		mysqli_close($db);
+		return $result;
 	}
 
 	function updFac() {
-		global $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
+		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
-		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-		if (mysqli_connect_errno())
-		{
-			$result["rslt"] = "fail";
-			$result["reason"] = mysqli_connect_error();
-			echo json_encode($result);
-			return;
-		}
 		$qry = "update t_facs set ";
 		if ($ftyp != "") {
 			$qry .= "ftyp='" . $ftyp . "'";
@@ -169,12 +179,12 @@
 					$qry .= ",spcfnc='" . $spcfnc . "'";
 				}
 				$qry .= " where fac='" . $fac . "'";
-				$res = $db_ct100->query($qry);
+				$res = $db->query($qry);
 				$qry = "select * FROM t_facs";
-				$res = $db_ct100->query($qry);
+				$res = $db->query($qry);
 				if (!$res) {
 					$result["rslt"] = "fail";
-					$result["reason"] = mysqli_error($db_ct100);
+					$result["reason"] = mysqli_error($db);
 				}
 				else {
 					$rows = [];
@@ -196,42 +206,33 @@
 			$result["rslt"] = "fail";
 			$result["reason"] = "Invalid FTYP:" . $ftyp;
 		}
-		echo json_encode($result);
-		mysqli_close($db_ct100);
+		mysqli_close($db);
+		return $result;
 	}
 
 	
 	function delFac() {
-		global $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
+		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
 		if ($fac == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing FAC";
-			echo json_encode($result);
-			return;
+			mysqli_close($db);
+			return $result;
 		}
 			
-		//$db_ct100 = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-		$db_ct100 = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-		if (mysqli_connect_errno())
-		{
-			$result["rslt"] = "fail";
-			$result["reason"] = mysqli_connect_error();
-			echo json_encode($result);
-			return;
-		}
 		$qry = "delete from t_facs where fac='" . $fac . "'";
-		$res = $db_ct100->query($qry);
+		$res = $db->query($qry);
 		if (!$res) {
 			$result["rslt"] = "fail";
-			$result["reason"] = $qry . "\n" . mysqli_error($db_ct100);
+			$result["reason"] = mysqli_error($db);
 		}
 		else {
 			$qry = "select * FROM t_facs";
-			$res = $db_ct100->query($qry);
+			$res = $db->query($qry);
 			if (!$res) {
 				$result["rslt"] = "fail";
-				$result["reason"] = mysqli_error($db_ct100);
+				$result["reason"] = mysqli_error($db);
 			}
 			else {
 				$rows = [];
@@ -239,13 +240,13 @@
 					while ($row = $res->fetch_assoc()) {
 						$rows[] = $row;
 					}
-					$result["rslt"] = "success";
-					$result["rows"] = $rows;
 				}
+				$result["rslt"] = "success";
+				$result["rows"] = $rows;
 			}
 		}
-		echo json_encode($result);
-		return;
+		mysqli_close($db);
+		return $result;
 
 	}
 	

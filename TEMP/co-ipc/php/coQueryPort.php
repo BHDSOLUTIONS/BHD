@@ -39,7 +39,7 @@
 		echo json_encode($result);
 		return;
 	}
-	if ($act == "portmapFindFac") {
+	if ($act == "pmFindFac") {
 		$result = pmQueryFac($fac);
 		echo json_encode($result);
 		return;
