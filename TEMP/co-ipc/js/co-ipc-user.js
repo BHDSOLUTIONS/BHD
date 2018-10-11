@@ -86,16 +86,16 @@ function displayUser(index){
         var a = [];
         for (var i=0; i<stopIndex; i++) {  
             a.push('<tr> <td style="display:none">' + userArray[i].id + '</td>')  
-            a.push('<td>' + userArray[i].user + '</td>');
-            a.push('<td>' +  userArray[i].stat + '</td>');
+            a.push('<td style="width:20%">' + userArray[i].user + '</td>');
+            a.push('<td style="width:10%">' +  userArray[i].stat + '</td>');
+            a.push('<td style="width:10%>' +  userArray[i].tel + '</td>');
+            a.push('<td style="width:20%>' +  userArray[i].email + '</td>');
+            a.push('<td style="width:20%>' +  userArray[i].title + '</td>');
+            a.push('<td style="width:20%>' +  userArray[i].grp + '</td>');
             a.push('<td style="display:none">' +  userArray[i].lastlogin + '</td>');
             a.push('<td style="display:none">' +  userArray[i].fname + '</td>');
             a.push('<td style="display:none">' +  userArray[i].lname + '</td>');
-            a.push('<td style="display:none">' +  userArray[i].ssn + '</td>');
-            a.push('<td>' +  userArray[i].tel + '</td>');
-            a.push('<td>' +  userArray[i].email + '</td>');
-            a.push('<td>' +  userArray[i].title + '</td>');
-            a.push('<td>' +  userArray[i].grp + '</td></tr>');
+            a.push('<td style="display:none">' +  userArray[i].ssn + '</td></tr>');
         }
         document.getElementById("tableUser").innerHTML = a.join("");
         $("#indexUser").text("From "+(startIndex+1)+" to "+stopIndex);
