@@ -20,7 +20,7 @@
                         <input type="time" class="form-control" id="userLastLogin">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="searchUser1" style="margin-top:22px">Search</button>
+                        <button class="btn btn-primary" id="searchUser1">Search</button>
                     </div>
 
                     <!------------------------------------------>
@@ -37,7 +37,7 @@
                         <input type="text" class="form-control" id="userSsn">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="searchUser2" style="margin-top:22px">Search</button>
+                        <button class="btn btn-primary" id="searchUser2">Search</button>
                     </div>
 
                     <!------------------------------------------>
@@ -50,7 +50,7 @@
                         <input type="email" class="form-control" id="userEmail">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="searchUser3" style="margin-top:22px">Search</button>
+                        <button class="btn btn-primary" id="searchUser3">Search</button>
                     </div>
 
                     <!-- ------------------------------------------ -->
@@ -63,7 +63,7 @@
                         <input type="text" class="form-control" id="userGroup">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="searchUser4" style="margin-top:22px">Search</button>
+                        <button class="btn btn-primary" id="searchUser4">Search</button>
                     </div>
                     <!-- ------------------------------------------ -->
                     <hr>
@@ -80,10 +80,10 @@
                         </select>
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="submitUser" style="margin:20px">Submit</button>
+                        <button class="btn btn-primary" id="submitUser">Submit</button>
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="clrUser" style="margin:20px">Cancel</button>
+                        <button class="btn btn-primary" id="clrUser">Cancel</button>
                     </div>
                     
 
@@ -93,34 +93,27 @@
                     <a  id="previousUser">Previous</a> |
                     <a  id="nextAlm">Next</a>
                     &nbsp&nbsp&nbsp<label id="indexUser"></label>
-               
-                        <div class="col-sm-12">
-                            <div style="overflow-x:scroll;height: 350px">
-                                <table class="table" >
-                                    <thead>
-                                        <tr style="background-color:#a1a5a1">
-                                            <th style="min-width:50px">ID</th>
-                                            <th style="min-width:100px">USER</th>
-                                            <th style="min-width:50px">STAT</th>
-                                            <th style="min-width:200px">LAST LOGIN</th>
-                                            <th style="min-width:100px">FNAME</th>
-                                            <th style="min-width:100px">LNAME</th>
-                                            <th style="min-width:100px">SSN</th>
-                                            <th style="min-width:100px">TEL</th>
-                                            <th style="min-width:100px">EMAIL</th>
-                                            <th style="min-width:100px">TITLE</th>
-                                            <th style="min-width:100px">GROUP</th>
-                                        </tr>
-                                    </thead>
 
-                                    <tbody id="tableUser" style="overflow-y: scroll">
-
-                                        </tbody>
-                                </table>
-                              </div>
-                              
-
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">     
+                            <table class="table table-fixed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%">USER</th>
+                                        <th style="width:10%">STAT</th>
+                                        <th style="width:10%">TEL</th>
+                                        <th style="width:20%">EMAIL</th>
+                                        <th style="width:20%">TITLE</th>
+                                        <th style="width:20%">GROUP</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableUser">
+                            
+                                </tbody>
+                            </table>
                         </div>
+    
+                    </div>
                 </div>
             </div>
        

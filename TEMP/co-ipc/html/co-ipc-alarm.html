@@ -3,50 +3,43 @@
 
         <div class="row">
             <div class="col-sm-4">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-sm-4 ">
-                            <label for="almId">ALMID</label>
-                            <input type="number" class="form-control" id="almId" readonly>
-                        </div>
-
-                        <div class="col-sm-4 ">
-                            <label for="almAck">ACK</label>
-                            <input type="text" class="form-control" id="almAck" readonly>
-                        </div>
-                
-                        <div class="col-sm-12 ">
-                            <label for="almRemark">REMARK</label>
-                            <textarea id="almRemark" class="form-group" style="width:100%; min-height: 100px;">
-                                
-                            </textarea>
-                        </div>
-                    
-                    </div>
+               
+                <div class="col-sm-4 modifyPadding">
+                    <label for="almId">ALMID</label>
+                    <input type="number" class="form-control" id="almId" readonly>
                 </div>
-                
-                <div class="form-inline">
-                    <div class="row">
-                        <div class="col-sm-4 ">
-                            <label for="almAct">ACT</label>
-                            <select class="form-control" id="almAct">
-                                <option></option>
-                                <option>ack</option>
-                                <option>unack</option>
-                                <option>clr</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-8 ">
-                            <button class="btn btn-primary" id="submitAlm" >Submit</button>
-                            <button class="btn btn-primary" id="clrAlm">Cancel</button>
-                        </div>
-                    </div>
-                    
-                </div>      
+
+                <div class="col-sm-4 modifyPadding">
+                    <label for="almAck">ACK</label>
+                    <input type="text" class="form-control" id="almAck" readonly>
+                </div>
+        
+                <div class="col-sm-12 modifyPadding">
+                    <label for="almRemark">REMARK</label>
+                    <textarea id="almRemark" class="form-group" style="width:100%; min-height: 100px;">
+                        
+                    </textarea>
+                </div>
+            
+
+                <div class="col-sm-4 modifyPadding">
+                    <label for="almAct">ACT</label>
+                    <select class="form-control" id="almAct">
+                        <option></option>
+                        <option>ack</option>
+                        <option>unack</option>
+                        <option>clr</option>
+                    </select>
+                </div>
+                <div class="col-sm-8 modifyPadding">
+                    <button class="btn btn-primary" id="submitAlm">Submit</button>
+                    <button class="btn btn-primary" id="clrAlm">Cancel</button>
+                </div>
+               
             </div>
 
             <div class="col-sm-8">
-                <div class="col-sm-4" >
+                <div class="col-sm-6" >
                         <a  id="previousAlm">Previous</a> |
                         <a  id="nextAlm">Next</a>
                         &nbsp&nbsp&nbsp<label id="indexAlm"></label>
@@ -57,16 +50,16 @@
                             <thead>
                                 <tr>
                                     <th style="width:10%">ALMID</th>
-                                    <th style="width:10%">ACK</th>
+                                    <th style="width:15%">ACK</th>
                                     <th style="width:5%">SA</th>
-                                    <th style="width:34%">DATETIME</th>
+                                    <th style="width:25%">DATETIME</th>
                                     <th style="width:10%">SRC</th>
                                     <th style="width:10%">TYPE</th>
-                                    <th style="width:10%">COND</th>
+                                    <th style="width:15%">COND</th>
                                     <th style="width:10%">SEV</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableAlm" style="height:300px">
+                            <tbody id="tableAlm">
                         
                             </tbody>
                         </table>

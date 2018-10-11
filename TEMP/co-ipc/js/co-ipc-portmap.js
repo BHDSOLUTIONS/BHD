@@ -37,6 +37,7 @@
     $.post("./php/coQueryPort.php",
     {
         act:action,
+        user:"ninh",
         node:$("#node").val(),
         slot:$("#slot").val(),
         pnum:$("#pnum").val(),

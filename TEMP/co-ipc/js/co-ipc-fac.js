@@ -32,6 +32,7 @@ function queryFac(action){
     $.post("./php/coQueryFac.php",
     {     
         act:action,
+        user:"ninh",
         fac:$("#fac").val(),
         ftyp:$("#sel-ftyp").val(),
         ort:$("#sel-ort").val(),

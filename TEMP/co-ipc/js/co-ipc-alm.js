@@ -12,14 +12,7 @@ $(document).on("click","#tableAlm tr",function(){
     }).get();
 
     $("#almId").val(dataRow[1]);
-    $("#almDate").val(dataRow[4]);
-    $("#almTime").val(dataRow[5]);
-    $("#almSev").val(dataRow[9]);
     $("#almAck").val(dataRow[2]);
-    $("#almCond").val(dataRow[8]);
-
-    clearAlmModalForm();
-    $("#almModal").modal();
 
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
@@ -32,7 +25,10 @@ function queryAlm(action){
     $.post("./php/coQueryAlm.php",
     {     
         act:action,
-       
+        user:"ninh",
+        ack : $("#almAck").val(),
+        almid : $("#almId").val(),
+        remark : $("#almRemark").val() 
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -68,33 +64,55 @@ function displayAlm(index){
         for (var i=0; i<stopIndex; i++) {  
             a.push('<tr> <td style="display:none">' + almArray[i].id + '</td>')  
             a.push('<td style="width:10%">' + almArray[i].almid + '</td>');
-            a.push('<td style="width:10%">' +  almArray[i].ack + '</td>');
+            a.push('<td style="width:15%">' +  almArray[i].ack + '</td>');
             a.push('<td style="width:5%">' +  almArray[i].sa + '</td>');
-            a.push('<td style="width:17%">' +  almArray[i].date + '</td>');
-            a.push('<td style="width:17%">' +  almArray[i].time + '</td>');
+            a.push('<td style="width:25%">' +  almArray[i].datetime + '</td>');
             a.push('<td style="width:10%">' +  almArray[i].src + '</td>');
             a.push('<td style="width:10%">' +  almArray[i].type + '</td>');
-            a.push('<td style="width:10%">' +  almArray[i].cond + '</td>');
-            a.push('<td style="width:10%">' +  almArray[i].sev + '</td></tr>');
+            a.push('<td style="width:15%">' +  almArray[i].cond + '</td>');
+            if( almArray[i].sev == "MIN")
+                a.push('<td style="width:10%;background-color:yellow">' +  almArray[i].sev + '</td></tr>');
+            else if(almArray[i].sev == "MAJ")
+                a.push('<td style="width:10%;background-color:orange">' +  almArray[i].sev + '</td></tr>');
+            else if(almArray[i].sev == "CRI")
+                a.push('<td style="width:10%;background-color:red">' +  almArray[i].sev + '</td></tr>');
+            else if(almArray[i].sev == "NONE")
+                a.push('<td style="width:10%;background-color:green">' +  almArray[i].sev + '</td></tr>');
         }
         document.getElementById("tableAlm").innerHTML = a.join("");
         $("#indexAlm").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
 
-function clearAlmForm(){
-    $("#searchAlmAck").val("");
-    $("#searchAlmSa").val("");
-    $("#searchAlmDate").val("");
-    $("#searchAlmTime").val("");
-    $("#searchAlmSrc").val("");
-    $("#searchAlmType").val("");
-    $("#searchAlmCond").val("");
-    $("#searchAlmSev").val("");
-}
+// function clearAlmForm(){
+//     $("#searchAlmAck").val("");
+//     $("#searchAlmSa").val("");
+//     $("#searchAlmDate").val("");
+//     $("#searchAlmTime").val("");
+//     $("#searchAlmSrc").val("");
+//     $("#searchAlmType").val("");
+//     $("#searchAlmCond").val("");
+//     $("#searchAlmSev").val("");
+// }
+
+// $("#clrAlm").click(clearAlmForm);
+
 
 $("#clrAlm").click(clearAlmForm);
 
+function clearAlmForm(){
+    $("#almRemark").val("");
+    $("#almAct").val("");
+}
+
+$("#submitAlm").click(function(){
+    
+    if($("#almAct").val()=="ack"){
+        queryAlm("ack");
+    }else if($("#almAct").val()=="unack"){
+        queryAlm("unack");
+    }
+})
 
 // $("#nextFac").click(function(){
 //     if(facTableIndex<maxFacTableIndex){
@@ -110,23 +128,6 @@ $("#clrAlm").click(clearAlmForm);
 //     }         
 // })
 
-// $("#searchFac").click(function(){
-//     queryFac('query');
-// });
-// $("#addFac").click(function(){
-//     queryFac('add');
-// })
-// $("#delFac").click(function(){
-//     queryFac('del');
-// })
-// $("#updFac").click(function(){
-//     queryFac('upd');
-// })
-
-
-// $("#submitFac").click(function(){
-//     if($(#))
-// })
 
 
 

@@ -17,7 +17,7 @@ $(document).on("click","#tableUser tr",function(){
     $("#userName").val(dataRow[1]).change();
     $("#userStat").val(dataRow[2]).change();
     $("#userLastLogin").val(dataRow[3]).change();
-    $("#userFN").val(dataRow[4]).change();
+    $("#userFN").val(dataRow[4]).change();leFacMo
     $("#userLN").val(dataRow[5]).change();
     $("#userSsn").val(dataRow[6]).change();
     $("#userTel").val(dataRow[7]).change();
@@ -38,17 +38,18 @@ function queryUser(action){
     $.post("./php/coQueryUser.php",
     {     
         act:action,
+        user:"ninh",
         id:$("#userId").val(),
-        id:$("#userName").val(),
-        id:$("#userStat").val(),
-        id:$("#userLastLogin").val(),
-        id:$("#userFN").val(),
-        id:$("#userLN").val(),
-        id:$("#userSsn").val(),
-        id:$("#userTel").val(),
-        id:$("#userEmail").val(),
-        id:$("#userTitle").val(),
-        id:$("#userGroup").val(),
+        user:$("#userName").val(),
+        stat:$("#userStat").val(),
+        lastlogin:$("#userLastLogin").val(),
+        fname:$("#userFN").val(),
+        lname:$("#userLN").val(),
+        ssn:$("#userSsn").val(),
+        tel:$("#userTel").val(),
+        email:$("#userEmail").val(),
+        title:$("#userTitle").val(),
+        grp:$("#userGroup").val(),
         
     },
     function (data, status) {       
@@ -84,17 +85,17 @@ function displayUser(index){
         clearUserTable();
         var a = [];
         for (var i=0; i<stopIndex; i++) {  
-            a.push('<tr> <td>' + userArray[i].id + '</td>')  
+            a.push('<tr> <td style="display:none">' + userArray[i].id + '</td>')  
             a.push('<td>' + userArray[i].user + '</td>');
             a.push('<td>' +  userArray[i].stat + '</td>');
-            a.push('<td>' +  userArray[i].lastlogin + '</td>');
-            a.push('<td>' +  userArray[i].fname + '</td>');
-            a.push('<td>' +  userArray[i].lname + '</td>');
-            a.push('<td>' +  userArray[i].ssn + '</td>');
+            a.push('<td style="display:none">' +  userArray[i].lastlogin + '</td>');
+            a.push('<td style="display:none">' +  userArray[i].fname + '</td>');
+            a.push('<td style="display:none">' +  userArray[i].lname + '</td>');
+            a.push('<td style="display:none">' +  userArray[i].ssn + '</td>');
             a.push('<td>' +  userArray[i].tel + '</td>');
             a.push('<td>' +  userArray[i].email + '</td>');
             a.push('<td>' +  userArray[i].title + '</td>');
-            a.push('<td>' +  userArray[i].ugrp + '</td></tr>');
+            a.push('<td>' +  userArray[i].grp + '</td></tr>');
         }
         document.getElementById("tableUser").innerHTML = a.join("");
         $("#indexUser").text("From "+(startIndex+1)+" to "+stopIndex);
