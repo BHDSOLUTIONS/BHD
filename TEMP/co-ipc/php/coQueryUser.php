@@ -155,7 +155,9 @@
 		if ($email != "") {
 			$qry .= ",email='" . $email . "'";
 		}
-		if ($grp != ",grp='" . $grp . "' WHERE uname='" . $uname . "'";
+		if ($grp != "") {
+			$qry .= ",grp='" . $grp . "' WHERE uname='" . $uname . "'";
+		}
 		
 		$res = $db->query($qry);
         if (!$res) {

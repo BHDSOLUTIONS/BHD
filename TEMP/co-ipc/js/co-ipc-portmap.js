@@ -33,18 +33,17 @@
 
  function queryPort(action) {
 
-
     $.post("./php/coQueryPort.php",
     {
-        act:action,
-        user:"ninh",
-        node:$("#node").val(),
-        slot:$("#slot").val(),
-        pnum:$("#pnum").val(),
-        ptyp:$("#sel-ptyp").val(),
-        psta:$("#sel-psta").val(),
-        fac:$("#facNum").val(),
-        fac_id:$("#fac_id_P").val(),
+        act:	action,
+        user:	"ninh",
+        node:	$("#node").val(),
+        slot:	$("#slot").val(),
+        pnum:	$("#pnum").val(),
+        ptyp:	$("#sel-ptyp").val(),
+        psta:	$("#sel-psta").val(),
+        fac:	$("#facNum").val(),
+        fac_id:	$("#fac_id_P").val(),
         port_id:$("#port_id").val()
         // ckt:$("#ckt").val(),
     },
@@ -156,17 +155,16 @@ function clearPortForm(){
     $("#portAction").val("").change();
 }
 
-//  $("#facNum").change(function(){
+$('#findFacNum').click(function() {
+	alert("here");
+	queryPort("findFac");
+});
 
-//      if($("#facNum").val()!=""){
-//         $("#mapOption").attr("disabled",true);
-//          $("#unmapOption").attr("disabled",false);
-         
-//      }
-//      else{
-//         $("#mapOption").attr("disabled",false);
-//          $("#unmapOption").attr("disabled",true);
-        
-//      }
-//  })
+$('#findCkid').click(function() {
+	queryPort("findCkid");
+});
+
+$('#findPort').click(function() {
+	queryPort("findPort");
+});
 

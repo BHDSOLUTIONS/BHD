@@ -31,12 +31,13 @@ function queryFac(action){
     
     $.post("./php/coQueryFac.php",
     {     
-        act:action,
-        user:"ninh",
-        fac:$("#fac").val(),
-        ftyp:$("#sel-ftyp").val(),
-        ort:$("#sel-ort").val(),
-        spcfnc:$("#sel-spcfnc").val()
+        act: action,
+        user: "ninh",
+        fac: $("#fac").val(),
+        fac_id: $("#fac_id").val(),
+        ftyp: $("#sel-ftyp").val(),
+        ort: $("#sel-ort").val(),
+        spcfnc: $("#sel-spcfnc").val()
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -124,6 +125,15 @@ $("#submitFac").click(function(){
     }
     $("#facAction").val("");
 })
+
+$('#findFac').click(function() {
+	queryFac("findFac");
+});
+
+$('#findFOS').click(function() {
+	queryFac("findFOS");
+});
+
 
 
 

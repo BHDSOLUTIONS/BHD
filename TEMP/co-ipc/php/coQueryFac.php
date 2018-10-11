@@ -17,10 +17,10 @@
     $ort = $_POST['ort'];
     $spcfnc = $_POST['spcfnc'];
 
+
 	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-	if (mysqli_connect_errno())
-	{
+	if (mysqli_connect_errno()) {
 		$result["rslt"] = "fail";
 		$result["reason"] = mysqli_connect_error();
 		mysqli_close($db);
@@ -77,7 +77,7 @@
 		global $db, $fac, $ftyp, $ort, $spcfnc;
 		
 		if ($act == "query")
-			$qry = "SELECT * FROM t_facs"
+			$qry = "SELECT * FROM t_facs";
         else if ($act == "findFac")
 			$qry = "SELECT * FROM t_facs WHERE fac LIKE '%$fac%%'";
 		else if ($act == "findFOS")

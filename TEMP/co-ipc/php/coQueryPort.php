@@ -34,17 +34,17 @@
 		return;
 	}
 	
-	if ($act == "query" || $act == "pmFindPort") {
+	if ($act == "query" || $act == "findPort") {
 		$result = queryPort($node, $slot, $ptyp, $pnum, $psta);
 		echo json_encode($result);
 		return;
 	}
-	if ($act == "pmFindFac") {
+	if ($act == "findFac") {
 		$result = pmQueryFac($fac);
 		echo json_encode($result);
 		return;
 	}
-	if ($act == "pmFindCkid") {
+	if ($act == "findCkid") {
 		$result = pmQueryCkid($ckid);
 		echo json_encode($result);
 		return;
