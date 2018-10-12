@@ -1,34 +1,37 @@
 
 $(document).ready(function() { 
     queryFac('query');
- 
+    //$('#cktcon').hide();
+    //$('#cktcontbl').hide();
+
 });
+
 $("#menuFacSet").click(function(){
     clearFacForm()
     queryFac('query');
-})
+});
 
 $("#menuPortMap").click(function(){
     clearPortForm();
     queryPort('query');
-})
-
+});
 
 
 $("#menuProv").click(function(){
     clearCktForm();
     clearCktConForm();
     queryCkt('query');
-})
+});
 
 $("#menuAlm").click(function(){
     clearAlmForm()
     queryAlm('query');
-})
+});
+
 $("#menuUserSet").click(function(){
     clearUserForm()
     queryUser('query');
-})
+});
 
 $(document).on("click","#displayMenu",function(){
    
@@ -40,7 +43,8 @@ $(document).on("click","#displayMenu",function(){
     }
 });
 
-$(window).resize(checkWinSize)
+$(window).resize(checkWinSize);
+
 $("#mainView").click(checkWinSize);
 
 function checkWinSize(){
