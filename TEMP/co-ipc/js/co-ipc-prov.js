@@ -51,16 +51,16 @@ $(document).on("click","#tableCktCon tr",function(){
 
 function queryCkt(action){
     
-    $.post("./php/coQueryCkt.php",
+    $.post("./php/coQueryProv.php",
     {     
-        act:action,
-        user:"ninh",
-        ckid:$("#ckid").val(),
-        cls:$("#cls").val(),
-        adsr:$("#adsr").val(),
-        prot:$("#prot").val(),
-        ordno:$("#ardno").val(),
-        mlo:$("#mlo").val(),
+        act:	action,
+        user:	"ninh",
+        ckid:	$("#ckid").val(),
+        cls:	$("#cls").val(),
+        adsr:	$("#adsr").val(),
+        prot:	$("#prot").val(),
+        ordno:	$("#ordno").val(),
+        mlo:	$("#mlo").val(),
        
     },
     function (data, status) {       
@@ -89,7 +89,7 @@ function queryCkt(action){
 
 function queryCktCon(action){
     
-    $.post("./php/coQueryCkt.php",
+    $.post("./php/coQueryProv.php",
     {     
         act:action,
         user:"ninh",
@@ -111,7 +111,7 @@ function queryCktCon(action){
                 var len = cktConArray.length; 
                 maxCktConTableIndex = Math.ceil(len/100.0);
                 cktConTableIndex++;
-                displayFac(cktConTableIndex);
+                displayCktCon(cktConTableIndex);
                 // if(action=="add") alert("Facility is added successfully!");
                 // else if(action=="del") alert("Facility is deleted successfully!");
                 // else if(action=="upd") alert("Facility is updated successfully!");
@@ -140,7 +140,7 @@ function displayCkt(index){
             a.push('<td style="width:20%">' +  cktArray[i].date + '</td></tr>');
         }
         document.getElementById("tableCkt").innerHTML = a.join("");
-        $("#indexCkt").text("From "+(startIndex+1)+" to "+stopIndex);
+        $("#indexCkt").text("From " + (startIndex+1) + " to " + stopIndex);
     } 
 }
 function displayCktCon(index){   

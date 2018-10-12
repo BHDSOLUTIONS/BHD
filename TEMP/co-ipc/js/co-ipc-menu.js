@@ -7,10 +7,20 @@ $("#menuFacSet").click(function(){
     clearFacForm()
     queryFac('query');
 })
+
 $("#menuPortMap").click(function(){
     clearPortForm();
     queryPort('query');
 })
+
+
+
+$("#menuProv").click(function(){
+    clearCktForm();
+    clearCktConForm();
+    queryCkt('query');
+})
+
 $("#menuAlm").click(function(){
     clearAlmForm()
     queryAlm('query');
