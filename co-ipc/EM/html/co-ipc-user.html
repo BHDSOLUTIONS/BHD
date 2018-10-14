@@ -1,0 +1,123 @@
+<div id="setupUser" class="tab-pane fade in">
+        <h4>SETUP USERS</h4>
+       
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="userId">ID</label>
+                        <input type="number" class="form-control " id="userId">
+                    </div>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="userName">USER</label>
+                        <input class="form-control reduceSpace" type="text" id="userName">
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="userStat">STAT</label>
+                        <input type="text" class="form-control" id="userStat">
+                    </div>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="userLastLogin">LAST LOGIN</label>
+                        <input type="time" class="form-control" id="userLastLogin">
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button class="btn btn-primary" id="searchUser1">Search</button>
+                    </div>
+
+                    <!------------------------------------------>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="userFN">FNAME</label>
+                        <input type="text" class="form-control" id="userFN">
+                    </div>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="userLN">LNAME</label>
+                        <input type="text" class="form-control" id="userLN">
+                    </div>
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="userSsn">SSN</label>
+                        <input type="text" class="form-control" id="userSsn">
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button class="btn btn-primary" id="searchUser2">Search</button>
+                    </div>
+
+                    <!------------------------------------------>
+                    <div class="col-sm-5 modifyPadding">
+                        <label for="userTel">TEL</label>
+                        <input type="tel" class="form-control" id="userTel">
+                    </div>
+                    <div class="col-sm-5 modifyPadding">
+                        <label for="userEmail">EMAIL</label>
+                        <input type="email" class="form-control" id="userEmail">
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button class="btn btn-primary" id="searchUser3">Search</button>
+                    </div>
+
+                    <!-- ------------------------------------------ -->
+                    <div class="col-sm-5 modifyPadding">
+                        <label for="userTitle">TITLE</label>
+                        <input type="text" class="form-control" id="userTitle">
+                    </div>
+                    <div class="col-sm-5 modifyPadding">
+                        <label for="userGroup">GROUP</label>
+                        <input type="text" class="form-control" id="userGroup">
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button class="btn btn-primary" id="searchUser4">Search</button>
+                    </div>
+                    <!-- ------------------------------------------ -->
+                    <hr>
+
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="userAct">ACTION</label>
+                        <select id="userAct" class="form-control">
+                            <option></option>
+                            <option>Add</option>
+                            <option>Upd</option>
+                            <option>Del</option>
+                            <option>Lck</option>
+                            <option>UnLck</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button class="btn btn-primary" id="submitUser">Submit</button>
+                    </div>
+                    <div class="col-sm-2 modifyPadding">
+                        <button class="btn btn-primary" id="clrUser">Cancel</button>
+                    </div>
+                    
+
+                </div>
+                <div class="col-sm-7">
+                    &nbsp&nbsp&nbsp
+                    <a  id="previousUser">Previous</a> |
+                    <a  id="nextAlm">Next</a>
+                    &nbsp&nbsp&nbsp<label id="indexUser"></label>
+
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">     
+                            <table class="table table-fixed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%">USER</th>
+                                        <th style="width:10%">STAT</th>
+                                        <th style="width:10%">TEL</th>
+                                        <th style="width:20%">EMAIL</th>
+                                        <th style="width:20%">TITLE</th>
+                                        <th style="width:20%">GROUP</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tableUser">
+                            
+                                </tbody>
+                            </table>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+       
+
+           
+        
+    </div>

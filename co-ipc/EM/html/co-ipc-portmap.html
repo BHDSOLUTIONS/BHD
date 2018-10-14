@@ -1,0 +1,116 @@
+<div id="portMap" class="tab-pane fade in">
+    <h4>PORTS MAPPING</h4>
+    <div class="row">
+        <div class="col-sm-5">
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="node">NODE</label>
+                <input type="number" class="form-control" id="node">
+            </div>
+                
+            <div class="col-sm-2 modifyPadding">
+                <label for="slot">SLOT</label>
+                <input type="number" class="form-control" id="slot">
+            </div>
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="pnum">PNUM</label>
+                <input type="number" class="form-control" id="pnum">
+            </div>   
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="sel-ptyp">PTYP</label>
+                <select class="form-control" id="sel-ptyp">
+                    <option></option>
+                    <option>X</option>
+                    <option>Y</option>
+                </select>
+            </div>
+                
+            <div class="col-sm-2 modifyPadding">
+                <label for="sel-psta">PSTA</label>
+                <select class="form-control" id="sel-psta">
+                    <option></option>
+                    <option>UAS</option>
+                    <option>SF</option>
+                </select>
+            </div>
+            
+            <div class="col-sm-2 modifyPadding">
+                <button id="findPort" class="btn btn-primary">Find</button>
+            </div> 
+
+            <!-- ---------------------------------------------- -->
+
+            <div class="col-sm-10 modifyPadding">
+                <label for="facNum">FAC</label>
+                <input type="text" class="form-control" id="facNum">
+            </div>
+
+            <div class="col-sm-2 modifyPadding">
+                <button id="findFacNum" class="btn btn-primary">Find</button>
+            </div> 
+
+            <!-- ----------------------------------------------- -->
+    
+            <div class="col-sm-10 modifyPadding">
+                <label for="ckt">CKID</label>
+                <input type="text" class="form-control" id="ckt">
+            </div>
+            <div class="col-sm-2 modifyPadding">
+                <button id="findCkid" class="btn btn-primary">Find</button>
+            </div> 
+            <!-- ------------------------------------------------ -->
+                    
+            <div class="col-sm-4 modifyPadding" > 
+                <label for="portAction">ACTION</label>    
+                <select class="form-control" id="portAction" >
+                    <option></option>
+                    <option id="mapOption" >Map</option>
+                    <option>Unmap</option>
+                    
+                </select>
+            </div> 
+            <div class="col-sm-6 modifyPadding">
+                <button id="submitPort" type="button" class="btn btn-primary">Submit</button>
+                <button id="clrPort" type="button" class="btn btn-primary">Cancel</button>
+                <br><br>
+                <input type="number" id="port_id" style="width:50px;">
+                <input type="number" id="fac_id_P" style="width:50px;">
+            </div>
+                
+           
+                   
+        </div>
+        <div class="col-sm-7">
+            <div class="col-sm-6">
+               
+                <a  id="previousPort">Previous</a> |
+                <a  id="nextPort">Next</a>
+                &nbsp&nbsp&nbsp<label id="indexPort"></label>
+            </div>
+            
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:10%">NODE</th>
+                                <th style="width:10%">SLOT</th>
+                                <th style="width:10%">PNUM</th>
+                                <th style="width:10%">PTYP</th>
+                                <th style="width:10%">PSTA</th>
+                                <th style="width:25%">FAC</th>
+                                <th style="width:25%">CKT</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablePort">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

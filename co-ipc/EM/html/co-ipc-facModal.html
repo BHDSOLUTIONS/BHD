@@ -1,0 +1,63 @@
+</div>  
+<!-- End of Main View -->
+</div>
+<!-- End of Row -->
+</div>
+<!-- End of Container -->
+
+<!-- facModal -->
+<div id="facModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+             <h5 class="modal-title">FACILITY NUMBER</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="facNumModal" placeholder="FAC Number: Ex. 9017-00000-01L">
+                </div>
+                <div class="col-sm-3">
+                    <select class="form-control" id="facFtypModal">
+                        <option selected disabled hidden>FTYP</option>
+                        <option>CP</option>
+                        <option>OE</option>
+                        <option>DSL</option>
+                        <option>ME</option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-primary" id="searchFacModal">Search</button>
+                    <button type="button" class="btn btn-primary" id="clrFacModal">Cancel</button>
+                </div>
+                <div class="col-sm-12">
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:60%">FAC</th>
+                                <th style="width:20%">FTYP</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableFacModal">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <a  id="previousFacModal">Previous</a> |
+                    <a  id="nextFacModal">Next</a>
+                    &nbsp&nbsp&nbsp<label id="indexFacModal"></label>
+                </div>
+     
+            </div>
+            
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+
+
