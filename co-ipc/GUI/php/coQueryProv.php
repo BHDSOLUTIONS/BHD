@@ -176,6 +176,10 @@
 	if (isset($_POST['user']))
 		$user = $_POST['user'];
 
+	$ckt_id = 0;
+	if (isset($_POST['ckt_id']))
+		$ckt_id = $_POST['ckt_id'];
+
 	$ckid = "";
 	if (isset($_POST['ckid']))
 		$ckid = $_POST['ckid'];
@@ -268,11 +272,11 @@
 
 
 	/* Functions section */
-	function provConnect() {
-		global $db, $ckid, $ordno, $ctyp, $cktcon, $idx, $ffac, $tfac, $user;
+	function provDisconnect() {
+		global $db, $ckt_id, $ckid, $ordno, $ctyp, $cktcon, $idx, $ffac, $tfac, $user;
 	
 		// validate inputs
-		if ($ckid == "") {
+		if ($ckid == "" || $ckt_id == 0) {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing CKID";
 			return $result;
@@ -284,12 +288,108 @@
 			return $result;
 		}
 		
-		if ($mlo == "") {
+		if ($ctyp == "") {
 			$result["rslt"] = "fail";
-			$result["reason"] = "Missing MLO";
+			$result["reason"] = "Missing CTYP";
+			return $result;
+		}
+		
+		if ($cktcon == 0) {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Incorrect CKTCON";
+			return $result;
+		}
+		
+		if ($idx == 0) {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing IDX";
+			return $result;
+		}
+		
+		// locate target cktcon
+		$con = new Cktcon($idx);
+		if ($con->rslt = "fail") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Invalid IDX";
 			return $result;
 		}
 
+		// locate target fport and tport
+		$fportObj = new Port($con->fp_id);
+		$tportObj = new Port($con->tp_id);
+		
+		// validate state-event
+		$result = getSms($fportObj->psta, $fportObj->ssta, "SV_DISCON");
+		if ($result["rslt"] == "fail") {
+			return $result;
+		}
+		else {
+			$fportObj->npsta = $result["rows"][0]["npsta"];
+			$fportObj->nssta = $result["rows"][0]["nssta"];
+		}
+
+		$result = getSms($tportObj->psta, $tportObj->ssta, "SV_DISCON");
+		if ($result["rslt"] == "fail") {
+			return $result;
+		}
+		else {
+			$tportObj->npsta = $result["rows"][0]["npsta"];
+			$tportObj->nssta = $result["rows"][0]["nssta"];
+		}
+
+		// update t_ports
+		$qry = "UPDATE t_ports SET psta='" . $fportObj->npsta . "',ssta='" . $fportObj->nssta . "',ckt_id=0,cktcon=0,con_idx=0,mp_id=0 WHERE id=" . $fportObj->id;
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+            return $result;
+        }
+		
+		$qry = "UPDATE t_ports SET psta='" . $tportObj->npsta . "',ssta='" . $tportObj->nssta . "',ckt_id=0,cktcon=0,con_idx=0,mp_id=0 WHERE id=" . $tportObj->id;
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+            return $result;
+        }
+		
+		// remove con_idx
+		$qry = "DELETE FROM t_cktcon WHERE con=" . $cktcon . " AND idx=" . $idx;
+		$res = $db->query($qry);
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+            return $result;
+        }
+
+		// update t_ckts
+		$qry = "UPDATE t_ckts SET ordno='" . $ordno . "',date=now()HERE con=" . $cktcon . " AND idx=" . $idx;
+		$res = $db->query($qry);
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+            return $result;
+        }
+
+
+	}
+
+
+	function provConnect() {
+		global $db, $ckt_id, $ckid, $ordno, $ctyp, $cktcon, $ffac, $tfac, $user;
+	
+		// validate inputs
+		if ($ckid == "" || $ckt_id == 0) {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing CKID";
+			return $result;
+		}
+
+		if ($ordno == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing ORDNO";
+			return $result;
+		}
+		
 		if ($ffac == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing FAC(X)";
@@ -413,8 +513,6 @@
         }
 		
 		return queryCkt();
-		
-
 		
 	}
 	
