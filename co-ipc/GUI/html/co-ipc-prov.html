@@ -63,25 +63,25 @@
 
             <!-- ------------------------------------------------- -->
 			<div class="col-sm-12 modifyPadding">
-            <div class="col-sm-4 modifyPadding"> 
+            <div class="col-sm-3 modifyPadding"> 
                 <label for="cktAct">ACTION</label>    
                 <select class="form-control" id="cktAct" style="padding:2px 0 0 0" >
                     <option></option>
-                    <option>New CKT</option>
-                    <option>Connect</option>
-                    <option>Disconnect</option>
+                    <option>NEW CKT</option>
+                    <option>CONN</option>
+                    <option>DISCONN</option>
                 </select>
             </div>
             
             <div class="col-sm-8 modifyPadding">
-                <button id="submitCkt" type="button" class="btn btn-primary">Submit</button>
                 <button id="clrCkt" type="button" class="btn btn-primary">Cancel</button>
-                <input id="ckt_id" type="text" style="width:10%">
-                <input id="cktcon_id" type="text" style="width:10%">
+
+                <br>
+                <label id="checkProvInfor" style="color:red"></label>
             </div>
 			</div>
             <!-- ---------------------------------------------- -->
-
+            <!-- 
             <div id="cktcon" class="col-sm-12 modifyPadding">
                 <div class="col-sm-2 modifyPadding">
                     <label for="ctyp">CTYP</label>
@@ -94,25 +94,22 @@
                 </div>  
                 <div class="col-sm-5 modifyPadding">
                     <label for="ffac">FAC(X)</label>
-                    <select class="form-control" id="ffac">
-                        
-                    </select>
+                    <input type="text" class="form-control" id="ffac">
                 </div> 
                 <div class="col-sm-5 modifyPadding">
                     <label for="tfac">FAC(Y)</label>
-                    <select class="form-control" id="tfac">
-                        <option></option>
-                    </select>
+                    <input type="text" class="form-control" id="tfac">
                 </div> 
             </div>
-            
+             -->
 
             <div id="cktcontbl" class="col-sm-12 modifyPadding">
+                <label>CKT CONNECTION TABLE:</label>
                 <div class="panel panel-default">
                     <table class="table table-fixed">
                         <thead>
                             <tr>
-                                <th style="width:10%">CONN</th>
+                                <th style="width:10%">IDX</th>
                                 <th style="width:20%">CTYP</th>
                                 <th style="width:35%">FAC(X)</th>
                                 <th style="width:35%">FAC(Y)</th>
@@ -149,7 +146,7 @@
                                 <th style="width:24%">DATE</th>
                             </tr>
                         </thead>
-                        <tbody id="tableCkt" style="height:460px">
+                        <tbody id="tableCkt" style="height:420px">
     
                         </tbody>
                     </table>

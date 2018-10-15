@@ -128,10 +128,11 @@ $(document).on('mouseup', '[id*=portAct]', function () {
             populatePortModal();
     
             $("#facPortModal").prop("disabled",false);
-            $("#ftyp_PortModal").show();
-            $("#find_FacPortModal").show();
-            $("#table_FacPortModal").show();
-            $("#show_PreviousNextPortModal").show();
+            $("#find_facPortModal").show();
+            // $("#ftyp_PortModal").show();
+            // $("#find_FacPortModal").show();
+            // $("#table_FacPortModal").show();
+            // $("#show_PreviousNextPortModal").show();
             $("#clrPortModal").show();
     
             queryFacPortModal();
@@ -148,14 +149,11 @@ $(document).on('mouseup', '[id*=portAct]', function () {
         if(checkPortInfor4UnMap()){
             clearPortModalForm(); 
             populatePortModal();
-            $("#ftyp_PortModal").hide();
-            $("#find_FacPortModal").hide();
-            $("#table_FacPortModal").hide();
-            $("#show_PreviousNextPortModal").hide();
+            $("#find_facPortModal").hide();
     
             $("#clrPortModal").hide();
                
-            $("#facPortModal").prop("disabled",true);
+            // $("#facPortModal").prop("disabled",true);
             $("#portMapModal").modal();  
         }
         else{
@@ -182,7 +180,12 @@ function populatePortModal(){
 }
 
 function checkPortInfor4Map(){
-    if(($("#node").val() !="")&&($("#slot").val() !="")&&($("#pnum").val() !="")&&($("#ptyp").val() !="")&&($("#psta").val() !="")&&($("#facPort").val() =="")){
+    if(($("#node").val() !="")&&
+    ($("#slot").val() !="")&&
+    ($("#pnum").val() !="")&&
+    ($("#ptyp").val() !="")&&
+    ($("#psta").val() !="")&&
+    ($("#facPort").val() =="")){
         return true;
 
     }
@@ -191,7 +194,12 @@ function checkPortInfor4Map(){
     }
 }
 function checkPortInfor4UnMap(){
-    if(($("#node").val() !="")&&($("#slot").val() !="")&&($("#pnum").val() !="")&&($("#ptyp").val() !="")&&($("#psta").val() !="")&&($("#facPort").val() != "")){
+    if(($("#node").val() !="")&&
+    ($("#slot").val() !="")&&
+    ($("#pnum").val() !="")&&
+    ($("#ptyp").val() !="")&&
+    ($("#psta").val() !="")&&
+    ($("#facPort").val() != "")){
         return true;
 
     }

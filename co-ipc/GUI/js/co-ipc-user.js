@@ -117,7 +117,7 @@ $("#previousUser").click(function(){
     }         
 })
 
-$("#searchUser1").click(function(){
+$("#findUser1").click(function(){
     queryUser('query');
 });
 

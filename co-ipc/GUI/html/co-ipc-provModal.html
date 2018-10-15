@@ -1,0 +1,145 @@
+<div id="provModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">PROVISIONING</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="ckidModal">CKID</label>
+                        <input type="text" class="form-control" id="ckidModal">
+                    </div>
+                        
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="clsModal">CLS</label>
+                        <select class="form-control" id="clsModal" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>RES</option>
+                            <option>BUS</option>
+                        </select>
+                    </div>
+        
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="adsrModal">ADSR</label>
+                        <select class="form-control" id="adsrModal" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>SSM</option>
+                            <option>SSP</option>
+                        </select>
+                    </div>   
+        
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="protModal">PROT</label>
+                        <select class="form-control" id="protModal" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>Y</option>
+                            <option>N</option>
+                        </select>
+                    </div>
+        
+                    <!-- ----------------------------------------- -->
+        
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="ordnoModal">ORDNO</label>
+                        <input type="text" class="form-control" id="ordnoModal">
+                    </div>
+                    
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="mloModal">MLO</label>
+                        <select class="form-control" id="mloModal" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>Y</option>
+                            <option>N</option>
+                        </select>
+                    </div> 
+        
+                    <!-- ------------------------------------------------- -->
+                    
+                    <div id="cktconModal" class="col-sm-12 modifyPadding">
+                        <div class="col-sm-2 modifyPadding">
+                            <label for="ctypModal">CTYP</label>
+                            <select class="form-control" id="ctypModal" style="padding:2px 0 0 0">
+                                <option></option>
+                                <option>GEN</option>
+                                <option>LPBK</option>
+                                <option>MTL</option>
+                            </select>
+                        </div>  
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="ffacModal">FAC(X)</label>
+                            <select class="form-control" id="ffacModal"> 
+                            </select>
+                        </div> 
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="tfacModal">FAC(Y)</label>
+                            <select class="form-control" id="tfacModal">
+                            </select>
+                        </div> 
+                    </div>
+
+                    <!-- ----------------------------------- -->
+
+                    <div id="cktconModal4DisConn" class="col-sm-12 modifyPadding">
+                        <div class="col-sm-2 modifyPadding">
+                            <label for="ctypModal4DisConn">CTYP</label>
+                            <select class="form-control" id="ctypModal4DisConn" style="padding:2px 0 0 0" disabled>
+                                <option></option>
+                                <option>GEN</option>
+                                <option>LPBK</option>
+                                <option>MTL</option>
+                            </select>
+                        </div>  
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="ffacModal4DisConn">FAC(X)</label>
+                            <input type="text" class="form-control" id="ffacModal4DisConn" readonly> 
+                        
+                        </div> 
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="tfacModal4DisConn">FAC(Y)</label>
+                            <input type="text" class="form-control" id="tfacModal4DisConn" readonly>
+                        
+                        </div> 
+                    </div>
+                    <!-- ---------------------------------------------------- -->
+
+                    <div class="col-sm-12 modifyPadding">
+                        <div class="col-sm-3 modifyPadding"> 
+                            <label for="cktActModal">ACTION</label>    
+                            <!-- <select class="form-control" id="cktAct" style="padding:2px 0 0 0" >
+                                <option></option>
+                                <option>New CKT</option>
+                                <option>Connect</option>
+                                <option>Disconnect</option>
+                            </select> -->
+                            <input type="text" class="form-control" id="cktActModal" readonly>
+                        </div>
+                        
+                        <div class="col-sm-8 modifyPadding">
+                            <button id="submitCktModal" type="button" class="btn btn-primary">Submit</button>
+                            <button id="clrCktModal" type="button" class="btn btn-primary">Cancel</button>
+                            <input id="ckt_id" type="text" style="width:50px">
+                            <input id="cktcon_id" type="text" style="width:50px">
+                            <input id="cktcon_idx" type="text" style="width:50px">
+                            <br>
+                            <label id="resultProvModal" style="color:red"></label>
+                        </div>
+                    </div>
+                    <!-- ---------------------------------------------- -->
+        
+                    
+                        
+        
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+

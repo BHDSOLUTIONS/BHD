@@ -43,12 +43,15 @@
                 </div>
     
                 <!-- ------------------------------------------------ -->
-                <div class="col-sm-12" style="border-radius: 10px;border: 2px solid #EDEDED; padding:5px;">
+                <div class="col-sm-12 modifyPadding">
+                    <input type="text" class="form-control" id="facPortModal" placeholder="FAC Number: Ex. 9017-00000-01L" readonly>
+                </div>
+                <div id="find_facPortModal" class="col-sm-12" style="border-radius: 10px;border: 2px solid #EDEDED; padding:5px;">
                     <div class="col-sm-8 modifyPadding">
-                        <input type="text" class="form-control" id="facPortModal" placeholder="FAC Number: Ex. 9017-00000-01L">
+                        <input type="text" class="form-control" id="facPortModal4Find" placeholder="FAC Number: Ex. 9017-00000-01L">
                     </div>
-                    <div id="ftyp_PortModal" class="col-sm-2 modifyPadding">
-                        <select class="form-control" id="ftypPortModal">
+                    <div class="col-sm-2 modifyPadding">
+                        <select class="form-control" id="ftypPortModal4Find">
                             <option value="" selected disabled hidden>FTYP</option>
                             <option value="CP">CP</option>
                             <option value="OE">OE</option>
@@ -56,10 +59,10 @@
                             <option value="ME">ME</option>
                         </select>
                     </div>
-                    <div id="find_FacPortModal" class="col-sm-2 modifyPadding">
+                    <div class="col-sm-2 modifyPadding">
                         <button type="button" class="btn btn-primary" id="findFacPortModal" style="margin-top:0px">Find</button>
                     </div>
-                    <div id="table_FacPortModal" class="col-sm-12 modifyPadding">
+                    <div class="col-sm-12 modifyPadding">
                         <table class="table table-fixed">
                             <thead>
                                 <tr>
@@ -74,7 +77,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="show_PreviousNextPortModal" class="col-sm-6">
+                    <div class="col-sm-6">
                         <a  id="previousFacModal">Previous</a> |
                         <a  id="nextFacModal">Next</a>
                         &nbsp&nbsp&nbsp<label id="indexFacPortModal"></label>

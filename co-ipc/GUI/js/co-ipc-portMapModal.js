@@ -34,10 +34,15 @@ function clearPortModalForm(){
     $("#ptypModal").val("").change();
     $("#pstaModal").val("").change();
     $("#facPortModal").val("");
-    $("#ftypPortModal").val("");
+
+    $("#facPortModal4Find").val("");
+    $("#ftypPortModal4Find").val("");
     
     $("#tableFacPortModal").empty();
+    $("indexFacPortModal").text("");
+
     $("#resultPortModal").text("");
+
 }
 
 
@@ -90,7 +95,7 @@ function queryFacPortModal(){
         act:    'query',
 
         fac_id: "",
-        fac:    $("#facPortModal").val(),
+        fac:    $("#facPortModal4Find").val(),
         ftyp:   $("#ftypPortModal").val(),
         ort:    "",
         spcfnc: ""

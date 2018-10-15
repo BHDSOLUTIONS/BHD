@@ -13,7 +13,7 @@ $("#menuPortMap").click(function(){
 })
 $("#menuProv").click(function(){
     clearCktForm();
-    clearCktConForm();
+    // clearCktConForm();
     queryCkt('query');
 })
 

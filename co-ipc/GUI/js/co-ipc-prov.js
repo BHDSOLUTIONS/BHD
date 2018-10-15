@@ -7,19 +7,6 @@ var cktConArray;
 var cktConTableIndex;
 var maxCktConTableIndex;
 
-
-$("#submitCkt").click(function(){
-    if($("#cktAct").val()=="New CKT"){
-        provNewCkt();
-    } else if($("#cktAct").val()=="Connect"){
-        provConnect();
-    } else if($("#cktAct").val()=="Disconnect"){
-        provDisconnect();
-    }
-    $("#cktAct").val("");
-})
-
-
 $("#searchCkt").click(function(){
     queryCkt('query');
 });
@@ -30,10 +17,9 @@ $("#searchCktCon").click(function(){
 
 $("#clrCkt").click(function(){
     clearCktForm();
-    clearCktConForm();
+    // clearCktConForm();
     clearCktConTable();
-    $('#ckt_id').val("");
-    $('#cktcon_id').val("");
+   
 });
 
 
@@ -78,13 +64,13 @@ $(document).on("click","#tableCkt tr",function(){
     $("#ordno").val(dataRow[5]).change();
     $("#mlo").val(dataRow[6]).change();
     $("#cktcon_id").val(dataRow[8]).change();
+
+    // Refresh cktcon_idx
+    $("#cktcon_idx").val("");
     
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
-    
-    loadFacX();
-    loadFacY();
     
     if ($('#cktcon_id').val() != "")
 		queryCktcon($('#cktcon_id').val());
@@ -96,9 +82,10 @@ $(document).on("click","#tableCktCon tr",function(){
         return $(this).text();
     }).get();
     //Populate the information 
-    $("#ctyp").val(dataRow[1]).change();
-    $("#ffac").val(dataRow[2]).change();
-    $("#tfac").val(dataRow[3]).change();
+    $("#cktcon_idx").val(dataRow[0]);
+    $("#ctypModal4DisConn").val(dataRow[1]);
+    $("#ffacModal4DisConn").val(dataRow[2]);
+    $("#tfacModal4DisConn").val(dataRow[3]);
     
 
     //Add color to the row
@@ -107,51 +94,108 @@ $(document).on("click","#tableCktCon tr",function(){
 });
 
 
+$(document).on('mouseup', '[id = cktAct]', function () {
+    if($("#cktAct").val() == "NEW CKT"){
+        $("#checkProvInfor").text("");
+        clearProvModalForm();
+        $("#cktActModal").val($("#cktAct").val());
+
+        loadFacX();
+        loadFacY();
+
+        $("#ckidModal").prop("disabled",false),
+        $("#clsModal").prop("disabled",false),
+        $("#adsrModal").prop("disabled",false),
+        $("#protModal").prop("disabled",false),
+        $("#ordnoModal").prop("disabled",false),
+        $("#mloModal").prop("disabled",false),
+
+        $("#cktconModal").show()
+        $("#cktconModal4DisConn").hide();
+        $("#clrCktModal").show();
+
+        $("#provModal").modal();
+
+    }
+    else if($("#cktAct").val() == "CONN"){
+        $("#checkProvInfor").text("");
+        if(checkProvInfor4Conn()){
+            clearProvModalForm();
+            populateProvModal();
+            loadFacX();
+            loadFacY();
+
+            $("#ckidModal").prop("disabled",true),
+            $("#clsModal").prop("disabled",true),
+            $("#adsrModal").prop("disabled",true),
+            $("#protModal").prop("disabled",true),
+            $("#ordnoModal").prop("disabled",false),
+            $("#mloModal").prop("disabled",true),
+
+            $("#cktconModal").show()
+            $("#cktconModal4DisConn").hide();
+            $("#clrCktModal").hide();
+
+            $("#provModal").modal();
+        }
+        else{
+            $("#checkProvInfor").text("Missing CKT information!")
+        }
+        
+    }
+    else if($("#cktAct").val() == "DISCONN"){
+        $("#checkProvInfor").text("");
+        if(checkProvInfor4DisConn()){
+            clearProvModalForm();
+            populateProvModal();
+            
+            $("#ckidModal").prop("disabled",true),
+            $("#clsModal").prop("disabled",true),
+            $("#adsrModal").prop("disabled",true),
+            $("#protModal").prop("disabled",true),
+            $("#ordnoModal").prop("disabled",true),
+            $("#mloModal").prop("disabled",true),
+    
+            $("#cktconModal").hide()
+            $("#cktconModal4DisConn").show();
+            $("#clrCktModal").hide();
+    
+            $("#provModal").modal();
+        }
+        else{
+            $("#checkProvInfor").html("Missing CKT information!<br>And a CKT connection must be chosed")
+        }
+        
+    }
+   
+})
 
 /* Functions section */
 
-
-
-function provNewCkt() {
-	
-    $.post("./php/coQueryProv.php",
-    {     
-        act:	"provNewCkt",
-        user:	"ninh",
-        ckid:	$("#ckid").val(),
-        cls:	$("#cls").val(),
-        adsr:	$("#adsr").val(),
-        prot:	$("#prot").val(),
-        ordno:	$("#ordno").val(),
-        mlo:	$("#mlo").val(),
-        ctyp:	$("#ctyp").val(),
-        ffac:	$("#ffac").val(),
-        tfac:	$("#tfac").val()
-       
-    },
-    function (data, status) {       
-        var obj = JSON.parse(data);
-        if(obj["rslt"]=="fail"){
-            alert(obj['reason']);
-        }else{
-            if(obj['rows'].length==0){
-                alert("There is no matching data!");
-            }
-            else{
-                cktTableIndex=0;
-                cktArray = obj['rows'];
-                var len = cktArray.length; 
-                maxCktTableIndex = Math.ceil(len/100.0);
-                cktTableIndex++;
-                displayCkt(cktTableIndex);
-                // if(action=="add") alert("Facility is added successfully!");
-                // else if(action=="del") alert("Facility is deleted successfully!");
-                // else if(action=="upd") alert("Facility is updated successfully!");
-            }  
-        } 
-    });
+function populateProvModal(){
+    $("#ckidModal").val($("#ckid").val()),
+    $("#clsModal").val($("#cls").val()),
+    $("#adsrModal").val($("#adsr").val()),
+    $("#protModal").val($("#prot").val()),
+    $("#ordnoModal").val($("#ordno").val()),
+    $("#mloModal").val($("#mlo").val()),
+    // $("#ctypModal4DisConn").val($("#ctyp").val()),
+    // $("#ffacModal4DisConn").val($("#ffac").val()),
+    // $("#tfacModal4DisConn").val($("#tfac").val()),
+    $("#cktActModal").val($("#cktAct").val())
 }
 
+
+function checkProvInfor4Conn(){
+    if(($("#ckt_id").val() != "")&&($("#cktcon_id").val() != ""))
+        return true;
+    else return false;
+}
+function checkProvInfor4DisConn(){
+    if(($("#ckt_id").val() != "")&&($("#cktcon_id").val() != "")&&($("#cktcon_idx").val() != ""))
+        return true;
+    else return false;
+}
 
 function clearCktTable() {
 	
@@ -162,50 +206,6 @@ function clearCktConTable() {
     $("#tableCktCon").empty();        
 }
 
-function loadFacX() {
-	
-	$.post("./php/coQueryProv.php",
-	{
-		act:	"queryFacX",
-		user:	"ninh"
-	},
-	function (data, status) {
-		var obj = JSON.parse(data);
-		if (obj["rslt"] == "fail") {
-			alert(obj["reason"]);
-		}
-		else {
-			var a = [];
-			for (var i=0; i<obj["rows"].length; i++) {  
-				a.push('<option>' + obj["rows"][i].fac + '</option>');
-            }
-		}
-        document.getElementById("ffac").innerHTML = a.join("");
-	});
-}
-
-
-function loadFacY() {
-	
-	$.post("./php/coQueryProv.php",
-	{
-		act:	"queryFacY",
-		user:	"ninh"
-	},
-	function (data, status) {
-		var obj = JSON.parse(data);
-		if (obj["rslt"] == "fail") {
-			alert(obj["reason"]);
-		}
-		else {
-			var a = [];
-			for (var i=0; i<obj["rows"].length; i++) {  
-				a.push('<option>' + obj["rows"][i].fac + '</option>');
-            }
-		}
-        document.getElementById("tfac").innerHTML = a.join("");
-	});
-}
 
 
 function queryCkt(action) {
@@ -337,19 +337,21 @@ function clearCktForm(){
     $("#ordno").val("").change();
     $("#mlo").val("").change();
 
+    $("cktcon_id").val("").change();
+    $("#ckt_id").val("").change();
+    $("#cktcon_idx").val("").change();
 
     $("#cktAct").val("");
 }
 
 function clearCktConForm(){
-    $("cktcon_id").val("").change();
-    $("#cktcon").val("").change();
+
     $("#ctyp").val("").change();
     $("#ffac").val("").change();
     $("#tfac").val("").change();
     
-    $("#cktAct").val("");
 }
+
 
 
 
