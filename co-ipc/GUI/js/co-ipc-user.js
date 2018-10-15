@@ -12,22 +12,23 @@ $(document).on("click","#tableUser tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
+
     //Populate the information 
-    $("#userId").val(dataRow[0]).change();
+    $("#user_id").val(dataRow[0]).change();
     $("#userName").val(dataRow[1]).change();
     $("#userStat").val(dataRow[2]).change();
-    $("#userLastLogin").val(dataRow[3]).change();
-    $("#userFN").val(dataRow[4]).change();leFacMo
-    $("#userLN").val(dataRow[5]).change();
-    $("#userSsn").val(dataRow[6]).change();
-    $("#userTel").val(dataRow[7]).change();
-    $("#userEmail").val(dataRow[8]).change();
-    $("#userTitle").val(dataRow[9]).change();
-    $("#userGroup").val(dataRow[10]).change();
-
-    //Add color to the row
-    $(this).addClass("addColor"); //add class selected to current clicked row
-    $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
+    $("#userLastLogin").val(dataRow[7]).change();       
+    $("#userFN").val(dataRow[8]).change();       
+    $("#userLN").val(dataRow[9]).change();       
+    $("#userSsn").val(dataRow[10]).change();       
+    $("#userTel").val(dataRow[3]).change();       
+    $("#userEmail").val(dataRow[4]).change();       
+    $("#userTitle").val(dataRow[5]).change();       
+    $("#userGroup").val(dataRow[6]).change();       
+       
+    //Add color to the row       
+    $(this).addClass("addColor"); //add class selected to current clicked row       
+    $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of        the rows  
 });
 
 
@@ -39,8 +40,8 @@ function queryUser(action){
     {     
         act:action,
         user:"ninh",
-        id:$("#userId").val(),
-        user:$("#userName").val(),
+        id:$("#user_id").val(),
+        uname:$("#userName").val(),
         stat:$("#userStat").val(),
         lastlogin:$("#userLastLogin").val(),
         fname:$("#userFN").val(),
@@ -67,9 +68,9 @@ function queryUser(action){
                 maxUserTableIndex = Math.ceil(len/100.0);
                 userTableIndex++;
                 displayUser(userTableIndex);
-                // if(action=="add") alert("Facility is added successfully!");
-                // else if(action=="del") alert("Facility is deleted successfully!");
-                // else if(action=="upd") alert("Facility is updated successfully!");
+                if(action=="add") alert("User is added successfully!");
+                // else if(action=="del") alert("User is deleted successfully!");
+                else if(action=="upd") alert("User is updated successfully!");
             }  
         } 
     });
@@ -86,12 +87,12 @@ function displayUser(index){
         var a = [];
         for (var i=0; i<stopIndex; i++) {  
             a.push('<tr> <td style="display:none">' + userArray[i].id + '</td>')  
-            a.push('<td style="width:20%">' + userArray[i].user + '</td>');
+            a.push('<td style="width:20%">' + userArray[i].uname + '</td>');
             a.push('<td style="width:10%">' +  userArray[i].stat + '</td>');
-            a.push('<td style="width:10%>' +  userArray[i].tel + '</td>');
-            a.push('<td style="width:20%>' +  userArray[i].email + '</td>');
-            a.push('<td style="width:20%>' +  userArray[i].title + '</td>');
-            a.push('<td style="width:20%>' +  userArray[i].grp + '</td>');
+            a.push('<td style="width:10%">' +  userArray[i].tel + '</td>');
+            a.push('<td style="width:20%">' +  userArray[i].email + '</td>');
+            a.push('<td style="width:20%">' +  userArray[i].title + '</td>');
+            a.push('<td style="width:20%">' +  userArray[i].grp + '</td>');
             a.push('<td style="display:none">' +  userArray[i].lastlogin + '</td>');
             a.push('<td style="display:none">' +  userArray[i].fname + '</td>');
             a.push('<td style="display:none">' +  userArray[i].lname + '</td>');
@@ -123,8 +124,7 @@ $("#searchUser1").click(function(){
 $("#clrUser").click(clearUserForm);
 
 function clearUserForm(){
-
-    $("#userId").val("");
+    $("#user_id").val("");
     $("#userName").val("");
     $("#userStat").val("");
     $("#userLastLogin").val("");
@@ -135,28 +135,76 @@ function clearUserForm(){
     $("#userEmail").val("");
     $("#userTitle").val("");
     $("#userGroup").val("");
+    $("#checkUserInfor").text("");
 }
 
-$("#submitUser").click(function(){
-    if($("#userAct").val()=="Add"){
-        queryUser('add');
-    } else if($("#userAct").val()=="Upd"){
-        queryUser('upd');
-    } else if($("#userAct").val()=="Del"){
-        queryUser('del');
-    }  else if($("#userAct").val()=="Lck"){
-        queryUser('lck');
-    }  else if($("#userAct").val()=="Unlck"){
-        queryUser('unlck');
+
+$(document).on('mouseup', '[id = userAct]', function () {
+    if($("#userAct").val() !=""){
+        $("#checkUserInfor").text("");
+
+        if($("#userAct").val() == "ADD"){
+            clearUserModalForm();
+            $("#userActModal").val($("#userAct").val());
+            $("#userModal").modal();
+        } else{
+            if(checkAlarmInfor()){
+                clearUserModalForm();
+                populateUserModal();
+                $("#userModal").modal();
+
+                // if($("#userAct").val()=="UPDATE"){
+                //     clearUserModalForm();
+                //     populateUserModal();
+                //     $("#userModal").modal();
+                //     //queryUser('upd');
+                // } else if($("#userAct").val()=="DELETE"){
+                //     clearUserModalForm();
+                //     populateUserModal();
+                //     $("#userModal").modal();
+                //     //queryUser('del');
+                // }  else if($("#userAct").val()=="LOCK"){
+                //     clearUserModalForm();
+                //     populateUserModal();
+                //     $("#userModal").modal();
+                    
+                // }  else if($("#userAct").val()=="UNLOCK"){
+                //     clearUserModalForm();
+                //     populateUserModal();
+                //     $("#userModal").modal();
+                    
+                // }
+            }
+            else  $("#checkUserInfor").html("Missing user information!");
+        } 
+        
     }
-    $("#userAct").val("");
+    
+    // $("#userAct").val("");
 })
 
 
+function populateUserModal(){
+    $("#userNameModal").val($("#userName").val());
+    $("#userStatModal").val($("#userStat").val());
+    $("#userLastLoginModal").val($("#userLastLogin").val());
+    $("#userFNModal").val($("#userFN").val());
+    $("#userLNModal").val($("#userLN").val());
+    $("#userSsnModal").val($("#userSsn").val());
+    $("#userTelModal").val($("#userTel").val());
+    $("#userEmailModal").val($("#userEmail").val());
+    $("#userTitleModal").val($("#userTitle").val());
+    $("#userGroupModal").val($("#userGroup").val());
+
+    $("#userActModal").val($("#userAct").val());
 
 
+}
 
-
-
+function checkAlarmInfor(){
+    if($("#user_id").val() != "")
+        return true;
+    else return false;
+}
 
 

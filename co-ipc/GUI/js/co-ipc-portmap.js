@@ -3,6 +3,7 @@
  var portArray;
  var portTableIndex;
  var maxPortTableIndex;
+
  $(document).on("click","#tablePort tr",function(){
      var dataRow= $(this).children("td").map(function(){
          return $(this).text(); 
@@ -10,15 +11,16 @@
      
 
      //Populate the information 
+     $("#port_id").val(dataRow[0]).change();
+     $("#facPort_id").val(dataRow[1]).change();
      $("#node").val(dataRow[2]).change();
      $("#slot").val(dataRow[3]).change();
      $("#pnum").val(dataRow[4]).change();
-     $("#sel-ptyp").val(dataRow[5]).change();
-     $("#sel-psta").val(dataRow[6]).change();
-     $("#facNum").val(dataRow[7]).change();
+     $("#ptyp").val(dataRow[5]).change();
+     $("#psta").val(dataRow[6]).change();
+     $("#facPort").val(dataRow[7]).change();
      $("#ckt").val(dataRow[8]).change();
-     $("#port_id").val(dataRow[0]).change();
-     $("#fac_id_P").val(dataRow[1]).change();
+
      
 
      //Add color to the row
@@ -40,12 +42,12 @@
         node:	$("#node").val(),
         slot:	$("#slot").val(),
         pnum:	$("#pnum").val(),
-        ptyp:	$("#sel-ptyp").val(),
-        psta:	$("#sel-psta").val(),
-        fac:	$("#facNum").val(),
+        ptyp:	$("#ptyp").val(),
+        psta:	$("#psta").val(),
+        fac:	$("#facPort").val(),
         fac_id:	$("#fac_id_P").val(),
-        port_id:$("#port_id").val()
-        // ckt:$("#ckt").val(),
+        port_id:$("#port_id").val(),
+        ckt:    ""
     },
     function (data, status) {
         var obj = JSON.parse(data);
@@ -71,9 +73,6 @@
     });
 }
 
-$("#searchPort").click(function(){
-    queryPort('query')
-});
 
 function displayPort(index){
     
@@ -105,6 +104,7 @@ function displayPort(index){
     }   
 }
 
+
 $("#nextPort").click(function(){
     if(portTableIndex<maxPortTableIndex){
         portTableIndex++;
@@ -120,43 +120,104 @@ $("#previousPort").click(function(){
          
 })
 
-
-$(document).on('mouseup', '[id*=portAction]', function () {
-    if($("#portAction").val()=="Map"){
-        clearFacModalForm();
-        queryFacModal();
-        $("#facModal").modal();
+$(document).on('mouseup', '[id*=portAct]', function () {
+    if($("#portAct").val() == "MAP"){
+        $("#checkPortInfor").text("");
+        if(checkPortInfor4Map()){
+            clearPortModalForm(); 
+            populatePortModal();
+    
+            $("#facPortModal").prop("disabled",false);
+            $("#ftyp_PortModal").show();
+            $("#find_FacPortModal").show();
+            $("#table_FacPortModal").show();
+            $("#show_PreviousNextPortModal").show();
+            $("#clrPortModal").show();
+    
+            queryFacPortModal();
+    
+            $("#portMapModal").modal();
+        }
+        else{
+            $("#checkPortInfor").html("Missing Port information! <br> FAC number is not required");
+        }
+              
+    } 
+    else if($("#portAct").val() == "UN-MAP"){
+        $("#checkPortInfor").text("");
+        if(checkPortInfor4UnMap()){
+            clearPortModalForm(); 
+            populatePortModal();
+            $("#ftyp_PortModal").hide();
+            $("#find_FacPortModal").hide();
+            $("#table_FacPortModal").hide();
+            $("#show_PreviousNextPortModal").hide();
+    
+            $("#clrPortModal").hide();
+               
+            $("#facPortModal").prop("disabled",true);
+            $("#portMapModal").modal();  
+        }
+        else{
+            $("#checkPortInfor").html("Missing Port or FAC information!");
+        }
+        
     }
+    
 });
 
-$("#submitPort").click(function(){
-    if($("#portAction").val()=="Map"){
-        queryPort('map');
-        
-    } else if($("#portAction").val()=="Unmap"){
-        queryPort('unmap');
-      
-    } 
-    $("#portAction").val("");
-})
+
+function populatePortModal(){
+
+    $("#nodeModal").val($("#node").val());
+    $("#slotModal").val($("#slot").val());
+    $("#pnumModal").val( $("#pnum").val());
+    $("#ptypModal").val( $("#ptyp").val());
+    $("#pstaModal").val( $("#psta").val());
+
+    $("#facPortModal").val($("#facPort").val());
+    $("#portActModal").val($("#portAct").val()); 
+
+
+}
+
+function checkPortInfor4Map(){
+    if(($("#node").val() !="")&&($("#slot").val() !="")&&($("#pnum").val() !="")&&($("#ptyp").val() !="")&&($("#psta").val() !="")&&($("#facPort").val() =="")){
+        return true;
+
+    }
+    else{
+        return false;
+    }
+}
+function checkPortInfor4UnMap(){
+    if(($("#node").val() !="")&&($("#slot").val() !="")&&($("#pnum").val() !="")&&($("#ptyp").val() !="")&&($("#psta").val() !="")&&($("#facPort").val() != "")){
+        return true;
+
+    }
+    else{
+        return false;
+    }
+}
 
 $("#clrPort").click(clearPortForm)
 
 function clearPortForm(){
-    $("#node").val("").change();
-    $("#slot").val("").change();
-    $("#pnum").val("").change();
-    $("#sel-ptyp").val("").change();
-    $("#sel-psta").val("").change();
-    $("#facNum").val("").change();
-    $("#ckt").val("").change();
-    $("#port_id").val("").change();
-    $("#fac_id_P").val("").change();
-    $("#portAction").val("").change();
+    $("#node").val("");
+    $("#slot").val("");
+    $("#pnum").val("");
+    $("#ptyp").val("");
+    $("#psta").val("");
+    $("#facPort").val("");
+    $("#ckt").val("");
+    $("#port_id").val("");
+    $("#facPort_id").val("");
+    $("#portAct").val("");
+    $("#checkPortInfor").text("");
 }
 
-$('#findFacNum').click(function() {
-	alert("here");
+$('#findfacPort').click(function() {
+	
 	queryPort("findFac");
 });
 

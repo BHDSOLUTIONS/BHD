@@ -1,54 +1,73 @@
-</div>  
-<!-- End of Main View -->
-</div>
-<!-- End of Row -->
-</div>
-<!-- End of Container -->
+
 
 <!-- facModal -->
 <div id="facModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-             <h5 class="modal-title">FACILITY NUMBER</h5>
+            <h5 class="modal-title">SETUP FACILITIES</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="col-sm-5">
-                    <input type="text" class="form-control" id="facNumModal" placeholder="FAC Number: Ex. 9017-00000-01L">
+ 
+                <div class="col-sm-9 modifyPadding">
+                    <label for="facNumModal">FAC</label>
+                    <input type="text" class="form-control" id="facNumModal" placeholder="Ex. 9017-00000-01L">
                 </div>
-                <div class="col-sm-3">
-                    <select class="form-control" id="facFtypModal">
-                        <option selected disabled hidden>FTYP</option>
+                <div class="col-sm-3 modifyPadding">
+                    <label for="portInfoModal">PORT</label>
+                    <input type="text" class="form-control" id="portInfoModal" readonly>
+                </div> 
+
+                <!-- --------------------------------------------- -->
+                
+                <div class="col-sm-4 modifyPadding">
+                    <label for="ftypModal">FTYP</label>
+                    <select class="form-control" id="ftypModal">
+                        <option></option>
                         <option>CP</option>
                         <option>OE</option>
                         <option>DSL</option>
                         <option>ME</option>
                     </select>
+                </div> 
+                
+                <div class="col-sm-4 modifyPadding">
+                    <label for="ortModal">ORT</label>
+                    <select class="form-control" id="ortModal">
+                        <option></option>
+                        <option>CP</option>
+                        <option>OE</option>
+                        <option>ME.D</option>
+                        <option>ME.P</option>
+                    </select>
+                </div>  
+                <div class="col-sm-4 modifyPadding">
+                    <label for="spcfncModal">SPCFNC</label>
+                    <select class="form-control" id="spcfncModal">
+                        <option></option>
+                        <option>SP</option>
+                        <option>RE</option>
+                        <option>ADAS</option>
+                        <option>DAML</option>
+                    </select>
+                </div> 
+                <!---------------------------------------  -->
+                                
+                <div class="col-sm-3 modifyPadding">
+                    <label for="facActModal">ACTION</label>
+                    <input type="text" class="form-control" id="facActModal" readonly>
                 </div>
-                <div class="col-sm-4">
-                    <button type="button" class="btn btn-primary" id="searchFacModal">Search</button>
-                    <button type="button" class="btn btn-primary" id="clrFacModal">Cancel</button>
-                </div>
-                <div class="col-sm-12">
-                    <table class="table table-fixed">
-                        <thead>
-                            <tr>
-                                <th style="width:60%">FAC</th>
-                                <th style="width:20%">FTYP</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableFacModal">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-sm-6">
-                    <a  id="previousFacModal">Previous</a> |
-                    <a  id="nextFacModal">Next</a>
-                    &nbsp&nbsp&nbsp<label id="indexFacModal"></label>
+                
+                <div class="col-sm-9 modifyPadding">
+                    <button id="submitFacModal" type="button" class="btn btn-primary">Submit</button>
+                    <button id="clrFacModal" type="button" class="btn btn-primary">Cancel</button>
+                    &nbsp;&nbsp; <input type="number" id="fac_id" style="width:50px;">
+                    <br>
+                    <label id="resultFacModal" style="color:red"></label>
                 </div>
      
             </div>

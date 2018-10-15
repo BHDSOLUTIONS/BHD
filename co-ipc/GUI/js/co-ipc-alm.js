@@ -10,7 +10,7 @@ $(document).on("click","#tableAlm tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
-
+    $("#alm_id").val(dataRow[0]);
     $("#almId").val(dataRow[1]);
     $("#almAck").val(dataRow[2]);
 
@@ -26,6 +26,7 @@ function queryAlm(action){
     {     
         act:action,
         user:"ninh",
+        id:$("#alm_id").val(),
         ack : $("#almAck").val(),
         almid : $("#almId").val(),
         remark : $("#almRemark").val() 
@@ -84,53 +85,78 @@ function displayAlm(index){
     } 
 }
 
-// function clearAlmForm(){
-//     $("#searchAlmAck").val("");
-//     $("#searchAlmSa").val("");
-//     $("#searchAlmDate").val("");
-//     $("#searchAlmTime").val("");
-//     $("#searchAlmSrc").val("");
-//     $("#searchAlmType").val("");
-//     $("#searchAlmCond").val("");
-//     $("#searchAlmSev").val("");
-// }
-
-// $("#clrAlm").click(clearAlmForm);
-
 
 $("#clrAlm").click(clearAlmForm);
 
 function clearAlmForm(){
+    $("#alm_id").val("");
     $("#almRemark").val("");
     $("#almAct").val("");
+    $("#checkAlmInfor").text("");
 }
 
-$("#submitAlm").click(function(){
-    
-    if($("#almAct").val()=="ack"){
-        queryAlm("ack");
-    }else if($("#almAct").val()=="unack"){
-        queryAlm("unack");
+
+
+$("#nextAlm").click(function(){
+    if(almTableIndex<maxAlmTableIndex){
+        almTableIndex++;
+        displayAlm(almTableIndex);
+    }  
+})
+
+$("#previousAlm").click(function(){
+    if(almTableIndex>1){
+        almTableIndex--;
+        displayAlm(almTableIndex);   
+    }         
+})
+
+$(document).on('mouseup', '[id *= almAct]', function () {
+    if($("#almAct").val() == "ACK"){
+        $("#checkAlmInfor").text("");
+        if(checkAlmInfor4Ack()){
+            clearAlmModalForm();
+            populateAlmModal();
+            $("#almModal").modal();
+        }
+        else $("#checkAlmInfor").html("Missing alarm information! <br> Or alarm was already acknowledged!")
+    }
+    else if($("#almAct").val() == "UN-ACK"){
+        $("#checkAlmInfor").text("");
+        if(checkAlmInfor4UnAck()){
+            clearAlmModalForm();
+            populateAlmModal();
+            $("#almModal").modal();
+        }
+        else $("#checkAlmInfor").html("Missing alarm information! <br> Or alarm has not been acknowledged yet!")
+    }
+    else if($("#almAct").val() == "CLR"){
+        $("#checkAlmInfor").text("");
+        if($("#almId").val() != ""){
+            clearAlmModalForm();
+            populateAlmModal();
+            $("#almModal").modal();
+        }
+        else $("#checkAlmInfor").html("Missing alarm information!")
     }
 })
 
-// $("#nextFac").click(function(){
-//     if(facTableIndex<maxFacTableIndex){
-//         facTableIndex++;
-//         displayFac(facTableIndex);
-//     }  
-// })
+function populateAlmModal(){
+    $("#almIdModal").val($("#almId").val())
+    $("#almAckModal").val($("#almAck").val())
+    $("#almActModal").val($("#almAct").val())
+}
 
-// $("#previousFac").click(function(){
-//     if(facTableIndex>1){
-//         facTableIndex--;
-//         displayFac(facTableIndex);   
-//     }         
-// })
-
-
-
-
-
-
+function checkAlmInfor4Ack(){
+    if(($("#almId").val() != "")&&($("#almAck").val() == "")){
+        return true;
+    }
+    else return false;
+}
+function checkAlmInfor4UnAck(){
+    if(($("#almId").val() != "")&&($("#almAck").val() == "ACK")){
+        return true;
+    }
+    else return false;
+}
 

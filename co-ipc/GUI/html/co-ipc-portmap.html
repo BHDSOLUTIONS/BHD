@@ -19,8 +19,8 @@
             </div>   
 
             <div class="col-sm-2 modifyPadding">
-                <label for="sel-ptyp">PTYP</label>
-                <select class="form-control" id="sel-ptyp">
+                <label for="ptyp">PTYP</label>
+                <select class="form-control" id="ptyp">
                     <option></option>
                     <option>X</option>
                     <option>Y</option>
@@ -28,8 +28,8 @@
             </div>
                 
             <div class="col-sm-2 modifyPadding">
-                <label for="sel-psta">PSTA</label>
-                <select class="form-control" id="sel-psta">
+                <label for="psta">PSTA</label>
+                <select class="form-control" id="psta">
                     <option></option>
                     <option>UAS</option>
                     <option>SF</option>
@@ -43,8 +43,8 @@
             <!-- ---------------------------------------------- -->
 
             <div class="col-sm-10 modifyPadding">
-                <label for="facNum">FAC</label>
-                <input type="text" class="form-control" id="facNum">
+                <label for="facPort">FAC</label>
+                <input type="text" class="form-control" id="facPort">
             </div>
 
             <div class="col-sm-2 modifyPadding">
@@ -62,29 +62,23 @@
             </div> 
             <!-- ------------------------------------------------ -->
                     
-            <div class="col-sm-4 modifyPadding" > 
-                <label for="portAction">ACTION</label>    
-                <select class="form-control" id="portAction" >
+            <div class="col-sm-3 modifyPadding" > 
+                <label for="portAct">ACTION</label>    
+                <select class="form-control" id="portAct" >
                     <option></option>
-                    <option id="mapOption" >Map</option>
-                    <option>Unmap</option>
+                    <option>MAP</option>
+                    <option>UN-MAP</option>
                     
                 </select>
             </div> 
             <div class="col-sm-6 modifyPadding">
-                <button id="submitPort" type="button" class="btn btn-primary">Submit</button>
                 <button id="clrPort" type="button" class="btn btn-primary">Cancel</button>
-                <br><br>
-                <input type="number" id="port_id" style="width:50px;">
-                <input type="number" id="fac_id_P" style="width:50px;">
-            </div>
-                
-           
-                   
+                <br>
+                <label id="checkPortInfor" style="color:red"></label>
+            </div>      
         </div>
         <div class="col-sm-7">
             <div class="col-sm-6">
-               
                 <a  id="previousPort">Previous</a> |
                 <a  id="nextPort">Next</a>
                 &nbsp&nbsp&nbsp<label id="indexPort"></label>
@@ -95,7 +89,7 @@
                     <table class="table table-fixed">
                         <thead>
                             <tr>
-                                <th style="width:10%">NODE</th>
+                                <th style="width:10%">NODE</th>    
                                 <th style="width:10%">SLOT</th>
                                 <th style="width:10%">PNUM</th>
                                 <th style="width:10%">PTYP</th>

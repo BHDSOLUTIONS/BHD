@@ -3,10 +3,6 @@
        
             <div class="row">
                 <div class="col-sm-5">
-                    <div class="col-sm-2 modifyPadding">
-                        <label for="userId">ID</label>
-                        <input type="number" class="form-control " id="userId">
-                    </div>
                     <div class="col-sm-3 modifyPadding">
                         <label for="userName">USER</label>
                         <input class="form-control reduceSpace" type="text" id="userName">
@@ -15,7 +11,7 @@
                         <label for="userStat">STAT</label>
                         <input type="text" class="form-control" id="userStat">
                     </div>
-                    <div class="col-sm-3 modifyPadding">
+                    <div class="col-sm-5 modifyPadding">
                         <label for="userLastLogin">LAST LOGIN</label>
                         <input type="time" class="form-control" id="userLastLogin">
                     </div>
@@ -72,18 +68,18 @@
                         <label for="userAct">ACTION</label>
                         <select id="userAct" class="form-control">
                             <option></option>
-                            <option>Add</option>
-                            <option>Upd</option>
-                            <option>Del</option>
-                            <option>Lck</option>
-                            <option>UnLck</option>
+                            <option>ADD</option>
+                            <option>UPDATE</option>
+                            <option>DELETE</option>
+                            <option>LOCK</option>
+                            <option>UN-LOCK</option>
                         </select>
                     </div>
-                    <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="submitUser">Submit</button>
-                    </div>
-                    <div class="col-sm-2 modifyPadding">
+                    <div class="col-sm-6 modifyPadding"> 
                         <button class="btn btn-primary" id="clrUser">Cancel</button>
+                        <br>
+                        <label id="checkUserInfor" style="color:red"></label>
+
                     </div>
                     
 

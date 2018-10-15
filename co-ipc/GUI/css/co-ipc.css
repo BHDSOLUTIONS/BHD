@@ -19,6 +19,10 @@
 .tab-pane{
   margin:5px;
 }
+.modal-body{
+  margin:15px;
+}
+
 
 @media only screen and (max-width: 768px) {
     /*for mobile phone */

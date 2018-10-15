@@ -16,7 +16,7 @@
         
                 <div class="col-sm-12 modifyPadding">
                     <label for="almRemark">REMARK</label>
-                    <textarea id="almRemark" class="form-group" style="width:100%; min-height: 100px;">
+                    <textarea id="almRemark" class="form-group" style="width:100%; min-height: 100px;" readonly>
                         
                     </textarea>
                 </div>
@@ -26,15 +26,15 @@
                     <label for="almAct">ACT</label>
                     <select class="form-control" id="almAct">
                         <option></option>
-                        <option>ack</option>
-                        <option>unack</option>
-                        <option>clr</option>
+                        <option>ACK</option>
+                        <option>UN-ACK</option>
+                        <option>CLR</option>
                     </select>
                 </div>
-                <div class="col-sm-8 modifyPadding">
-                    <button class="btn btn-primary" id="submitAlm">Submit</button>
-                    <button class="btn btn-primary" id="clrAlm">Cancel</button>
+                <div class="col-sm-12">
+                    <label id="checkAlmInfor" style="color:red"></label>
                 </div>
+                
                
             </div>
 

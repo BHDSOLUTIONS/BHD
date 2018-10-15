@@ -1,8 +1,6 @@
-
 var facArray;
 var facTableIndex;
 var maxFacTableIndex;
-
 
 function clearFacTable() {
     $("#tableFac").empty();
@@ -11,20 +9,19 @@ $(document).on("click","#tableFac tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
-    //Populate the information 
-    $("#fac").val(dataRow[1]).change();
-    $("#sel-ftyp").val(dataRow[2]).change();
-    $("#sel-ort").val(dataRow[3]).change();
-    $("#sel-spcfnc").val(dataRow[4]).change();
-    $("#portInfo").val(dataRow[5]).change();
-    $("#fac_id").val(dataRow[0]).change();
 
+    //Populate the information 
+    $("#fac_id").val(dataRow[0]);
+    $("#fac").val(dataRow[1]);
+    $("#ftyp").val(dataRow[2]);
+    $("#ort").val(dataRow[3]);
+    $("#spcfnc").val(dataRow[4]);
+    $("#portInfo").val(dataRow[5]);
+    
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
 });
-
-
 
 
 function queryFac(action){
@@ -33,11 +30,12 @@ function queryFac(action){
     {     
         act: action,
         user: "ninh",
-        fac: $("#fac").val(),
+
         fac_id: $("#fac_id").val(),
-        ftyp: $("#sel-ftyp").val(),
-        ort: $("#sel-ort").val(),
-        spcfnc: $("#sel-spcfnc").val()
+        fac: $("#fac").val(),
+        ftyp: $("#ftyp").val(),
+        ort: $("#ort").val(),
+        spcfnc: $("#spcfnc").val()
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -99,32 +97,20 @@ $("#previousFac").click(function(){
     }         
 })
 
-$("#searchFac").click(function(){
-    queryFac('query');
-});
-
 $("#clrFac").click(clearFacForm);
 
 function clearFacForm(){
-    $("#fac").val("").change();
-    $("#sel-ftyp").val("").change();
-    $("#sel-ort").val("").change();
-    $("#sel-spcfnc").val("").change();
-    $("#portInfo").val("").change();
-    $("#fac_id").val("").change();
+    $("#fac_id").val("");
+    $("#fac").val("");
+    $("#ftyp").val("");
+    $("#ort").val("");
+    $("#spcfnc").val("");
+    $("#portInfo").val("");
     $("#facAction").val("");
+    $("#checkFacInfor").text("");
 }
 
-$("#submitFac").click(function(){
-    if($("#facAction").val()=="Add"){
-        queryFac('add');
-    } else if($("#facAction").val()=="Update"){
-        queryFac('upd');
-    } else if($("#facAction").val()=="Delete"){
-        queryFac('del');
-    }
-    $("#facAction").val("");
-})
+
 
 $('#findFac').click(function() {
 	queryFac("findFac");
@@ -136,7 +122,74 @@ $('#findFOS').click(function() {
 
 
 
+$(document).on('mouseup', '[id *= facAct]', function () {
+    if($("#facAct").val() == "UPDATE"){
+        $("#checkFacInfor").text("");
+        if(checkFacInfor()){
+            clearFacModalForm();   
+            populateFacModal();
+    
+            $("#facNumModal").prop("disabled",false);
+            $("#ftypModal").prop("disabled",false);
+            $("#ortModal").prop("disabled",false);
+            $("#spcfncModal").prop("disabled",false);
+            $("#clrFacModal").prop("disabled",false);
+            $("#clrFacModal").show();
+    
+            $("#facModal").modal(); 
+        } else {
+            $("#checkFacInfor").text("Missing Fac information!")
+        }
+              
+    } 
+    else if($("#facAct").val() == "DELETE"){
+        $("#checkFacInfor").text("");
+        if(checkFacInfor()){
+            clearFacModalForm();   
+            populateFacModal();
+    
+            $("#facNumModal").prop("disabled",true);
+            $("#ftypModal").prop("disabled",true);
+            $("#ortModal").prop("disabled",true);
+            $("#spcfncModal").prop("disabled",true);
+            $("#clrFacModal").hide();
+    
+            $("#facModal").modal();  
+        } else {
+            $("#checkFacInfor").text("Missing Fac information!")
+        }
+       
+    }
+    else if($("#facAct").val() == "ADD"){
+        $("#checkFacInfor").text("");
+        clearFacModalForm(); 
+        $("#facActModal").val($("#facAct").val()); 
+        // populateFacModal(); 
 
+        $("#facNumModal").prop("disabled",false);
+        $("#ftypModal").prop("disabled",false);
+        $("#ortModal").prop("disabled",false);
+        $("#spcfncModal").prop("disabled",false);
+        $("#clrFacModal").show();
 
+        $("#facModal").modal(); 
+        $("#facAct").val("");  
+    }
+    $("#facAct").val("");
+});
 
+function populateFacModal(){
+    $("#facNumModal").val($("#fac").val());
+    $("#ftypModal").val($("#ftyp").val());
+    $("#ortModal").val($("#ort").val());
+    $("#spcfncModal").val($("#spcfnc").val());
+    $("#portInfoModal").val($("#portInfo").val()); 
+    $("#facActModal").val($("#facAct").val()); 
 
+}
+
+function checkFacInfor(){
+    if(($("#fac").val() != "") && ($("#ftyp").val() != ""))
+        return true;
+    else return false;
+}

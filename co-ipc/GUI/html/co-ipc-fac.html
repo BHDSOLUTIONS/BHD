@@ -1,12 +1,9 @@
-<div id="mainView" class="tab-content" >
-				
+			
     <div id="setupFac" class="tab-pane fade in active">
         <h4>SETUP FACILITIES</h4>
 
         <div class="row">
             <div class="col-sm-5">
-                
-                
                 <div class="col-sm-8 modifyPadding">
                     <label for="fac">FAC</label>
                     <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
@@ -23,7 +20,7 @@
                 
                 <div class="col-sm-3 modifyPadding">
                     <label for="ftyp">FTYP</label>
-                    <select class="form-control" id="sel-ftyp">
+                    <select class="form-control" id="ftyp">
                         <option></option>
                         <option>CP</option>
                         <option>OE</option>
@@ -34,7 +31,7 @@
                 
                 <div class="col-sm-3 modifyPadding">
                     <label for="ort">ORT</label>
-                    <select class="form-control" id="sel-ort">
+                    <select class="form-control" id="ort">
                         <option></option>
                         <option>CP</option>
                         <option>OE</option>
@@ -44,7 +41,7 @@
                 </div>  
                 <div class="col-sm-4 modifyPadding">
                     <label for="spcfnc">SPCFNC</label>
-                    <select class="form-control" id="sel-spcfnc">
+                    <select class="form-control" id="spcfnc">
                         <option></option>
                         <option>SP</option>
                         <option>RE</option>
@@ -55,28 +52,29 @@
                 <div class="col-sm-2 modifyPadding">
                     <button id="findFOS" class="btn btn-primary">Find</button>
                 </div> 
+
                 <!---------------------------------------  -->
                                 
-                <div class="col-sm-4 modifyPadding">
-                    <label for="facAction">ACTION</label>
-                    <select class="form-control" id="facAction" >
+                <div class="col-sm-3 modifyPadding">
+                    <label for="facAct">ACTION</label>
+                    <select class="form-control" id="facAct" >
                         <option></option>
-                        <option>Add</option>
-                        <option>Update</option>
-                        <option>Delete</option>
+                        <option>ADD</option>
+                        <option>UPDATE</option>
+                        <option>DELETE</option>
                     </select>
                 </div>
-                <div class="col-sm-6 modifyPadding">
-                    <button id="submitFac" type="button" class="btn btn-primary">Submit</button>
+
+                <div class="col-sm-6 modifyPadding">   
                     <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
-                    <br></br>
-                    <input type="number" id="fac_id" style="width:50px;">
+                    <br>
+                    <label id="checkFacInfor" style="color:red"></label>
                 </div>
                                     
             </div>
             <div class="col-sm-7">
                 <div class="col-sm-6">
-                    <a  id="previousFac">Previous</a>|<a  id="nextFac">Next</a>
+                    <a  id="previousFac">Previous</a> | <a  id="nextFac">Next</a>
                     &nbsp&nbsp&nbsp<label id="indexFac"></label>
                 </div>
                 <div class="col-sm-12">

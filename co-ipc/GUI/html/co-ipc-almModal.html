@@ -1,0 +1,52 @@
+<div id="almModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+             <h5 class="modal-title">ALARM ADMINISTRATION</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-3 modifyPadding">
+                    <label for="almIdModal">ALMID</label>
+                    <input type="number" class="form-control" id="almIdModal" readonly>
+                </div>
+
+                <div class="col-sm-3 modifyPadding">
+                    <label for="almAckModal">ACK</label>
+                    <input type="text" class="form-control" id="almAckModal" readonly>
+                </div>
+        
+                <div class="col-sm-12 modifyPadding">
+                    <label for="almRemarkModal">REMARK</label>
+                    <textarea id="almRemarkModal" class="form-group" style="width:100%; min-height: 100px;"></textarea>
+                </div>
+            
+
+                <div class="col-sm-3 modifyPadding">
+                    <label for="almActModal">ACT</label>
+                    <input type="text" class="form-control" id="almActModal" readonly>
+                </div>
+
+                <div class="col-sm-8 modifyPadding">
+                    <button class="btn btn-primary" id="submitAlmModal">Submit</button>
+                    <button class="btn btn-primary" id="clrAlmModal">Clear</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="number" id="alm_id" style="width:50px;">
+                    <br>
+                    <label id="resultAlmModal" style="color:red"></label>
+                </div>
+                    
+     
+            </div>
+            
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+
+
