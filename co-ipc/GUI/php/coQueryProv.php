@@ -165,6 +165,38 @@
 	}
 
 	
+	class cktcon {
+		public $id;
+		public $con = array();
+		public $rslt;
+		public $reason;
+		
+		public function __construct($cktcon) {
+			global $db;
+			
+			$qry = "SELECT * FROM t_cktcon WHERE con=" . $cktcon;
+			$res = $db->query($qry);
+			if (!$res) {
+				$this->rslt = "fail";
+				$this->reason = mysqli_error($db);
+			}
+			else {
+				$rows = [];
+				if ($res->num_rows > 0) {
+					while ($row = $res->fetch_assoc()) {
+						$rows[] = $row;
+					}
+					$this->rslt = "success";
+					$this->con = $rows;
+				}
+				else {
+					$this->rslt = "fail";
+					$this->reason = "CKTCON not exist";
+				}
+			}
+		}
+	}
+
 
 
     ///Expected inputs
@@ -240,7 +272,7 @@
 		return;
 	}
 	if ($act == "queryCktcon") {
-		$result = queryCktcon();
+		$result = queryCktcon($cktcon);
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
@@ -259,6 +291,18 @@
 	}
 	if ($act == "provNewCkt") {
 		$result = provNewCkt();
+		echo json_encode($result);
+		mysqli_close($db);
+		return;
+	}
+	if ($act == "provConnect") {
+		$result = provConnect();
+		echo json_encode($result);
+		mysqli_close($db);
+		return;
+	}
+	if ($act == "provDisconnect") {
+		$result = provDisconnect();
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
@@ -307,48 +351,63 @@
 		}
 		
 		// locate target cktcon
-		$con = new Cktcon($idx);
-		if ($con->rslt = "fail") {
+		$conObj = new Cktcon($cktcon);
+		if ($conObj->rslt == "fail") {
+			return $conObj;
+		}
+		
+		$con = [];
+		$numofcon = count($conObj->con);
+		for ($i=0; $i<$numofcon; $i++) {
+			if ($conObj->con[$i]["idx"] == $idx) {
+				$con = $conObj->con[$i];
+				break;
+			}
+		}
+		if (count($con) == 0) {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Invalid IDX";
 			return $result;
 		}
-
+			
 		// locate target fport and tport
-		$fportObj = new Port($con->fp_id);
-		$tportObj = new Port($con->tp_id);
+		$fportObj = new Port($con["fp_id"]);
+		$tportObj = new Port($con["tp_id"]);
+		
 		
 		// validate state-event
-		$result = getSms($fportObj->psta, $fportObj->ssta, "SV_DISCON");
-		if ($result["rslt"] == "fail") {
-			return $result;
+		$sms = getSms($fportObj->psta, $fportObj->ssta, "SV_DISCON");
+		if ($sms["rslt"] == "fail") {
+			return $sms;
 		}
 		else {
-			$fportObj->npsta = $result["rows"][0]["npsta"];
-			$fportObj->nssta = $result["rows"][0]["nssta"];
+			$fportObj->npsta = $sms["rows"][0]["npsta"];
+			$fportObj->nssta = $sms["rows"][0]["nssta"];
 		}
 
-		$result = getSms($tportObj->psta, $tportObj->ssta, "SV_DISCON");
-		if ($result["rslt"] == "fail") {
-			return $result;
+		$sms = getSms($tportObj->psta, $tportObj->ssta, "SV_DISCON");
+		if ($sms["rslt"] == "fail") {
+			return $sms;
 		}
 		else {
-			$tportObj->npsta = $result["rows"][0]["npsta"];
-			$tportObj->nssta = $result["rows"][0]["nssta"];
+			$tportObj->npsta = $sms["rows"][0]["npsta"];
+			$tportObj->nssta = $sms["rows"][0]["nssta"];
 		}
 
 		// update t_ports
 		$qry = "UPDATE t_ports SET psta='" . $fportObj->npsta . "',ssta='" . $fportObj->nssta . "',ckt_id=0,cktcon=0,con_idx=0,mp_id=0 WHERE id=" . $fportObj->id;
+        $res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . ":  " . mysqli_error($db);
             return $result;
         }
 		
 		$qry = "UPDATE t_ports SET psta='" . $tportObj->npsta . "',ssta='" . $tportObj->nssta . "',ckt_id=0,cktcon=0,con_idx=0,mp_id=0 WHERE id=" . $tportObj->id;
+        $res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . ":  " . mysqli_error($db);
             return $result;
         }
 		
@@ -357,20 +416,24 @@
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . ":  " . mysqli_error($db);
             return $result;
         }
-
 		// update t_ckts
-		$qry = "UPDATE t_ckts SET ordno='" . $ordno . "',date=now()HERE con=" . $cktcon . " AND idx=" . $idx;
+		if (($numofcon -1) == 0) {
+			$qry = "DELETE FROM t_ckts WHERE id=" . $ckt_id;
+		}
+		else {
+			$qry = "UPDATE t_ckts SET ordno='" . $ordno . "',date=now(), cktcon=" . $cktcon . " WHERE id=" . $ckt_id;
+		}
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . ":  " . mysqli_error($db);
             return $result;
         }
 
-
+		return queryCktcon($cktcon);
 	}
 
 
@@ -378,7 +441,7 @@
 		global $db, $ckt_id, $ckid, $ordno, $ctyp, $cktcon, $ffac, $tfac, $user;
 	
 		// validate inputs
-		if ($ckid == "" || $ckt_id == 0) {
+		if ($ckid == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing CKID";
 			return $result;
@@ -424,7 +487,8 @@
 			$result["reason"] = "CKID not exists";
 			return $result;
 		}
-
+		$ckt_id = $cktObj->id;
+		
 		if ($cktcon != $cktObj->cktcon) {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Incorrect CKTCON";
@@ -463,32 +527,38 @@
 		}
 
 		// validate state-event
-		$result = getSms($fportObj->psta, $fportObj->ssta, "SV_CONN");
-		if ($result["rslt"] == "fail") {
-			return $result;
+		$sms = getSms($fportObj->psta, $fportObj->ssta, "SV_CONN");
+		if ($sms["rslt"] == "fail") {
+			return $sms;
 		}
 		else {
-			$fportObj->npsta = $result["rows"][0]["npsta"];
-			$fportObj->nssta = $result["rows"][0]["nssta"];
+			$fportObj->npsta = $sms["rows"][0]["npsta"];
+			$fportObj->nssta = $sms["rows"][0]["nssta"];
 		}
 
-		$result = getSms($tportObj->psta, $tportObj->ssta, "SV_CONN");
-		if ($result["rslt"] == "fail") {
-			return $result;
+		$sms = getSms($tportObj->psta, $tportObj->ssta, "SV_CONN");
+		if ($sms["rslt"] == "fail") {
+			return $sms;
 		}
 		else {
-			$tportObj->npsta = $result["rows"][0]["npsta"];
-			$tportObj->nssta = $result["rows"][0]["nssta"];
+			$tportObj->npsta = $sms["rows"][0]["npsta"];
+			$tportObj->nssta = $sms["rows"][0]["nssta"];
 		}
 
-		$idx = getAvailCktconIdx($cktcon);
+		$idxObj = getAvailCktconIdx($cktcon);
+		if ($idxObj["rslt"] == "fail") {
+			return $idxObj;
+		}
+		else {
+			$idx = $idxObj["idx"];
+		}
 		
 		// setup cktcon
-		$qry = "INSERT INTO t_cktcon VALUES(0," . $cktcon . "," . $cktObj->id . "," . $idx . ",'" . $ctyp . "'," . $fportObj->id . ",1," . $tportObj->id . ",1)";
+		$qry = "INSERT INTO t_cktcon VALUES(0," . $cktcon . "," . $ckt_id . "," . $idx . ",'" . $ctyp . "'," . $fportObj->id . ",1," . $tportObj->id . ",1)";
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . "\n" . mysqli_error($db);
             return $result;
         }
 		
@@ -498,7 +568,7 @@
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . "\n" . mysqli_error($db);
             return $result;
         }
 		
@@ -508,11 +578,11 @@
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
+            $result["reason"] = $qry . "\n" . mysqli_error($db);
             return $result;
         }
 		
-		return queryCkt();
+		return queryCktcon($cktcon);
 		
 	}
 	
@@ -793,9 +863,15 @@
 	}
 
 		
-	function queryCktcon() {
-		global $db, $cktcon;
+	function queryCktcon($cktcon) {
+		global $db;
 		
+		if ($cktcon == 0) {
+			$result["rslt"] = "fail";
+            $result["reason"] = "Invalid CKTCON";
+            return $result;
+		}
+
 		$qry = "SELECT t_cktcon.idx, t_cktcon.ctyp, t_facs.fac, t_facs.id from t_facs, t_cktcon left join t_ports on";
 		$qry .= " (t_cktcon.fp_id=t_ports.id or t_cktcon.tp_id=t_ports.id) where t_cktcon.con =" . $cktcon;
         $qry .= " AND t_facs.id=t_ports.fac_id";
