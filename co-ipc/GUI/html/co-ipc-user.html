@@ -4,81 +4,69 @@
             <div class="row">
                 <div class="col-sm-5">
                     <div class="col-sm-3 modifyPadding">
-                        <label for="userName">USER</label>
-                        <input class="form-control reduceSpace" type="text" id="userName">
-                        <!--<input class="form-control reduceSpace" type="text" id="setupUser_userName">-->
-                   </div>
+                        <label for="setupUser_user">USER</label>
+                        <input class="form-control reduceSpace" type="text" id="setupUser_user">
+                    </div>
                     <div class="col-sm-2 modifyPadding">
-                        <label for="userStat">STAT</label>
-                        <input type="text" class="form-control" id="userStat">
-                        <!--<input type="text" class="form-control" id="setupUser_Stat">-->
+                        <label for="setupUser_stat">STAT</label>
+                        <input type="text" class="form-control" id="setupUser_stat">
                     </div>
                     <div class="col-sm-5 modifyPadding">
-                        <label for="userLastLogin">LAST LOGIN</label>
-                        <input type="time" class="form-control" id="userLastLogin">
-                        <!--<input type="time" class="form-control" id="setupUser_LastLogin">-->
+                        <label for="setupUser_lastLogin">LAST LOGIN</label>
+                        <input type="text" class="form-control" id="setupUser_lastLogin">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="findUser1">Find</button>
-                        <!--<button class="btn btn-primary" id="setupUser_BtnFind1">Find</button>-->
-                   </div>
+                        <button class="btn btn-primary" id="setupUser_findUser">Find</button>
+                    </div>
 
                     <!------------------------------------------>
                     <div class="col-sm-3 modifyPadding">
-                        <label for="userFN">FNAME</label>
-                        <input type="text" class="form-control" id="userFN">
-                        <!--<input type="text" class="form-control" id="setupUser_FN">-->
+                        <label for="setupUser_FN">FNAME</label>
+                        <input type="text" class="form-control" id="setupUser_FN">
                     </div>
                     <div class="col-sm-3 modifyPadding">
-                        <label for="userLN">LNAME</label>
-                        <input type="text" class="form-control" id="userLN">
-                        <!--<input type="text" class="form-control" id="setupUser_LN">-->
+                        <label for="setupUser_LN">LNAME</label>
+                        <input type="text" class="form-control" id="setupUser_LN">
                     </div>
                     <div class="col-sm-4 modifyPadding">
-                        <label for="userSsn">SSN</label>
-                        <input type="text" class="form-control" id="userSsn">
-                        <!--<input type="text" class="form-control" id="setupUser_Ssn">-->
+                        <label for="setupUser_ssn">SSN</label>
+                        <input type="text" class="form-control" id="setupUser_ssn">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="findUser2">Find</button>
-                        <!--<button class="btn btn-primary" id="setupUser_BtnFind2">Find</button>-->
+                        <button class="btn btn-primary" id="setupUser_findNameSsn">Find</button>
                     </div>
 
                     <!------------------------------------------>
                     <div class="col-sm-5 modifyPadding">
-                        <label for="userTel">TEL</label>
-                        <input type="tel" class="form-control" id="userTel">
-                        <!--<input type="tel" class="form-control" id="setupUser_Tel">-->
+                        <label for="setupUser_tel">TEL</label>
+                        <input type="tel" class="form-control" id="setupUser_tel">
                     </div>
                     <div class="col-sm-5 modifyPadding">
-                        <label for="userEmail">EMAIL</label>
-                        <input type="email" class="form-control" id="userEmail">
+                        <label for="setupUser_email">EMAIL</label>
+                        <input type="email" class="form-control" id="setupUser_email">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="findUser3">Find</button>
-                        <!--<button class="btn btn-primary" id="setupUser_BtnFind3">Find</button>-->
-                    </div>>
+                        <button class="btn btn-primary" id="setupUser_findTelEmail">Find</button>
+                    </div>
+
+                    <!-- ------------------------------------------ -->
                     <div class="col-sm-5 modifyPadding">
-                        <label for="userTitle">TITLE</label>
-                        <input type="text" class="form-control" id="userTitle">
-                        <!--<input type="text" class="form-control" id="setupUser_Title">-->
+                        <label for="setupUser_title">TITLE</label>
+                        <input type="text" class="form-control" id="setupUser_title">
                     </div>
                     <div class="col-sm-5 modifyPadding">
-                        <label for="userGroup">GROUP</label>
-                        <input type="text" class="form-control" id="userGroup">
-                        <!--<input type="text" class="form-control" id="setupUser_Group">-->
+                        <label for="setupUser_group">GROUP</label>
+                        <input type="text" class="form-control" id="setupUser_group">
                     </div>
                     <div class="col-sm-2 modifyPadding">
-                        <button class="btn btn-primary" id="findUser4">Find</button>
-                        <!--<button class="btn btn-primary" id="setupUser_BtnFind4">Find</button>-->
+                        <button class="btn btn-primary" id="setupUser_findTitleGrp">Find</button>
                     </div>
                     <!-- ------------------------------------------ -->
                     <hr>
 
                     <div class="col-sm-4 modifyPadding">
-                        <label for="userAct">ACTION</label>
-                        <select id="userAct" class="form-control">
-                        <!--<select id="setupUser_SelAct" class="form-control">-->
+                        <label for="setupUser_act">ACTION</label>
+                        <select id="setupUser_act" class="form-control">
                             <option></option>
                             <option>ADD</option>
                             <option>UPDATE</option>
@@ -88,10 +76,9 @@
                         </select>
                     </div>
                     <div class="col-sm-6 modifyPadding"> 
-                        <button class="btn btn-primary" id="clrUser">Cancel</button>
-                        <!--<button class="btn btn-primary" id="setupUser_BtnCancel">Cancel</button>-->
+                        <button class="btn btn-primary" id="setupUser_clear">Cancel</button>
                         <br>
-                        <label id="checkUserInfor" style="color:red"></label>
+                        <!-- <label id="checkUserInfor" style="color:red"></label> -->
 
                     </div>
                     
@@ -99,11 +86,11 @@
                 </div>
                 <div class="col-sm-7">
                     &nbsp&nbsp&nbsp
-                    <a  id="previousUser">Previous</a> |
-                    <a  id="nextAlm">Next</a>
-                    &nbsp&nbsp&nbsp <label id="indexUser"></label>
-					<!--&nbsp&nbsp&nbsp <label id="setupUser_LabelIndex"></label>-->
-					<div class="col-sm-12">
+                    <a  id="setupUser_previous">Previous</a> |
+                    <a  id="setupUser_next">Next</a>
+                    &nbsp&nbsp&nbsp<label id="setupUser_index"></label>
+
+                    <div class="col-sm-12">
                         <div class="panel panel-default">     
                             <table class="table table-fixed">
                                 <thead>
@@ -116,8 +103,7 @@
                                         <th style="width:20%">GROUP</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tableUser">
-								<!--<tbody id="setupUser_Table">-->
+                                <tbody id="setupUser_table">
                             
                                 </tbody>
                             </table>

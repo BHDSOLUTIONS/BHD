@@ -1,41 +1,133 @@
-var facArray;
-var facTableIndex;
-var maxFacTableIndex;
+var setupFac_table;
+var setupFac_tableIndex;
+var setupFac_maxTableIndex;
 
-function clearFacTable() {
-    $("#tableFac").empty();
-}
-$(document).on("click","#tableFac tr",function(){
+
+
+
+// ----------------Click Events------------------------
+
+$(document).on("click","#setupFac_tableFac tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
 
     //Populate the information 
-    $("#fac_id").val(dataRow[0]);
-    $("#fac").val(dataRow[1]);
-    $("#ftyp").val(dataRow[2]);
-    $("#ort").val(dataRow[3]);
-    $("#spcfnc").val(dataRow[4]);
-    $("#portInfo").val(dataRow[5]);
+    $("#facModal_fac_id").val(dataRow[0]);
+    $("#setupFac_fac").val(dataRow[1]);
+    $("#setupFac_ftyp").val(dataRow[2]);
+    $("#setupFac_ort").val(dataRow[3]);
+    $("#setupFac_spcfnc").val(dataRow[4]);
+    $("#setupFac_portInfor").val(dataRow[5]);
     
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
 });
 
+$("#setupFac_next").click(function(){
+    if(setupFac_tableIndex<setupFac_maxTableIndex){
+        setupFac_tableIndex++;
+        setupFac_displayTable(setupFac_tableIndex);
+    }  
+})
 
-function queryFac(action){
+$("#setupFac_previous").click(function(){
+    if(setupFac_tableIndex>1){
+        setupFac_tableIndex--;
+        setupFac_displayTable(setupFac_tableIndex);   
+    }         
+})
+
+$("#setupFac_clear").click(setupFac_clearForm);
+
+
+$('#setupFac_findFac').click(function() {
+	setupFac_query("findFac");
+});
+
+$('#setupFac_findFOS').click(function() {
+	setupFac_query("findFOS");
+});
+
+$(document).on('mouseup', '[id *= setupFac_act]', function () {
+
+    if($("#setupFac_act").val() == "UPDATE"){
+        $("#setupFac_checkInputs").text("");
+        if(setupFac_checkInputs()){
+            facModal_clearForm();   
+            setupFac_populateFacModal();
+    
+            $("#facModal_fac").prop("disabled",false);
+            $("#facModal_ftyp").prop("disabled",false);
+            $("#facModal_ort").prop("disabled",false);
+            $("#facModal_spcfnc").prop("disabled",false);
+            $("#facModal_clear").prop("disabled",false);
+            $("#facModal_clear").show();
+    
+            $("#facModal").modal(); 
+        } else {
+            // $("#setupFac_checkInputs").text("Missing Fac information!")
+            alert("Missing Fac information!")
+        }
+              
+    } 
+    else if($("#setupFac_act").val() == "DELETE"){
+        $("#setupFac_checkInputs").text("");
+        if(setupFac_checkInputs()){
+            facModal_clearForm();   
+            setupFac_populateFacModal();
+    
+            $("#facModal_fac").prop("disabled",true);
+            $("#facModal_ftyp").prop("disabled",true);
+            $("#facModal_ort").prop("disabled",true);
+            $("#facModal_spcfnc").prop("disabled",true);
+            $("#facModal_clear").hide();
+    
+            $("#facModal").modal();  
+        } else {
+            // $("#setupFac_checkInputs").text("Missing Fac information!")
+            alert("Missing Fac information!")
+        }
+       
+    }
+    else if($("#setupFac_act").val() == "ADD"){
+        $("#setupFac_checkInputs").text("");
+        facModal_clearForm(); 
+        $("#facModal_act").val($("#setupFac_act").val()); 
+        // setupFac_populateFacModal(); 
+
+        $("#facModal_fac").prop("disabled",false);
+        $("#facModal_ftyp").prop("disabled",false);
+        $("#facModal_ort").prop("disabled",false);
+        $("#facModal_spcfnc").prop("disabled",false);
+        $("#facModal_clear").show();
+
+        $("#facModal").modal(); 
+        $("#setupFac_act").val("");  
+    }
+    $("#setupFac_act").val("");
+});
+
+
+// -------------------Function---------------------
+
+function setupFac_clearTable() {
+    $("#setupFac_tableFac").empty();
+}
+
+function setupFac_query(action){
     
     $.post("./php/coQueryFac.php",
     {     
         act: action,
         user: "ninh",
 
-        fac_id: $("#fac_id").val(),
-        fac: $("#fac").val(),
-        ftyp: $("#ftyp").val(),
-        ort: $("#ort").val(),
-        spcfnc: $("#spcfnc").val()
+        fac_id: $("#facModal_fac_id").val(),
+        fac: $("#setupFac_fac").val(),
+        ftyp: $("#setupFac_ftyp").val(),
+        ort: $("#setupFac_ort").val(),
+        spcfnc: $("#setupFac_spcfnc").val()
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -46,150 +138,64 @@ function queryFac(action){
                 alert("There is no matching data!");
             }
             else{
-                facTableIndex=0;
-                facArray = obj['rows'];
-                var len = facArray.length; 
-                maxFacTableIndex = Math.ceil(len/100.0);
-                facTableIndex++;
-                displayFac(facTableIndex);
-                if(action=="add") alert("Facility is added successfully!");
-                else if(action=="del") alert("Facility is deleted successfully!");
-                else if(action=="upd") alert("Facility is updated successfully!");
+                setupFac_tableIndex=0;
+                setupFac_table = obj['rows'];
+                var len = setupFac_table.length; 
+                setupFac_maxTableIndex = Math.ceil(len/100.0);
+                setupFac_tableIndex++;
+                setupFac_displayTable(setupFac_tableIndex);
+                
             }  
         } 
     });
 }
 
-function displayFac(index){   
+function setupFac_displayTable(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = facArray.length;
+    var len = setupFac_table.length;
 
     if(len>=startIndex){
         if(len < stopIndex)
             stopIndex=len;            
-        clearFacTable();
+        setupFac_clearTable();
         var a = [];
         for (var i=0; i<stopIndex; i++) {  
-            a.push('<tr> <td style="display:none">' + facArray[i].id + '</td>')  
-            a.push('<td style="width:40%">' + facArray[i].fac + '</td>');
-            a.push('<td style="width:10%">' +  facArray[i].ftyp + '</td>');
-            a.push('<td style="width:10%">' +  facArray[i].ort + '</td>');
-            a.push('<td style="width:17%">' +  facArray[i].spcfnc + '</td>');
-            a.push('<td style="width:20%">' +  facArray[i].port + '</td></tr>');
+            a.push('<tr> <td style="display:none">' + setupFac_table[i].id + '</td>')  
+            a.push('<td style="width:40%">' + setupFac_table[i].fac + '</td>');
+            a.push('<td style="width:10%">' +  setupFac_table[i].ftyp + '</td>');
+            a.push('<td style="width:10%">' +  setupFac_table[i].ort + '</td>');
+            a.push('<td style="width:17%">' +  setupFac_table[i].spcfnc + '</td>');
+            a.push('<td style="width:20%">' +  setupFac_table[i].port + '</td></tr>');
         }
-        document.getElementById("tableFac").innerHTML = a.join("");
-        $("#indexFac").text("From "+(startIndex+1)+" to "+stopIndex);
+        document.getElementById("setupFac_tableFac").innerHTML = a.join("");
+        $("#setupFac_index").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
 
-$("#nextFac").click(function(){
-    if(facTableIndex<maxFacTableIndex){
-        facTableIndex++;
-        displayFac(facTableIndex);
-    }  
-})
-
-$("#previousFac").click(function(){
-    if(facTableIndex>1){
-        facTableIndex--;
-        displayFac(facTableIndex);   
-    }         
-})
-
-$("#clrFac").click(clearFacForm);
-
-function clearFacForm(){
-    $("#fac_id").val("");
-    $("#fac").val("");
-    $("#ftyp").val("");
-    $("#ort").val("");
-    $("#spcfnc").val("");
-    $("#portInfo").val("");
+function setupFac_clearForm(){
+    $("#facModal_fac_id").val("");
+    $("#setupFac_fac").val("");
+    $("#setupFac_ftyp").val("");
+    $("#setupFac_ort").val("");
+    $("#setupFac_spcfnc").val("");
+    $("#setupFac_portInfor").val("");
     $("#facAction").val("");
-    $("#checkFacInfor").text("");
+    $("#setupFac_checkInputs").text("");
 }
 
-
-
-$('#findFac').click(function() {
-	queryFac("findFac");
-});
-
-$('#findFOS').click(function() {
-	queryFac("findFOS");
-});
-
-
-
-$(document).on('mouseup', '[id *= facAct]', function () {
-    if($("#facAct").val() == "UPDATE"){
-        $("#checkFacInfor").text("");
-        if(checkFacInfor()){
-            clearFacModalForm();   
-            populateFacModal();
-    
-            $("#facNumModal").prop("disabled",false);
-            $("#ftypModal").prop("disabled",false);
-            $("#ortModal").prop("disabled",false);
-            $("#spcfncModal").prop("disabled",false);
-            $("#clrFacModal").prop("disabled",false);
-            $("#clrFacModal").show();
-    
-            $("#facModal").modal(); 
-        } else {
-            $("#checkFacInfor").text("Missing Fac information!")
-        }
-              
-    } 
-    else if($("#facAct").val() == "DELETE"){
-        $("#checkFacInfor").text("");
-        if(checkFacInfor()){
-            clearFacModalForm();   
-            populateFacModal();
-    
-            $("#facNumModal").prop("disabled",true);
-            $("#ftypModal").prop("disabled",true);
-            $("#ortModal").prop("disabled",true);
-            $("#spcfncModal").prop("disabled",true);
-            $("#clrFacModal").hide();
-    
-            $("#facModal").modal();  
-        } else {
-            $("#checkFacInfor").text("Missing Fac information!")
-        }
-       
-    }
-    else if($("#facAct").val() == "ADD"){
-        $("#checkFacInfor").text("");
-        clearFacModalForm(); 
-        $("#facActModal").val($("#facAct").val()); 
-        // populateFacModal(); 
-
-        $("#facNumModal").prop("disabled",false);
-        $("#ftypModal").prop("disabled",false);
-        $("#ortModal").prop("disabled",false);
-        $("#spcfncModal").prop("disabled",false);
-        $("#clrFacModal").show();
-
-        $("#facModal").modal(); 
-        $("#facAct").val("");  
-    }
-    $("#facAct").val("");
-});
-
-function populateFacModal(){
-    $("#facNumModal").val($("#fac").val());
-    $("#ftypModal").val($("#ftyp").val());
-    $("#ortModal").val($("#ort").val());
-    $("#spcfncModal").val($("#spcfnc").val());
-    $("#portInfoModal").val($("#portInfo").val()); 
-    $("#facActModal").val($("#facAct").val()); 
+function setupFac_populateFacModal(){
+    $("#facModal_fac").val($("#setupFac_fac").val());
+    $("#facModal_ftyp").val($("#setupFac_ftyp").val());
+    $("#facModal_ort").val($("#setupFac_ort").val());
+    $("#facModal_spcfnc").val($("#setupFac_spcfnc").val());
+    $("#facModal_portInfor").val($("#setupFac_portInfor").val()); 
+    $("#facModal_act").val($("#setupFac_act").val()); 
 
 }
 
-function checkFacInfor(){
-    if(($("#fac").val() != "") && ($("#ftyp").val() != ""))
+function setupFac_checkInputs(){
+    if(($("#setupFac_fac").val() != "") && ($("#setupFac_ftyp").val() != ""))
         return true;
     else return false;
 }

@@ -1,51 +1,51 @@
 // ----------------FACMODAL---------------------------------------------
 
 
-$("#submitAlmModal").click(function(){
-    if($("#almActModal").val()=="ACK"){
-        queryAlmModal('ack');
+$("#almModal_submit").click(function(){
+    if($("#almModal_act").val()=="ACK"){
+        almModal_query('ack');
        
-    } else if($("#almActModal").val()=="UN-ACK"){
-        queryAlmModal('unack');
-    } else if($("#almActModal").val()=="CLR"){
-        queryAlmModal('clr');
+    } else if($("#almModal_act").val()=="UN-ACK"){
+        almModal_query('unack');
+    } else if($("#almModal_act").val()=="CLR"){
+        almModal_query('clr');
     }
 })
-function clearAlmModalForm(){
-    $("#almRemarkModal").val("").change();
-    $("#resultAlmModal").text("");
+function almModal_clearForm(){
+    $("#almModal_remark").val("").change();
+    $("#almModal_result").text("");
 }
-$("#clrAlmModal").click(clearAlmModalForm);
+$("#almModal_clear").click(almModal_clearForm);
 
-function queryAlmModal(action){
+function almModal_query(action){
     
     $.post("./php/coQueryAlm.php",
     {     
         act:action,
         user:"ninh",
-        id:$("#alm_id").val(),
-        ack : $("#almAckModal").val(),
-        almid : $("#almIdModal").val(),
-        remark : $("#almRemarkModal").val() 
+        id:$("#almModal_alm_id").val(),
+        ack : $("#almModal_ack").val(),
+        almid : $("#almModal_almId").val(),
+        remark : $("#almModal_remark").val() 
     },
     function (data, status) {       
         var obj = JSON.parse(data);
         if(obj["rslt"]=="fail"){
-            $("#resultAlmModal").text(obj['reason']);
+            alert(obj['reason']);
         }else{
             if(obj['rows'].length==0){
-                $("#resultAlmModal").text("There is no matching data!");
+                alert("There is no matching data!");
             }
             else{
-                almTableIndex=0;
-                almArray = obj['rows'];
-                var len = almArray.length; 
-                maxAlmTableIndex = Math.ceil(len/100.0);
-                almTableIndex++;
-                displayAlm(almTableIndex);
-                if(action=="ack") $("#resultAlmModal").text("The alarm is acknowledged successfully!");
-                else if(action=="unack") $("#resultAlmModal").text("The alarm is unacknowledged successfully!");
-                else if(action=="clr") $("#resultAlmModal").text("The alarm is cleared successfully!");
+                adminAlm_tableIndex=0;
+                adminAlm_table = obj['rows'];
+                var len = adminAlm_table.length; 
+                adminAlm_maxTableIndex = Math.ceil(len/100.0);
+                adminAlm_tableIndex++;
+                adminAlm_displayTable(adminAlm_tableIndex);
+                if(action=="ack") $("#almModal_result").text("The alarm is acknowledged successfully!");
+                else if(action=="unack") $("#almModal_result").text("The alarm is unacknowledged successfully!");
+                else if(action=="clr") $("#almModal_result").text("The alarm is cleared successfully!");
 
             }  
         } 

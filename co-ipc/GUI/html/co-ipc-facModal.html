@@ -14,19 +14,19 @@
             <div class="row">
  
                 <div class="col-sm-9 modifyPadding">
-                    <label for="facNumModal">FAC</label>
-                    <input type="text" class="form-control" id="facNumModal" placeholder="Ex. 9017-00000-01L">
+                    <label for="facModal_fac">FAC</label>
+                    <input type="text" class="form-control" id="facModal_fac" placeholder="Ex. 9017-00000-01L">
                 </div>
                 <div class="col-sm-3 modifyPadding">
-                    <label for="portInfoModal">PORT</label>
-                    <input type="text" class="form-control" id="portInfoModal" readonly>
+                    <label for="facModal_portInfo">PORT</label>
+                    <input type="text" class="form-control" id="facModal_portInfo" readonly>
                 </div> 
 
                 <!-- --------------------------------------------- -->
                 
                 <div class="col-sm-4 modifyPadding">
-                    <label for="ftypModal">FTYP</label>
-                    <select class="form-control" id="ftypModal">
+                    <label for="facModal_ftyp">FTYP</label>
+                    <select class="form-control" id="facModal_ftyp">
                         <option></option>
                         <option>CP</option>
                         <option>OE</option>
@@ -36,8 +36,8 @@
                 </div> 
                 
                 <div class="col-sm-4 modifyPadding">
-                    <label for="ortModal">ORT</label>
-                    <select class="form-control" id="ortModal">
+                    <label for="facModal_ort">ORT</label>
+                    <select class="form-control" id="facModal_ort">
                         <option></option>
                         <option>CP</option>
                         <option>OE</option>
@@ -46,8 +46,8 @@
                     </select>
                 </div>  
                 <div class="col-sm-4 modifyPadding">
-                    <label for="spcfncModal">SPCFNC</label>
-                    <select class="form-control" id="spcfncModal">
+                    <label for="facModal_spcfnc">SPCFNC</label>
+                    <select class="form-control" id="facModal_spcfnc">
                         <option></option>
                         <option>SP</option>
                         <option>RE</option>
@@ -58,16 +58,16 @@
                 <!---------------------------------------  -->
                                 
                 <div class="col-sm-3 modifyPadding">
-                    <label for="facActModal">ACTION</label>
-                    <input type="text" class="form-control" id="facActModal" readonly>
+                    <label for="facModal_facAct">ACTION</label>
+                    <input type="text" class="form-control" id="facModal_act" readonly>
                 </div>
                 
                 <div class="col-sm-9 modifyPadding">
-                    <button id="submitFacModal" type="button" class="btn btn-primary">Submit</button>
-                    <button id="clrFacModal" type="button" class="btn btn-primary">Cancel</button>
-                    &nbsp;&nbsp; <input type="number" id="fac_id" style="width:50px;">
+                    <button id="facModal_submit" type="button" class="btn btn-primary">Submit</button>
+                    <button id="facModal_clear" type="button" class="btn btn-primary">Cancel</button>
+                    &nbsp;&nbsp; <input type="number" id="facModal__fac_id" style="width:50px;">
                     <br>
-                    <label id="resultFacModal" style="color:red"></label>
+                    <label id="facModal_result" style="color:red"></label>
                 </div>
      
             </div>

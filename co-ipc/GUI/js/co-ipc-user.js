@@ -1,56 +1,65 @@
+var setupUser_table;
+var setupUser_tableIndex;
+var setupUser_maxTableIndex;
 
 
-var userArray;
-var userTableIndex;
-var maxUserTableIndex;
-
-
-function clearUserTable() {
-    $("#tableUser").empty();
+function setupUser_clearTable() {
+    $("#setupUser_table").empty();
 }
-$(document).on("click","#tableUser tr",function(){
+$(document).on("click","#setupUser_table tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
 
     //Populate the information 
-    $("#user_id").val(dataRow[0]).change();
-    $("#userName").val(dataRow[1]).change();
-    $("#userStat").val(dataRow[2]).change();
-    $("#userLastLogin").val(dataRow[7]).change();       
-    $("#userFN").val(dataRow[8]).change();       
-    $("#userLN").val(dataRow[9]).change();       
-    $("#userSsn").val(dataRow[10]).change();       
-    $("#userTel").val(dataRow[3]).change();       
-    $("#userEmail").val(dataRow[4]).change();       
-    $("#userTitle").val(dataRow[5]).change();       
-    $("#userGroup").val(dataRow[6]).change();       
+    $("#userModal_user_id").val(dataRow[0]).change();
+    $("#setupUser_user").val(dataRow[1]).change();
+    $("#setupUser_stat").val(dataRow[2]).change();
+    $("#setupUser_lastLogin").val(dataRow[7]).change();       
+    $("#setupUser_FN").val(dataRow[8]).change();       
+    $("#setupUser_LN").val(dataRow[9]).change();       
+    $("#setupUser_ssn").val(dataRow[10]).change();       
+    $("#setupUser_tel").val(dataRow[3]).change();       
+    $("#setupUser_email").val(dataRow[4]).change();       
+    $("#setupUser_title").val(dataRow[5]).change();       
+    $("#setupUser_group").val(dataRow[6]).change();       
        
     //Add color to the row       
     $(this).addClass("addColor"); //add class selected to current clicked row       
-    $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of        the rows  
+    $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
 });
 
 
+$("#setupUser_findUser").click(function(){
+    setupUser_query("findUser");
+})
+$("#setupUser_findNameSsn").click(function(){
+    setupUser_query("findNameSsn");
+})
+$("#setupUser_findTelEmail").click(function(){
+    setupUser_query("findTelEmail");
+})
+$("#setupUser_findTitleGrp").click(function(){
+    setupUser_query("findTitleGrp");
+})
 
-
-function queryUser(action){
+function setupUser_query(action){
     
     $.post("./php/coQueryUser.php",
     {     
         act:action,
         user:"ninh",
-        id:$("#user_id").val(),
-        uname:$("#userName").val(),
-        stat:$("#userStat").val(),
-        lastlogin:$("#userLastLogin").val(),
-        fname:$("#userFN").val(),
-        lname:$("#userLN").val(),
-        ssn:$("#userSsn").val(),
-        tel:$("#userTel").val(),
-        email:$("#userEmail").val(),
-        title:$("#userTitle").val(),
-        grp:$("#userGroup").val(),
+        id:$("#userModal_user_id").val(),
+        uname:$("#setupUser_user").val(),
+        stat:$("#setupUser_stat").val(),
+        lastlogin:$("#setupUser_lastLogin").val(),
+        fname:$("#setupUser_FN").val(),
+        lname:$("#setupUser_LN").val(),
+        ssn:$("#setupUser_ssn").val(),
+        tel:$("#setupUser_tel").val(),
+        email:$("#setupUser_email").val(),
+        title:$("#setupUser_title").val(),
+        grp:$("#setupUser_group").val(),
         
     },
     function (data, status) {       
@@ -62,12 +71,12 @@ function queryUser(action){
                 alert("There is no matching data!");
             }
             else{
-                userTableIndex=0;
-                userArray = obj['rows'];
-                var len = userArray.length; 
-                maxUserTableIndex = Math.ceil(len/100.0);
-                userTableIndex++;
-                displayUser(userTableIndex);
+                setupUser_tableIndex=0;
+                setupUser_table = obj['rows'];
+                var len = setupUser_table.length; 
+                setupUser_maxTableIndex = Math.ceil(len/100.0);
+                setupUser_tableIndex++;
+                setupUser_displayTable(setupUser_tableIndex);
                 if(action=="add") alert("User is added successfully!");
                 // else if(action=="del") alert("User is deleted successfully!");
                 else if(action=="upd") alert("User is updated successfully!");
@@ -75,134 +84,134 @@ function queryUser(action){
         } 
     });
 }
-function displayUser(index){   
+function setupUser_displayTable(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = userArray.length;
+    var len = setupUser_table.length;
 
     if(len>=startIndex){
         if(len < stopIndex)
             stopIndex=len;            
-        clearUserTable();
+        setupUser_clearTable();
         var a = [];
         for (var i=0; i<stopIndex; i++) {  
-            a.push('<tr> <td style="display:none">' + userArray[i].id + '</td>')  
-            a.push('<td style="width:20%">' + userArray[i].uname + '</td>');
-            a.push('<td style="width:10%">' +  userArray[i].stat + '</td>');
-            a.push('<td style="width:10%">' +  userArray[i].tel + '</td>');
-            a.push('<td style="width:20%">' +  userArray[i].email + '</td>');
-            a.push('<td style="width:20%">' +  userArray[i].title + '</td>');
-            a.push('<td style="width:20%">' +  userArray[i].grp + '</td>');
-            a.push('<td style="display:none">' +  userArray[i].lastlogin + '</td>');
-            a.push('<td style="display:none">' +  userArray[i].fname + '</td>');
-            a.push('<td style="display:none">' +  userArray[i].lname + '</td>');
-            a.push('<td style="display:none">' +  userArray[i].ssn + '</td></tr>');
+            a.push('<tr> <td style="display:none">' + setupUser_table[i].id + '</td>')  
+            a.push('<td style="width:20%">' + setupUser_table[i].uname + '</td>');
+            a.push('<td style="width:10%">' +  setupUser_table[i].stat + '</td>');
+            a.push('<td style="width:10%">' +  setupUser_table[i].tel + '</td>');
+            a.push('<td style="width:20%">' +  setupUser_table[i].email + '</td>');
+            a.push('<td style="width:20%">' +  setupUser_table[i].title + '</td>');
+            a.push('<td style="width:20%">' +  setupUser_table[i].grp + '</td>');
+            a.push('<td style="display:none">' +  setupUser_table[i].lastlogin + '</td>');
+            a.push('<td style="display:none">' +  setupUser_table[i].fname + '</td>');
+            a.push('<td style="display:none">' +  setupUser_table[i].lname + '</td>');
+            a.push('<td style="display:none">' +  setupUser_table[i].ssn + '</td></tr>');
         }
-        document.getElementById("tableUser").innerHTML = a.join("");
-        $("#indexUser").text("From "+(startIndex+1)+" to "+stopIndex);
+        document.getElementById("setupUser_table").innerHTML = a.join("");
+        $("#setupUser_index").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
 
-$("#nextUser").click(function(){
-    if(userTableIndex<maxUserTableIndex){
-        userTableIndex++;
-        displayUser(userTableIndex);
+$("#setupUser_next").click(function(){
+    if(setupUser_tableIndex<setupUser_maxTableIndex){
+        setupUser_tableIndex++;
+        setupUser_displayTable(setupUser_tableIndex);
     }  
 })
 
-$("#previousUser").click(function(){
-    if(userTableIndex>1){
-        userTableIndex--;
-        displayUser(userTableIndex);   
+$("#setupUser_previous").click(function(){
+    if(setupUser_tableIndex>1){
+        setupUser_tableIndex--;
+        setupUser_displayTable(setupUser_tableIndex);   
     }         
 })
 
-$("#findUser1").click(function(){
-    queryUser('query');
-});
+// $("#findUser1").click(function(){
+//     setupUser_query('query');
+// });
 
-$("#clrUser").click(clearUserForm);
+$("#setupUser_clear").click(setupUser_clearForm);
 
-function clearUserForm(){
-    $("#user_id").val("");
-    $("#userName").val("");
-    $("#userStat").val("");
-    $("#userLastLogin").val("");
-    $("#userFN").val("");
-    $("#userLN").val("");
-    $("#userSsn").val("");
-    $("#userTel").val("");
-    $("#userEmail").val("");
-    $("#userTitle").val("");
-    $("#userGroup").val("");
-    $("#checkUserInfor").text("");
+function setupUser_clearForm(){
+    $("#userModal_user_id").val("");
+    $("#setupUser_user").val("");
+    $("#setupUser_stat").val("");
+    $("#setupUser_lastLogin").val("");
+    $("#setupUser_FN").val("");
+    $("#setupUser_LN").val("");
+    $("#setupUser_ssn").val("");
+    $("#setupUser_tel").val("");
+    $("#setupUser_email").val("");
+    $("#setupUser_title").val("");
+    $("#setupUser_group").val("");
+    $("#setupUser_checkInfor").text("");
 }
 
 
-$(document).on('mouseup', '[id = userAct]', function () {
-    if($("#userAct").val() !=""){
-        $("#checkUserInfor").text("");
+$(document).on('mouseup', '[id = setupUser_act]', function () {
+    if($("#setupUser_act").val() !=""){
+        $("#setupUser_checkInfor").text("");
 
-        if($("#userAct").val() == "ADD"){
-            clearUserModalForm();
-            $("#userActModal").val($("#userAct").val());
+        if($("#setupUser_act").val() == "ADD"){
+            userModal_clearForm();
+            $("#userModal_act").val($("#setupUser_act").val());
             $("#userModal").modal();
         } else{
-            if(checkAlarmInfor()){
-                clearUserModalForm();
-                populateUserModal();
+            if(setupUser_checkInfor()){
+                userModal_clearForm();
+                setupUser_populateUserModal();
                 $("#userModal").modal();
 
-                // if($("#userAct").val()=="UPDATE"){
-                //     clearUserModalForm();
-                //     populateUserModal();
+                // if($("#setupUser_act").val()=="UPDATE"){
+                //     userModal_clearForm();
+                //     setupUser_populateUserModal();
                 //     $("#userModal").modal();
-                //     //queryUser('upd');
-                // } else if($("#userAct").val()=="DELETE"){
-                //     clearUserModalForm();
-                //     populateUserModal();
+                //     //setupUser_query('upd');
+                // } else if($("#setupUser_act").val()=="DELETE"){
+                //     userModal_clearForm();
+                //     setupUser_populateUserModal();
                 //     $("#userModal").modal();
-                //     //queryUser('del');
-                // }  else if($("#userAct").val()=="LOCK"){
-                //     clearUserModalForm();
-                //     populateUserModal();
+                //     //setupUser_query('del');
+                // }  else if($("#setupUser_act").val()=="LOCK"){
+                //     userModal_clearForm();
+                //     setupUser_populateUserModal();
                 //     $("#userModal").modal();
                     
-                // }  else if($("#userAct").val()=="UNLOCK"){
-                //     clearUserModalForm();
-                //     populateUserModal();
+                // }  else if($("#setupUser_act").val()=="UNLOCK"){
+                //     userModal_clearForm();
+                //     setupUser_populateUserModal();
                 //     $("#userModal").modal();
                     
                 // }
             }
-            else  $("#checkUserInfor").html("Missing user information!");
+            else  $("#setupUser_checkInfor").html("Missing user information!");
         } 
         
     }
     
-    // $("#userAct").val("");
+    // $("#setupUser_act").val("");
 })
 
 
-function populateUserModal(){
-    $("#userNameModal").val($("#userName").val());
-    $("#userStatModal").val($("#userStat").val());
-    $("#userLastLoginModal").val($("#userLastLogin").val());
-    $("#userFNModal").val($("#userFN").val());
-    $("#userLNModal").val($("#userLN").val());
-    $("#userSsnModal").val($("#userSsn").val());
-    $("#userTelModal").val($("#userTel").val());
-    $("#userEmailModal").val($("#userEmail").val());
-    $("#userTitleModal").val($("#userTitle").val());
-    $("#userGroupModal").val($("#userGroup").val());
+function setupUser_populateUserModal(){
+    $("#userModal_user").val($("#setupUser_user").val());
+    $("#userModal_stat").val($("#setupUser_stat").val());
+    $("#userModal_lastLogin").val($("#setupUser_lastLogin").val());
+    $("#userModal_FN").val($("#setupUser_FN").val());
+    $("#userModal_LN").val($("#setupUser_LN").val());
+    $("#userModal_ssn").val($("#setupUser_ssn").val());
+    $("#userModal_tel").val($("#setupUser_tel").val());
+    $("#userModal_email").val($("#setupUser_email").val());
+    $("#userModal_title").val($("#setupUser_title").val());
+    $("#userModal_group").val($("#setupUser_group").val());
 
-    $("#userActModal").val($("#userAct").val());
+    $("#userModal_act").val($("#setupUser_act").val());
 
 
 }
 
-function checkAlarmInfor(){
-    if($("#user_id").val() != "")
+function setupUser_checkInfor(){
+    if($("#userModal_user_id").val() != "")
         return true;
     else return false;
 }

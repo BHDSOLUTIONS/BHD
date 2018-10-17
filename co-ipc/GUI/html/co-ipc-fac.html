@@ -5,22 +5,22 @@
         <div class="row">
             <div class="col-sm-5">
                 <div class="col-sm-8 modifyPadding">
-                    <label for="fac">FAC</label>
-                    <input type="text" class="form-control" id="fac" placeholder="Ex. 9017-00000-01L">
+                    <label for="setupFac_fac">FAC</label>
+                    <input type="text" class="form-control" id="setupFac_fac" placeholder="Ex. 9017-00000-01L">
                 </div>
                 <div class="col-sm-2 modifyPadding">
-                    <label for="portInfo">PORT</label>
-                    <input type="text" class="form-control" id="portInfo" readonly>
+                    <label for="setupFac_portInfo">PORT</label>
+                    <input type="text" class="form-control" id="setupFac_portInfo" readonly>
                 </div> 
                 <div class="col-sm-2 modifyPadding">
-                    <button id="findFac" class="btn btn-primary">Find</button>
+                    <button id="setupFac_findFac" class="btn btn-primary">Find</button>
                 </div> 
 
                 <!-- --------------------------------------------- -->
                 
                 <div class="col-sm-3 modifyPadding">
-                    <label for="ftyp">FTYP</label>
-                    <select class="form-control" id="ftyp">
+                    <label for="setupFac_ftyp">FTYP</label>
+                    <select class="form-control" id="setupFac_ftyp">
                         <option></option>
                         <option>CP</option>
                         <option>OE</option>
@@ -30,8 +30,8 @@
                 </div> 
                 
                 <div class="col-sm-3 modifyPadding">
-                    <label for="ort">ORT</label>
-                    <select class="form-control" id="ort">
+                    <label for="setupFac_ort">ORT</label>
+                    <select class="form-control" id="setupFac_ort">
                         <option></option>
                         <option>CP</option>
                         <option>OE</option>
@@ -40,8 +40,8 @@
                     </select>
                 </div>  
                 <div class="col-sm-4 modifyPadding">
-                    <label for="spcfnc">SPCFNC</label>
-                    <select class="form-control" id="spcfnc">
+                    <label for="setupFac_spcfnc">SPCFNC</label>
+                    <select class="form-control" id="setupFac_spcfnc">
                         <option></option>
                         <option>SP</option>
                         <option>RE</option>
@@ -50,14 +50,14 @@
                     </select>
                 </div> 
                 <div class="col-sm-2 modifyPadding">
-                    <button id="findFOS" class="btn btn-primary">Find</button>
+                    <button id="setupFac_findFOS" class="btn btn-primary">Find</button>
                 </div> 
 
                 <!---------------------------------------  -->
                                 
                 <div class="col-sm-3 modifyPadding">
-                    <label for="facAct">ACTION</label>
-                    <select class="form-control" id="facAct" >
+                    <label for="setupFac_act">ACTION</label>
+                    <select class="form-control" id="setupFac_act" >
                         <option></option>
                         <option>ADD</option>
                         <option>UPDATE</option>
@@ -66,16 +66,16 @@
                 </div>
 
                 <div class="col-sm-6 modifyPadding">   
-                    <button id="clrFac" type="button" class="btn btn-primary">Cancel</button>
+                    <button id="setupFac_clear" type="button" class="btn btn-primary">Cancel</button>
                     <br>
-                    <label id="checkFacInfor" style="color:red"></label>
+                    <!-- <label id="checkFacInfor" style="color:red"></label> -->
                 </div>
                                     
             </div>
             <div class="col-sm-7">
                 <div class="col-sm-6">
-                    <a  id="previousFac">Previous</a> | <a  id="nextFac">Next</a>
-                    &nbsp&nbsp&nbsp<label id="indexFac"></label>
+                    <a  id="setupFac_previous">Previous</a> | <a  id="setupFac_next">Next</a>
+                    &nbsp&nbsp&nbsp <label id="setupFac_index"></label>
                 </div>
                 <div class="col-sm-12">
                     <div class="panel panel-default">
@@ -90,7 +90,7 @@
                                     
                                 </tr>
                             </thead>
-                            <tbody id="tableFac">
+                            <tbody id="setupFac_tableFac">
                         
                             </tbody>
                         </table>

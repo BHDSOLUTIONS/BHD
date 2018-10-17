@@ -1,11 +1,11 @@
 
 $(document).ready(function() { 
-    queryFac('query');
+    setupFac_query('query');
  
 });
 $("#menuFacSet").click(function(){
-    clearFacForm()
-    queryFac('query');
+    setupFac_clearForm()
+    setupFac_query('query');
 })
 $("#menuPortMap").click(function(){
     pm_clearForm();
@@ -18,12 +18,12 @@ $("#menuProv").click(function(){
 })
 
 $("#menuAlm").click(function(){
-    clearAlmForm()
-    queryAlm('query');
+    adminAlm_clearForm()
+    adminAlm_query('query');
 })
 $("#menuUserSet").click(function(){
-    clearUserForm()
-    queryUser('query');
+    setupUser_clearForm()
+    setupUser_query('query');
 })
 
 $(document).on("click","#displayMenu",function(){
