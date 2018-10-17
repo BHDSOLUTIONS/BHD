@@ -34,6 +34,12 @@
 		return;
 	}
 	
+	if ($act == "findAvailFac") {
+		$result = queryFac($act);
+		echo json_encode($result);
+		return;
+	}
+
 	if ($act == "findFac") {
 		$result = queryFac($act);
 		echo json_encode($result);
@@ -78,7 +84,9 @@
 		
 		if ($act == "query")
 			$qry = "SELECT * FROM t_facs";
-        else if ($act == "findFac")
+        else if ($act == "findAvailFac")
+			$qry = "SELECT * FROM t_facs WHERE port_id=0";
+		else if ($act == "findFac")
 			$qry = "SELECT * FROM t_facs WHERE fac LIKE '%$fac%%'";
 		else if ($act == "findFOS")
 			$qry = "SELECT * FROM t_facs WHERE ftyp LIKE '%$ftyp%%' AND ort LIKE '%$ort%%' AND spcfnc LIKE '%$spcfnc%%'"; 

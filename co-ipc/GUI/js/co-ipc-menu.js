@@ -8,8 +8,8 @@ $("#menuFacSet").click(function(){
     queryFac('query');
 })
 $("#menuPortMap").click(function(){
-    clearPortForm();
-    queryPort('query');
+    pm_clearForm();
+    pm_queryPort('query');
 })
 $("#menuProv").click(function(){
     clearCktForm();

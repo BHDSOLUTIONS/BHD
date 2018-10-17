@@ -106,7 +106,7 @@
 		$qry = "UPDATE t_facs SET port_id=" . $port_id . ", port='" . $port . "' WHERE id=" . $fac_id;
 		$res = $db->query($qry);
 				
-		return queryPort($node, $slot, $ptyp, $pnum, "");
+		return queryPort("", "", "", "", "");
 	}
 
 	function unmapPort($port_id, $fac_id) {
@@ -140,7 +140,7 @@
 		$qry = "UPDATE t_facs SET port_id=" . 0 . ", port='' WHERE id=" . $fac_id;
 		$res = $db->query($qry);
 				
-		return queryPort($node, $slot, "", "", "");
+		return queryPort("", "", "", "", "");
 	}
 	
 	function getSms($psta, $ssta, $evt) {
