@@ -22,6 +22,7 @@
 	$fac_id = $_POST['fac_id'];
 	$fac = $_POST['fac'];
 	$ftyp = $_POST['ftyp'];
+	$ckid = $_POST['ckid'];
 	
 	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
 	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");

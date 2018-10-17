@@ -47,7 +47,7 @@
         fac:	$("#pm_fac").val(),
         fac_id:	$("#pmModal_fac_id").val(),
         port_id:$("#pmModal_port_id").val(),
-        ckt:    ""
+        ckid:   $("#pm_ckid").val()
     },
     function (data, status) {
         var obj = JSON.parse(data);

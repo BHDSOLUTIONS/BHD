@@ -17,7 +17,7 @@ $("#searchCktCon").click(function(){
     queryCktCon('query');
 });
 
-$("#clrCkt").click(function(){
+$("#prov_clrCkt").click(function(){
     clearCktForm();
     // clearCktConForm();
     clearCktConTable();
@@ -53,39 +53,39 @@ $("#previousCktCon").click(function(){
     }         
 })
 
-$(document).on("click","#tableCkt tr",function(){
+$(document).on("click","#prov_tableCkt tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
     //Populate the information 
-	$("#ckt_id").val(dataRow[0]).change();
-	$("#ckid").val(dataRow[1]).change();
-    $("#cls").val(dataRow[2]).change();
-    $("#adsr").val(dataRow[3]).change();
-    $("#prot").val(dataRow[4]).change();
-    $("#ordno").val(dataRow[5]).change();
-    $("#mlo").val(dataRow[6]).change();
-    $("#cktcon_id").val(dataRow[8]).change();
+	$("#prov_ckt_id").val(dataRow[0]).change();
+	$("#prov_ckid").val(dataRow[1]).change();
+    $("#prov_cls").val(dataRow[2]).change();
+    $("#prov_adsr").val(dataRow[3]).change();
+    $("#prov_prot").val(dataRow[4]).change();
+    $("#prov_ordno").val(dataRow[5]).change();
+    $("#prov_mlo").val(dataRow[6]).change();
+    $("#prov_cktcon_id").val(dataRow[8]).change();
 
     // Refresh cktcon_idx
-    $("#cktcon_idx").val("");
-    $("#cktcontbl").show();
+    $("#prov_cktcon_idx").val("");
+    $("#prov_cktcontbl").show();
     
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
     
-    if ($('#cktcon_id').val() != "")
-		queryCktcon($('#cktcon_id').val());
+    if ($('#prov_cktcon_id').val() != "")
+		queryCktcon($('#prov_cktcon_id').val());
 		
 });
 
-$(document).on("click","#tableCktCon tr",function(){
+$(document).on("click","#prov_tableCktCon tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
     //Populate the information 
-    $("#cktcon_idx").val(dataRow[0]);
+    $("#prov_cktcon_idx").val(dataRow[0]);
     $("#ctypModal4DisConn").val(dataRow[1]);
     $("#ffacModal4DisConn").val(dataRow[2]);
     $("#tfacModal4DisConn").val(dataRow[3]);
@@ -97,13 +97,13 @@ $(document).on("click","#tableCktCon tr",function(){
 });
 
 
-$(document).on('mouseup', '[id = cktAct]', function () {
+$(document).on('mouseup', '[id = prov_cktAct]', function () {
     
-    if ($("#cktAct").val() == "NEW CKT") {
+    if ($("#prov_cktAct").val() == "NEW CKT") {
         
         //$("#checkProvInfor").text("");
         clearProvModalForm();
-        $("#cktActModal").val($("#cktAct").val());
+        $("#cktActModal").val($("#prov_cktAct").val());
 
         loadFacX();
         loadFacY();
@@ -126,7 +126,7 @@ $(document).on('mouseup', '[id = cktAct]', function () {
         clearCktConTable();
         
     }
-    else if($("#cktAct").val() == "CONN"){
+    else if($("#prov_cktAct").val() == "CONN"){
         //$("#checkProvInfor").text("");
         if(checkProvInfor4Conn()){
             clearProvModalForm();
@@ -150,11 +150,11 @@ $(document).on('mouseup', '[id = cktAct]', function () {
         else{
             //$("#checkProvInfor").text("Missing CKT information!")
             alert ("Please select a CKT");
-            $("#cktAct").val("");
+            $("#prov_cktAct").val("");
         }
         
     }
-    else if($("#cktAct").val() == "DISCONN"){
+    else if($("#prov_cktAct").val() == "DISCONN"){
         //$("#checkProvInfor").text("");
         if(checkProvInfor4DisConn()){
             clearProvModalForm();
@@ -176,7 +176,7 @@ $(document).on('mouseup', '[id = cktAct]', function () {
         else{
             //$("#checkProvInfor").html("Missing CKT information!<br>And a CKT connection must be chosed")
             alert("Please select a CKT CONNECTION");
-            $("#cktAct").val("");
+            $("#prov_cktAct").val("");
             
         }
         
@@ -187,12 +187,12 @@ $(document).on('mouseup', '[id = cktAct]', function () {
 /* Functions section */
 
 function populateProvModal(){
-    $("#ckidModal").val($("#ckid").val()),
-    $("#clsModal").val($("#cls").val()),
-    $("#adsrModal").val($("#adsr").val()),
-    $("#protModal").val($("#prot").val()),
-    $("#ordnoModal").val($("#ordno").val()),
-    $("#mloModal").val($("#mlo").val()),
+    $("#ckidModal").val($("#prov_ckid").val()),
+    $("#clsModal").val($("#prov_cls").val()),
+    $("#adsrModal").val($("#prov_adsr").val()),
+    $("#protModal").val($("#prov_prot").val()),
+    $("#ordnoModal").val($("#prov_ordno").val()),
+    $("#mloModal").val($("#prov_mlo").val()),
     // $("#ctypModal4DisConn").val($("#ctyp").val()),
     // $("#ffacModal4DisConn").val($("#ffac").val()),
     // $("#tfacModal4DisConn").val($("#tfac").val()),
@@ -201,13 +201,13 @@ function populateProvModal(){
 
 
 function checkProvInfor4Conn(){
-    if (($("#ckt_id").val() != "") && ($("#cktcon_id").val() != ""))
+    if (($("#prov_ckt_id").val() != "") && ($("#prov_cktcon_id").val() != ""))
         return true;
     else
 		return false;
 }
 function checkProvInfor4DisConn(){
-    if (($("#ckt_id").val() != "") && ($("#cktcon_id").val() != "") && ($("#cktcon_idx").val() != ""))
+    if (($("#prov_ckt_id").val() != "") && ($("#prov_cktcon_id").val() != "") && ($("#prov_cktcon_idx").val() != ""))
         return true;
     else
 		return false;
@@ -215,11 +215,11 @@ function checkProvInfor4DisConn(){
 
 function clearCktTable() {
 	
-    $("#tableCkt").empty();
+    $("#prov_tableCkt").empty();
 }
 
 function clearCktConTable() {
-    $("#tableCktCon").empty();
+    $("#prov_tableCktCon").empty();
     //$("#cktcontbl").hide();
 }
 
@@ -231,12 +231,12 @@ function queryCkt(action) {
     {     
         act:	action,
         user:	"ninh",
-        ckid:	$("#ckid").val(),
-        cls:	$("#cls").val(),
-        adsr:	$("#adsr").val(),
-        prot:	$("#prot").val(),
-        ordno:	$("#ordno").val(),
-        mlo:	$("#mlo").val()
+        ckid:	$("#prov_ckid").val(),
+        cls:	$("#prov_cls").val(),
+        adsr:	$("#prov_adsr").val(),
+        prot:	$("#prov_prot").val(),
+        ordno:	$("#prov_ordno").val(),
+        mlo:	$("#prov_mlo").val()
        
     },
     function (data, status) {       
@@ -317,7 +317,7 @@ function displayCkt(index){
             a.push('<td style="display:none">' +  cktArray[i].cktcon + '</td></tr>');
             
         }
-        document.getElementById("tableCkt").innerHTML = a.join("");
+        document.getElementById("prov_tableCkt").innerHTML = a.join("");
         $("#indexCkt").text("From " + (startIndex+1) + " to " + stopIndex);
     } 
 }
@@ -339,7 +339,7 @@ function displayCktCon(index){
             a.push('<td style="width:35%">' +  cktConArray[i].ffac + '</td>');
             a.push('<td style="width:35%">' +  cktConArray[i].tfac + '</td><tr>');
         }
-        document.getElementById("tableCktCon").innerHTML = a.join("");
+        document.getElementById("prov_tableCktCon").innerHTML = a.join("");
         //$("#indexCktCon").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
@@ -347,16 +347,16 @@ function displayCktCon(index){
 
 function clearCktForm(){
     // $("#ck_id").val("").change();
-    $("#ckid").val("").change();
-    $("#cls").val("").change();
-    $("#adsr").val("").change();
-    $("#prot").val("").change();
-    $("#ordno").val("").change();
-    $("#mlo").val("").change();
-    $("#cktAct").val("");
-    $("#ckt_id").val("").change();
-    $("#cktcon_id").val("").change();
-    $("#cktcon_idx").val("").change();
+    $("#prov_ckid").val("").change();
+    $("#prov_cls").val("").change();
+    $("#prov_adsr").val("").change();
+    $("#prov_prot").val("").change();
+    $("#prov_ordno").val("").change();
+    $("#prov_mlo").val("").change();
+    $("#prov_cktAct").val("");
+    $("#prov_ckt_id").val("").change();
+    $("#prov_cktcon_id").val("").change();
+    $("#prov_cktcon_idx").val("").change();
 	clearCktConTable();
 }
 
