@@ -34,7 +34,7 @@ $("#userModal_clear").click(userModal_clearForm);
 
 function userModal_query(action){
     
-    $.post("./php/coQueryUser.php",
+    $.post("../php/coQueryUser.php",
     {     
         act:action,
         user:"ninh",

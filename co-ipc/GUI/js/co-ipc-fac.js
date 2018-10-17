@@ -118,10 +118,10 @@ function setupFac_clearTable() {
 
 function setupFac_query(action){
     
-    $.post("./php/coQueryFac.php",
+    $.post("../php/coQueryFac.php",
     {     
         act: action,
-        user: "ninh",
+        user: currentUser,
 
         fac_id: $("#facModal_fac_id").val(),
         fac: $("#setupFac_fac").val(),

@@ -1,26 +1,26 @@
 <div id="portMap" class="tab-pane fade in">
-    <h4>SETUP PORT MAPPING</h4>
+    <h4>PORTS MAPPING</h4>
     <div class="row">
         <div class="col-sm-5">
 
             <div class="col-sm-2 modifyPadding">
-                <label for="pm_node">NODE</label>
-                <input type="number" class="form-control" id="pm_node">
+                <label for="node">NODE</label>
+                <input type="number" class="form-control" id="node">
             </div>
                 
             <div class="col-sm-2 modifyPadding">
-                <label for="pm_slot">SLOT</label>
-                <input type="number" class="form-control" id="pm_slot">
+                <label for="slot">SLOT</label>
+                <input type="number" class="form-control" id="slot">
             </div>
 
             <div class="col-sm-2 modifyPadding">
-                <label for="pm_pnum">PNUM</label>
-                <input type="number" class="form-control" id="pm_pnum">
+                <label for="pnum">PNUM</label>
+                <input type="number" class="form-control" id="pnum">
             </div>   
 
             <div class="col-sm-2 modifyPadding">
-                <label for="pm_ptyp">PTYP</label>
-                <select class="form-control" id="pm_ptyp">
+                <label for="ptyp">PTYP</label>
+                <select class="form-control" id="ptyp">
                     <option></option>
                     <option>X</option>
                     <option>Y</option>
@@ -28,8 +28,8 @@
             </div>
                 
             <div class="col-sm-2 modifyPadding">
-                <label for="pm_psta">PSTA</label>
-                <select class="form-control" id="pm_psta">
+                <label for="psta">PSTA</label>
+                <select class="form-control" id="psta">
                     <option></option>
                     <option>UAS</option>
                     <option>SF</option>
@@ -37,34 +37,34 @@
             </div>
             
             <div class="col-sm-2 modifyPadding">
-                <button id="pm_findPort" class="btn btn-primary">Find</button>
+                <button id="findPort" class="btn btn-primary">Find</button>
             </div> 
 
             <!-- ---------------------------------------------- -->
 
             <div class="col-sm-10 modifyPadding">
-                <label for="pm_fac">FAC</label>
-                <input type="text" class="form-control" id="pm_fac">
-           </div>
+                <label for="facPort">FAC</label>
+                <input type="text" class="form-control" id="facPort">
+            </div>
 
             <div class="col-sm-2 modifyPadding">
-                <button id="pm_findFac" class="btn btn-primary">Find</button>
+                <button id="findFacNum" class="btn btn-primary">Find</button>
             </div> 
 
             <!-- ----------------------------------------------- -->
     
             <div class="col-sm-10 modifyPadding">
-                <label for="pm_ckid">CKID</label>
-                <input type="text" class="form-control" id="pm_ckid">
+                <label for="ckt">CKID</label>
+                <input type="text" class="form-control" id="ckt">
             </div>
             <div class="col-sm-2 modifyPadding">
-                <button id="pm_findCkid" class="btn btn-primary">Find</button>
+                <button id="findCkid" class="btn btn-primary">Find</button>
             </div> 
             <!-- ------------------------------------------------ -->
                     
             <div class="col-sm-3 modifyPadding" > 
-                <label for="pm_act">ACTION</label>    
-                <select class="form-control" id="pm_act" >
+                <label for="portAct">ACTION</label>    
+                <select class="form-control" id="portAct" >
                     <option></option>
                     <option>MAP</option>
                     <option>UN-MAP</option>
@@ -72,17 +72,16 @@
                 </select>
             </div> 
             <div class="col-sm-6 modifyPadding">
-                <button id="pm_cancel" type="button" class="btn btn-primary">Cancel</button>
+                <button id="clrPort" type="button" class="btn btn-primary">Cancel</button>
+                <br>
+                <label id="checkPortInfor" style="color:red"></label>
             </div>      
         </div>
         <div class="col-sm-7">
-			<div class="col-sm-6">
-				<label>LIST OF PORTS</label>
-			</div>
             <div class="col-sm-6">
-                <a  id="pm_prev">Previous</a> |
-                <a  id="pm_next">Next</a>
-                &nbsp&nbsp&nbsp <label id="pm_index"></label>
+                <a  id="previousPort">Previous</a> |
+                <a  id="nextPort">Next</a>
+                &nbsp&nbsp&nbsp<label id="indexPort"></label>
             </div>
             
             <div class="col-sm-12">
@@ -96,11 +95,11 @@
                                 <th style="width:10%">PTYP</th>
                                 <th style="width:10%">PSTA</th>
                                 <th style="width:25%">FAC</th>
-                                <th style="width:25%">CKID</th>
+                                <th style="width:25%">CKT</th>
                             </tr>
                         </thead>
-                        <tbody id="pm_table">
-                        
+                        <tbody id="tablePort">
+    
                         </tbody>
                     </table>
                 </div>

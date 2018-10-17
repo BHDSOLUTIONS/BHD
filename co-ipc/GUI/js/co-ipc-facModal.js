@@ -28,7 +28,7 @@ $("#facModal_clear").click(facModal_clearForm);
 
 function facModal_query(action){
     
-    $.post("./php/coQueryFac.php",
+    $.post("../php/coQueryFac.php",
     {     
         act: action,
         user: "ninh",

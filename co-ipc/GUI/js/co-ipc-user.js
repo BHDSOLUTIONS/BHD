@@ -45,7 +45,7 @@ $("#setupUser_findTitleGrp").click(function(){
 
 function setupUser_query(action){
     
-    $.post("./php/coQueryUser.php",
+    $.post("../php/coQueryUser.php",
     {     
         act:action,
         user:"ninh",

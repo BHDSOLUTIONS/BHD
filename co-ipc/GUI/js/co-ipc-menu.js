@@ -1,5 +1,7 @@
 
+
 $(document).ready(function() { 
+    $("#currentUser").text(currentUser);
     setupFac_query('query');
  
 });
@@ -8,8 +10,8 @@ $("#menuFacSet").click(function(){
     setupFac_query('query');
 })
 $("#menuPortMap").click(function(){
-    pm_clearForm();
-    pm_queryPort('query');
+    clearPortForm();
+    queryPort('query');
 })
 $("#menuProv").click(function(){
     clearCktForm();

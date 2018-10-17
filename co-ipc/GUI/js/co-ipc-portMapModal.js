@@ -1,98 +1,85 @@
 // ----------------PORTMODAL---------------------------------------------
-var pmModal_tableArray;
-var pmModal_tableIndex;
-var pmModal_maxTableIndex;
+var facPortModalArray;
+var facTablePortModalIndex;
+var maxFacTablePortModalIndex;
 
-
-$("#pmModal_submit").click(function(){
-    if($("#pmModal_act").val()=="MAP"){
-        pmModal_queryPort('map');
-    } else if($("#pmModal_act").val()=="UN-MAP"){
-        pmModal_queryPort('unmap');
+$("#submitPortModal").click(function(){
+    if($("#portActModal").val()=="MAP"){
+        queryPortModal('map');
+    } else if($("#portActModal").val()=="UN-MAP"){
+        queryPortModal('unmap');
     } 
 })
 
-$(document).on("click","#pmModal_tbody tr",function(){
+$(document).on("click","#tableFacPortModal tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text(); 
     }).get();
     
     //Populate the information 
-    $("#pmModal_fac_id").val(dataRow[0]).change();
-    $("#pmModal_fac").val(dataRow[1]).change();
-    $("#pmModal_ftyp").val(dataRow[2]).change();
-    $("#pmModal_ort").val(dataRow[3]).change();
-    $("#pmModal_spcfnc").val(dataRow[4]).change();
-	$('#pmModal_submit').prop('disabled',false);
+    $("#facPort_id").val(dataRow[0]).change();
+    $("#facPortModal").val(dataRow[1]).change();
+    $("#ftypPortModal").val(dataRow[2]).change();
+
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows
     
 });
 
-function pmModal_clearForm(){
-    $("#pmModal_node").val("").change();
-    $("#pmModal_slot").val("").change();
-    $("#pmModal_pnum").val("").change();
-    $("#pmModal_ptyp").val("").change();
-    $("#pmModal_psta").val("").change();
-    $("#pmModal_fac").val("");
-    $("#pmModal_ftyp").val("");
-    $("#pmModal_ort").val("");
-    $("#pmModal_spcfnc").val("");
-    $("#pmModal_act").val("");
-    $("#pmModal_submit").prop('disabled',true);
+function clearPortModalForm(){
+    $("#nodeModal").val("").change();
+    $("#slotModal").val("").change();
+    $("#pnumModal").val("").change();
+    $("#ptypModal").val("").change();
+    $("#pstaModal").val("").change();
+    $("#facPortModal").val("");
 
-    //$("#facPortModal4Find").val("");
-    //$("#ftypPortModal4Find").val("");
+    $("#facPortModal4Find").val("");
+    $("#ftypPortModal4Find").val("");
     
-    $("#pmModal_tbody").empty();
-    $("#pmModal_index").text("");
-    $("#pmModal_result").text("");
+    $("#tableFacPortModal").empty();
+    $("indexFacPortModal").text("");
+
+    $("#resultPortModal").text("");
 
 }
 
 
-function pmModal_queryPort(action) {
+function queryPortModal(action) {
 
-    $.post("./php/coQueryPort.php",
+    $.post("../php/coQueryPort.php",
     {
         act:	action,
         user:	"ninh",
-        node:	$("#pmModal_node").val(),
-        slot:	$("#pmModal_slot").val(),
-        pnum:	$("#pmModal_pnum").val(),
-        ptyp:	$("#pmModal_ptyp").val(),
-        psta:	$("#pmModal_psta").val(),
-        fac:	$("#pmModal_fac").val(),
-        fac_id:	$("#pmModal_fac_id").val(),
-        port_id:$("#pmModal_port_id").val(),
+        node:	$("#nodeModal").val(),
+        slot:	$("#slotModal").val(),
+        pnum:	$("#pnumModal").val(),
+        ptyp:	$("#ptypModal").val(),
+        psta:	$("#pstaModal").val(),
+        fac:	$("#facPortModal").val(),
+        fac_id:	$("#facPort_id").val(),
+        port_id:$("#port_id").val(),
         ckt:    ""
     },
     function (data, status) {
         var obj = JSON.parse(data);
-        if(obj["rslt"]=="fail") {
-            alert(obj['reason']);
-        }
-        else {
-            if(obj['rows'].length==0) {
-                alert("No record found");
+        if(obj["rslt"]=="fail"){
+            $("#resultPortModal").text(obj['reason']);
+        }else{
+            if(obj['rows'].length==0){
+                $("#resultPortModal").text("There is no matching data!");
             }
-            else {
-                pm_tableIndex=0;
-                pm_tableArray = obj["rows"];
-                var len = pm_tableArray.length; 
-                pm_maxTableIndex = Math.ceil(len/100.0);
-                pm_tableIndex++;
+            else{
+                portTableIndex=0;
+                portArray = obj["rows"];
+                var len = portArray.length; 
+                maxPortTableIndex = Math.ceil(len/100.0);
+                portTableIndex++;
                 
-                displayPort(pm_tableIndex);
-                if (action == "map") {
-					$("#pmModal_result").text(obj['rslt']);
-					$('#pmModal_table').hide();
-					pm_clearForm();
-				}
-                else if(action=="unmap") 
-					$("#pmModal_result").text(obj['rslt']);
+                displayPort(portTableIndex);
+                if(action=="map") $("#resultPortModal").text("Port is mapped successfully!");
+                else if(action=="unmap") $("#resultPortModal").text("Port is unmapped successfully!");
             }
             
         }
@@ -101,40 +88,12 @@ function pmModal_queryPort(action) {
 
 $("#findFacPortModal").click(queryFacPortModal);
 
-function pmModal_queryAvailFac() {
-	$.post("./php/coQueryFac.php",
-	{
-		act:	"findAvailFac",
-		user:	"ninh"
-	},
-	function (data, status) {
-        var obj = JSON.parse(data);
-        if (obj["rslt"]=="fail"){
-            $("#resultPortModal").text(obj['reason']);
-        }
-        else {
-            pmModal_tableArray=[]
-            pmModal_tableIndex=0;
-            var len = obj['rows'].length; 
-
-            //Filter only FAC with no Port
-            for(var i=0;i<len;i++) {
-                if (obj['rows'][i].port =="")
-                    pmModal_tableArray.push(obj['rows'][i]);  
-            }
-            pmModal_maxTableIndex = Math.ceil(len/100.0);
-            pmModal_tableIndex++;           
-            pmModal_loadTable(pmModal_tableIndex);
-        } 
-    });
-}		
-		
-
-function queryFacPortModal() {
-    $.post("./php/coQueryFac.php",
+function queryFacPortModal(){
+    $.post("../php/coQueryFac.php",
     {    
         user:   "ninh", 
         act:    'query',
+
         fac_id: "",
         fac:    $("#facPortModal4Find").val(),
         ftyp:   $("#ftypPortModal").val(),
@@ -143,14 +102,13 @@ function queryFacPortModal() {
     },
     function (data, status) {       
         var obj = JSON.parse(data);
-        if (obj["rslt"]=="fail") {
+        if(obj["rslt"]=="fail"){
             $("#resultPortModal").text(obj['reason']);
-        }
-        else {
-            if (obj['rows'].length==0) {
+        }else{
+            if(obj['rows'].length==0){
                 $("#resultPortModal").text("There is no matching data!");
             }
-            else {
+            else{
                 facPortModalArray=[]
                 facTablePortModalIndex=0;
                 var len = obj['rows'].length; 
@@ -160,40 +118,38 @@ function queryFacPortModal() {
                     if(obj['rows'][i].port =="")
                     facPortModalArray.push(obj['rows'][i]);  
                 }
-                pmModal_maxTableIndex = Math.ceil(len/100.0);
-                pmModal_tableIndex++;           
-                pmModal_loadTable(pmModal_tableIndex);
+                maxFacTablePortModalIndex = Math.ceil(len/100.0);
+                facTablePortModalIndex++;           
+                displayFacPortModal(facTablePortModalIndex);
              
             }  
         } 
     });
 }
 
-
-function pmModal_loadTable(index) {   
-    
+function displayFacPortModal(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = pmModal_tableArray.length;
+    var len = facPortModalArray.length;
 
-    if(len>=startIndex) {
-        if (len < stopIndex)
+    if(len>=startIndex){
+        if(len < stopIndex)
             stopIndex=len;            
-        pmModal_clearTable();
+        clearFacTablePortModal();
         var a = [];
         for (var i=0; i<stopIndex; i++) {  
-            a.push('<tr> <td style="display:none">' + pmModal_tableArray[i].id + '</td>')  
-            a.push('<td style="width:50%">' + pmModal_tableArray[i].fac + '</td>');
-            a.push('<td style="width:15%">' +  pmModal_tableArray[i].ftyp + '</td>');
-            a.push('<td style="width:15%">' +  pmModal_tableArray[i].ort + '</td>');
-            a.push('<td style="width:20%">' +  pmModal_tableArray[i].spcfnc + '</td></tr>');
+            a.push('<tr> <td style="display:none">' + facPortModalArray[i].id + '</td>')  
+            a.push('<td style="width:40%">' + facPortModalArray[i].fac + '</td>');
+            a.push('<td style="width:10%">' +  facPortModalArray[i].ftyp + '</td>');
+            a.push('<td style="width:10%">' +  facPortModalArray[i].ort + '</td>');
+            a.push('<td style="width:17%">' +  facPortModalArray[i].spcfnc + '</td>');
+            a.push('<td style="width:20%">' +  facPortModalArray[i].port + '</td></tr>');
         }
-        document.getElementById("pmModal_tbody").innerHTML = a.join("");
-        $("#pmModal_index").text("From "+(startIndex+1)+" to "+stopIndex);
+        document.getElementById("tableFacPortModal").innerHTML = a.join("");
+        $("#indexFacPortModal").text("From "+(startIndex+1)+" to "+stopIndex);
     } 
 }
 
-
-function pmModal_clearTable(){
-    $("#pmModal_tbody").empty();
+function clearFacTablePortModal(){
+    $("#tableFacPortModal").empty();
 }

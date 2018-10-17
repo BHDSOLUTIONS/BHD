@@ -22,7 +22,7 @@ $(document).on("click","#adminAlm_table tr",function(){
 
 function adminAlm_query(action){
     
-    $.post("./php/coQueryAlm.php",
+    $.post("../php/coQueryAlm.php",
     {     
         act:    action,
         user:   "ninh",

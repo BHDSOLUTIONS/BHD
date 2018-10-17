@@ -19,7 +19,7 @@ $("#almModal_clear").click(almModal_clearForm);
 
 function almModal_query(action){
     
-    $.post("./php/coQueryAlm.php",
+    $.post("../php/coQueryAlm.php",
     {     
         act:action,
         user:"ninh",

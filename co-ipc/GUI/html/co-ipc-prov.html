@@ -1,15 +1,15 @@
 <div id="prov" class="tab-pane fade in">
-    <h4>SETUP SERVICE CONNECTION</h4>
-	<div class="row">
+    <h4>PROVISIONING</h4>
+		<div class="row">
         <div class="col-sm-5">
             <div class="col-sm-4 modifyPadding">
-                <label for="prov_ckid">CKID</label>
-                <input type="text" class="form-control" id="prov_ckid">
+                <label for="ckid">CKID</label>
+                <input type="text" class="form-control" id="ckid">
             </div>
                 
             <div class="col-sm-2 modifyPadding">
-                <label for="prov_cls">CLS</label>
-                <select class="form-control" id="prov_cls" style="padding:2px 0 0 0">
+                <label for="cls">CLS</label>
+                <select class="form-control" id="cls" style="padding:2px 0 0 0">
                     <option></option>
                     <option>RES</option>
                     <option>BUS</option>
@@ -17,8 +17,8 @@
             </div>
 
             <div class="col-sm-2 modifyPadding">
-                <label for="prov_adsr">ADSR</label>
-                <select class="form-control" id="prov_adsr" style="padding:2px 0 0 0">
+                <label for="adsr">ADSR</label>
+                <select class="form-control" id="adsr" style="padding:2px 0 0 0">
                     <option></option>
                     <option>SSM</option>
                     <option>SSP</option>
@@ -26,8 +26,8 @@
             </div>   
 
             <div class="col-sm-2 modifyPadding">
-                <label for="prov_prot">PROT</label>
-                <select class="form-control" id="prov_prot" style="padding:2px 0 0 0">
+                <label for="prot">PROT</label>
+                <select class="form-control" id="prot" style="padding:2px 0 0 0">
                     <option></option>
                     <option>Y</option>
                     <option>N</option>
@@ -35,19 +35,19 @@
             </div>
 
             <div class="col-sm-2 modifyPadding">
-                <button id="prov_find1" class="btn btn-primary">Find</button>
+                <button id="findProv1" class="btn btn-primary">Find</button>
             </div> 
             
             <!-- ----------------------------------------- -->
 
             <div class="col-sm-4 modifyPadding">
-                <label for="prov_ordno">ORDNO</label>
-                <input type="text" class="form-control" id="prov_ordno">
+                <label for="ordno">ORDNO</label>
+                <input type="text" class="form-control" id="ordno">
             </div>
             
             <div class="col-sm-2 modifyPadding">
-                <label for="prov_mlo">MLO</label>
-                <select class="form-control" id="prov_mlo" style="padding:2px 0 0 0">
+                <label for="mlo">MLO</label>
+                <select class="form-control" id="mlo" style="padding:2px 0 0 0">
                     <option></option>
                     <option>Y</option>
                     <option>N</option>
@@ -58,13 +58,14 @@
             </div> 
             
             <div class="col-sm-2 modifyPadding">
-                <button id="prov_find2" class="btn btn-primary">Find</button>
+                <button id="findProv2" class="btn btn-primary">Find</button>
             </div> 
 
             <!-- ------------------------------------------------- -->
-			<div class="col-sm-3 modifyPadding"> 
-                <label for="prov_cktAct">ACTION</label>    
-                <select class="form-control" id="prov_cktAct" style="padding:2px 0 0 0" >
+			<div class="col-sm-12 modifyPadding">
+            <div class="col-sm-3 modifyPadding"> 
+                <label for="cktAct">ACTION</label>    
+                <select class="form-control" id="cktAct" style="padding:2px 0 0 0" >
                     <option></option>
                     <option>NEW CKT</option>
                     <option>CONN</option>
@@ -73,16 +74,13 @@
             </div>
             
             <div class="col-sm-8 modifyPadding">
-                <button id="prov_clrCkt" type="button" class="btn btn-primary">Clear</button>
-                <!-- 3 input fields to be hidden after testing -->
-                <input id="prov_ckt_id" type="hidden" style="width:50px">
-                <input id="prov_cktcon_id" type="hidden" style="width:50px">
-                <input id="prov_cktcon_idx" type="hidden" style="width:50px">
+                <button id="clrCkt" type="button" class="btn btn-primary">Cancel</button>
 
                 <br>
                 <label id="checkProvInfor" style="color:red"></label>
             </div>
-			<!-- ---------------------------------------------- -->
+			</div>
+            <!-- ---------------------------------------------- -->
             <!-- 
             <div id="cktcon" class="col-sm-12 modifyPadding">
                 <div class="col-sm-2 modifyPadding">
@@ -105,30 +103,30 @@
             </div>
              -->
 
-            <div id="prov_cktcontbl" class="col-sm-12 modifyPadding">
-                <lable>LIST OF CONNECTIONS:</lable>
+            <div id="cktcontbl" class="col-sm-12 modifyPadding">
+                <label>CKT CONNECTION TABLE:</label>
                 <div class="panel panel-default">
-                <table class="table table-fixed">
-                    <thead style="width:97%">
-                        <tr>
-                            <th style="width:10%">IDX</th>
-                            <th style="width:20%">CTYP</th>
-                            <th style="width:35%">FAC(X)</th>
-                            <th style="width:35%">FAC(Y)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="prov_tableCktCon" style="height:150px;">
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:10%">IDX</th>
+                                <th style="width:20%">CTYP</th>
+                                <th style="width:35%">FAC(X)</th>
+                                <th style="width:35%">FAC(Y)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableCktCon" style="height:150px;">
     
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>                   
-        <div class="col-sm-7">
+
+           
+                   
+        </div>
+        <div class="col-sm-7 modifyPadding">
             <div class="col-sm-6">
-				<label>LIST OF CKTS</label>
-			</div>
-			<div class="col-sm-6">
                 <a  id="previousCkt">Previous</a> |
                 <a  id="nextCkt">Next</a>
                 &nbsp&nbsp&nbsp <label id="indexCkt"></label>
@@ -148,7 +146,7 @@
                                 <th style="width:24%">DATE</th>
                             </tr>
                         </thead>
-                        <tbody id="prov_tableCkt" style="height:420px">
+                        <tbody id="tableCkt" style="height:420px">
     
                         </tbody>
                     </table>
