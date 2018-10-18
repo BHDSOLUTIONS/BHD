@@ -9,6 +9,8 @@
  */
 
  	include "coCommonFunctions.php";
+    
+    // jut a test
   
     $act = $_POST['act'];
     $fac_id = $_POST['fac_id'];
