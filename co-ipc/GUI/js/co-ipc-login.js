@@ -39,17 +39,12 @@ $("#login").click(function(){
         },
         function (data, status) {       
             var obj = JSON.parse(data);
-            if(obj["rslt"]=="fail"){
+            if (obj["rslt"]=="fail") {
                 alert(obj['reason']);
-            }else{
-                if(obj['rows'].length==0){
-                    alert("Wrong username or password!");
-                }
-                else{
-                    window.open("../php/co-ipc-main.php","_self")
-                }  
-                
-            } 
+            }
+            else {
+                window.open("../php/co-ipc-main.php","_self");
+            }  
         });
     } 
 })

@@ -1,16 +1,20 @@
 
 
 $("#submitCktModal").click(function(){
-    if($("#cktAct").val()=="NEW CKT"){
-        if(checkNewCktInfor())
+    if ($("#cktActModal").val()=="NEW CKT") {
+        //if(checkNewCktInfor())
             provNewCkt();
-        else $("#resultProvModal").text("Not enough CKT information!")
-    } else if($("#cktActModal").val()=="CONN"){
-        if(checkMapCktInfor())
-            provConnect();
-        else $("#resultProvModal").text("Not enough FAC information!")
-    } else if($("#cktActModal").val()=="DISCONN"){
-        provDisconnect();
+        //else 
+		//	$("#resultProvModal").text("Not enough CKT information!")
+    }
+    else if ($("#cktActModal").val()=="CONN") {
+        //if(checkMapCktInfor())
+            provCktcon("provConnect");
+        //else 
+		//	$("#resultProvModal").text("Not enough FAC information!")
+    } 
+    else if ($("#cktActModal").val()=="DISCONN") {
+        provCktcon("provDisconnect");
     }
     // $("#cktAct").val("");
 })
@@ -39,22 +43,23 @@ function checkMapCktInfor(){
 }
 
 function clearProvModalForm(){
-    $("#ckidModal").val(""),
-    $("#clsModal").val(""),
-    $("#adsrModal").val(""),
-    $("#protModal").val(""),
-    $("#ordnoModal").val(""),
-    $("#mloModal").val(""),
-    $("#ctypModal").val(""),
-    $("#ffacModal").val(""),
-    $("#tfacModal").val(""),
-    $("#resultProvModal").text("")
+    $("#ckidModal").val("");
+    $("#clsModal").val("");
+    $("#adsrModal").val("");
+    $("#protModal").val("");
+    $("#ordnoModal").val("");
+    $("#mloModal").val("");
+    $("#ctypModal").val("");
+    $("#ffacModal").val("");
+    $("#tfacModal").val("");
+    $("#resultProvModal").text("");
+    
 }
 
 
 function provNewCkt() {
 	
-    $.post("../php/coQueryProv.php",
+    $.post("./php/coQueryProv.php",
     {     
         act:	"provNewCkt",
         user:	"ninh",
@@ -72,39 +77,46 @@ function provNewCkt() {
     function (data, status) {       
         var obj = JSON.parse(data);
         if(obj["rslt"]=="fail"){
-            $("#resultProvModal").text(obj['reason']);
+            //$("#resultProvModal").text(obj['reason']);
+            alert(obj['reason']);
         }else{
-            if(obj['rows'].length==0){
-                $("#resultProvModal").text("There is no matching data!");
-            }
-            else{
+            //if(obj['rows'].length==0){
+            //   $("#resultProvModal").text("There is no matching data!");
+            //}
+            //else{
                 cktTableIndex=0;
                 cktArray = obj['rows'];
                 var len = cktArray.length; 
                 maxCktTableIndex = Math.ceil(len/100.0);
                 cktTableIndex++;
                 displayCkt(cktTableIndex);
-                $("#resultProvModal").text("New CKT is added successfully!");
-            }  
+                $("#resultProvModal").text(obj["rslt"]);
+            //}  
         } 
     });
 }
 
 
-function provConnect() {
+function provCktcon(action) {
 	
-    $.post("../php/coQueryProv.php",
+	var ctyp = $("#ctypModal").val();
+	if (action == "provDisconnect")
+		ctyp = $("#ctypModal4DisConn").val();
+		
+    $.post("./php/coQueryProv.php",
     {     
-        act:	"provConnect",
+        act:	action,
         user:	"ninh",
+        ckt_id:	$("#ckt_id").val(),
         ckid:	$("#ckidModal").val(),
-        // cls:	$("#clsModal").val(),
-        // adsr:	$("#adsrModal").val(),
-        // prot:	$("#protModal").val(),
+        cls:	$("#clsModal").val(),
+        adsr:	$("#adsrModal").val(),
+        prot:	$("#protModal").val(),
         ordno:	$("#ordnoModal").val(),
         cktcon: $("#cktcon_id").val(),
-        // mlo:	$("#mloModal").val(),
-        ctyp:	$("#ctypModal").val(),
+        idx:	$("#cktcon_idx").val(),
+        mlo:	$("#mloModal").val(),
+        ctyp:	ctyp,
         ffac:	$("#ffacModal").val(),
         tfac:	$("#tfacModal").val()
        
@@ -112,26 +124,28 @@ function provConnect() {
     function (data, status) {       
         var obj = JSON.parse(data);
         if(obj["rslt"]=="fail"){
-            $("#resultProvModal").text(obj['reason']);
+            //$("#resultProvModal").text(obj['reason']);
+            alert(obj["reason"]);
         }else{
-            if(obj['rows'].length==0){
-                $("#resultProvModal").text("There is no matching data!");
-            }
-            else{
+            //if(obj['rows'].length==0){
+                //$("#resultProvModal").text("There is no matching data!");
+            //}
+            //else{
                 cktConTableIndex=0;
                 cktConArray = obj['rows'];
                 var len = cktConArray.length; 
                 maxCktConTableIndex = Math.ceil(len/100.0);
                 cktConTableIndex++;
                 displayCktCon(cktConTableIndex);
-            }  
+                $("#resultProvModal").text(obj["rslt"]);
+            //}  
         } 
     });
 }
 
 function loadFacX() {
 	
-	$.post("../php/coQueryProv.php",
+	$.post("./php/coQueryProv.php",
 	{
 		act:	"queryFacX",
 		user:	"ninh"
@@ -157,7 +171,7 @@ function loadFacX() {
 
 function loadFacY() {
 	
-	$.post("../php/coQueryProv.php",
+	$.post("./php/coQueryProv.php",
 	{
 		act:	"queryFacY",
 		user:	"ninh"

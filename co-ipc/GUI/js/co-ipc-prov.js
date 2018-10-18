@@ -7,6 +7,8 @@ var cktConArray;
 var cktConTableIndex;
 var maxCktConTableIndex;
 
+//$('#cktcontbl').hide();
+
 $("#searchCkt").click(function(){
     queryCkt('query');
 });
@@ -67,6 +69,7 @@ $(document).on("click","#tableCkt tr",function(){
 
     // Refresh cktcon_idx
     $("#cktcon_idx").val("");
+    $("#cktcontbl").show();
     
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
@@ -95,8 +98,10 @@ $(document).on("click","#tableCktCon tr",function(){
 
 
 $(document).on('mouseup', '[id = cktAct]', function () {
-    if($("#cktAct").val() == "NEW CKT"){
-        $("#checkProvInfor").text("");
+    
+    if ($("#cktAct").val() == "NEW CKT") {
+        
+        //$("#checkProvInfor").text("");
         clearProvModalForm();
         $("#cktActModal").val($("#cktAct").val());
 
@@ -115,10 +120,14 @@ $(document).on('mouseup', '[id = cktAct]', function () {
         $("#clrCktModal").show();
 
         $("#provModal").modal();
-
+		
+		clearCktForm();
+        clearCktConForm();
+        clearCktConTable();
+        
     }
     else if($("#cktAct").val() == "CONN"){
-        $("#checkProvInfor").text("");
+        //$("#checkProvInfor").text("");
         if(checkProvInfor4Conn()){
             clearProvModalForm();
             populateProvModal();
@@ -139,12 +148,14 @@ $(document).on('mouseup', '[id = cktAct]', function () {
             $("#provModal").modal();
         }
         else{
-            $("#checkProvInfor").text("Missing CKT information!")
+            //$("#checkProvInfor").text("Missing CKT information!")
+            alert ("Please select a CKT");
+            $("#cktAct").val("");
         }
         
     }
     else if($("#cktAct").val() == "DISCONN"){
-        $("#checkProvInfor").text("");
+        //$("#checkProvInfor").text("");
         if(checkProvInfor4DisConn()){
             clearProvModalForm();
             populateProvModal();
@@ -163,7 +174,10 @@ $(document).on('mouseup', '[id = cktAct]', function () {
             $("#provModal").modal();
         }
         else{
-            $("#checkProvInfor").html("Missing CKT information!<br>And a CKT connection must be chosed")
+            //$("#checkProvInfor").html("Missing CKT information!<br>And a CKT connection must be chosed")
+            alert("Please select a CKT CONNECTION");
+            $("#cktAct").val("");
+            
         }
         
     }
@@ -187,14 +201,16 @@ function populateProvModal(){
 
 
 function checkProvInfor4Conn(){
-    if(($("#ckt_id").val() != "")&&($("#cktcon_id").val() != ""))
+    if (($("#ckt_id").val() != "") && ($("#cktcon_id").val() != ""))
         return true;
-    else return false;
+    else
+		return false;
 }
 function checkProvInfor4DisConn(){
-    if(($("#ckt_id").val() != "")&&($("#cktcon_id").val() != "")&&($("#cktcon_idx").val() != ""))
+    if (($("#ckt_id").val() != "") && ($("#cktcon_id").val() != "") && ($("#cktcon_idx").val() != ""))
         return true;
-    else return false;
+    else
+		return false;
 }
 
 function clearCktTable() {
@@ -203,14 +219,15 @@ function clearCktTable() {
 }
 
 function clearCktConTable() {
-    $("#tableCktCon").empty();        
+    $("#tableCktCon").empty();
+    //$("#cktcontbl").hide();
 }
 
 
 
 function queryCkt(action) {
     
-    $.post("../php/coQueryProv.php",
+    $.post("./php/coQueryProv.php",
     {     
         act:	action,
         user:	"ninh",
@@ -248,7 +265,7 @@ function queryCkt(action) {
 
 function queryCktcon(cktcon_id){
     
-    $.post("../php/coQueryProv.php",
+    $.post("./php/coQueryProv.php",
     {     
         act:	"queryCktcon",
         user:	"ninh",
@@ -336,12 +353,11 @@ function clearCktForm(){
     $("#prot").val("").change();
     $("#ordno").val("").change();
     $("#mlo").val("").change();
-
-    $("cktcon_id").val("").change();
-    $("#ckt_id").val("").change();
-    $("#cktcon_idx").val("").change();
-
     $("#cktAct").val("");
+    $("#ckt_id").val("").change();
+    $("#cktcon_id").val("").change();
+    $("#cktcon_idx").val("").change();
+	clearCktConTable();
 }
 
 function clearCktConForm(){

@@ -25,8 +25,8 @@
     if(isset($_POST['newpw']))
         $newpw = $_POST['newpw'];
 
-	$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-	// $db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
+	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
+	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
 	if (mysqli_connect_errno())
 	{
 		$result["rslt"] = "fail";
@@ -105,11 +105,7 @@
                         }
                         else {
                             $rows = [];
-                            if ($res->num_rows > 0) {
-                                while ($row = $res->fetch_assoc()) {
-                                    $rows[] = $row;
-                                }  
-                            }
+                            
                             $result["rslt"] = "success";
                             $result["rows"] = $rows;
 
