@@ -9,7 +9,6 @@
  */
 
 // fdssdfsadfdsaf
-///Hello co Thu
 	include "coCommonFunctions.php";
 
 	class Fac {
