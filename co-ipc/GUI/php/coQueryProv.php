@@ -8,7 +8,7 @@
  * 2018-10-10: created (Ninh)
  */
 // fdssdfsadfdsaf
-///Hello co Thu
+
 	include "coCommonFunctions.php";
 
 	class Fac {
