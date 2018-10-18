@@ -7,13 +7,11 @@
  * Change history: 
  * 2018-10-10: created (Ninh)
  */
-<<<<<<< HEAD
 
 // fdssdfsadfdsaf
-=======
 // fdssdfsadfdsaf
 //hellocothu
->>>>>>> thanh
+//hi chu Ninh
 	include "coCommonFunctions.php";
 
 	class Fac {
