@@ -8,6 +8,7 @@
  * 2018-10-10: created (Ninh)
  */
 
+    // just a test for git
 	include "coCommonFunctions.php";
 
 	class Fac {
