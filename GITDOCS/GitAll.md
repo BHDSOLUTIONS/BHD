@@ -14,6 +14,7 @@ git init ( start watching a dir )
 to stop watching ( rm -rf .git )- that will remove watching this dir
 
 git status
+
 touch .gitignore
 
 -- ignore some files
@@ -82,9 +83,11 @@ git push origin master
 ===================
 
 delete a branch
+
 git bracnh --merged ( to show )
 
 git branch -d calc-divide
+
  git branch -a
 
 git push origin --delete calc-divide ( delete branch from origin)
@@ -94,7 +97,9 @@ git push origin --delete calc-divide ( delete branch from origin)
 steps to merge a branch into master
 
 git checkout master
+
 git pull origin master
+
 git branch --merged
 
 git merge calc-divide ( merging )
