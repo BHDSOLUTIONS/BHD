@@ -1,15 +1,29 @@
 // ----------------FACMODAL---------------------------------------------
 
+$("#facModal").on("hidden.bs.modal", setupFac_clearForm);
+
 // ---------------Click Events-------------------------
 
 $("#facModal_submit").click(function(){
-    if($("#facModal_act").val()=="ADD"){
-        facModal_query('add');
-    } else if($("#facModal_act").val()=="UPDATE"){
-        facModal_query('upd');
-    } else if($("#facModal_act").val()=="DELETE"){
-        facModal_query('del');
+
+    facModal_queryFac( $('#facModal_act').val() ); 
+
+    /*
+    if ($("#facModal_act").val() == "ADD")
+    {
+        facModal_queryFac('add');
+    } 
+    else if ($("#facModal_act").val() == "UPDATE")
+    {
+        facModal_queryFac('upd');
+    } 
+    else if ($("#facModal_act").val() == "DELETE")
+    {
+        facModal_queryFac('del');
+        
     }
+    */
+
 })
 
 
@@ -26,12 +40,13 @@ function facModal_clearForm(){
 }
 $("#facModal_clear").click(facModal_clearForm);
 
-function facModal_query(action){
+
+function facModal_queryFac(action){
     
-    $.post("../php/coQueryFac.php",
+    $.post("./php/coQueryFac.php",
     {     
         act: action,
-        user: "ninh",
+        user:	$('#main_currentUser').text(),
         fac: $("#facModal_fac").val(),
         fac_id: $("#facModal_id").val(),
         ftyp: $("#facModal_ftyp").val(),
@@ -40,22 +55,27 @@ function facModal_query(action){
     },
     function (data, status) {       
         var obj = JSON.parse(data);
-        if(obj["rslt"]=="fail"){
+        if (obj["rslt"] == "fail")
+        {
             alert(obj['reason']);
-        }else{
-            if(obj['rows'].length==0){
+        }
+        else
+        {
+            if (obj['rows'].length == 0)
+            {
                 alert("There is no matching data!");
             }
-            else{
+            else
+            {
                 setupFac_tableIndex=0;
                 setupFac_table = obj['rows'];
                 var len = setupFac_table.length; 
                 setupFac_maxTableIndex = Math.ceil(len/100.0);
                 setupFac_tableIndex++;
                 setupFac_displayTable(setupFac_tableIndex);
-                if(action=="add") $("#facModal_result").text("Facility is added successfully!");
-                else if(action=="del") $("#facModal_result").text("Facility is deleted successfully!");
-                else if(action=="upd") $("#facModal_result").text("Facility is updated successfully!");
+                if (action == "ADD") $("#facModal_result").text("Facility is added successfully!");
+                else if (action == "DELETE") $("#facModal_result").text("Facility is deleted successfully!");
+                else if (action == "UPDATE") $("#facModal_result").text("Facility is updated successfully!");
             }  
         } 
     });

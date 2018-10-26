@@ -2,10 +2,7 @@ var setupFac_table;
 var setupFac_tableIndex;
 var setupFac_maxTableIndex;
 
-
-
-
-// ----------------Click Events------------------------
+// ----------------------Click Events--------------------------------------------
 
 $(document).on("click","#setupFac_tableFac tr",function(){
     var dataRow= $(this).children("td").map(function(){
@@ -25,36 +22,42 @@ $(document).on("click","#setupFac_tableFac tr",function(){
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
 });
 
+
 $("#setupFac_next").click(function(){
-    if(setupFac_tableIndex<setupFac_maxTableIndex){
+    if (setupFac_tableIndex<setupFac_maxTableIndex){
         setupFac_tableIndex++;
         setupFac_displayTable(setupFac_tableIndex);
     }  
 })
 
+
 $("#setupFac_previous").click(function(){
-    if(setupFac_tableIndex>1){
+    if (setupFac_tableIndex>1){
         setupFac_tableIndex--;
         setupFac_displayTable(setupFac_tableIndex);   
     }         
 })
 
+
 $("#setupFac_clear").click(setupFac_clearForm);
 
 
 $('#setupFac_findFac').click(function() {
-	setupFac_query("findFac");
+	setupFac_queryFac("findFac");
 });
 
+
 $('#setupFac_findFOS').click(function() {
-	setupFac_query("findFOS");
+	setupFac_queryFac("findFOS");
 });
+
 
 $(document).on('mouseup', '[id *= setupFac_act]', function () {
 
-    if($("#setupFac_act").val() == "UPDATE"){
+    if ($("#setupFac_act").val()  ==  "UPDATE"){
         $("#setupFac_checkInputs").text("");
-        if(setupFac_checkInputs()){
+        if (setupFac_checkInputs())
+        {
             facModal_clearForm();   
             setupFac_populateFacModal();
     
@@ -66,15 +69,19 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
             $("#facModal_clear").show();
     
             $("#facModal").modal(); 
-        } else {
-            // $("#setupFac_checkInputs").text("Missing Fac information!")
+        } 
+        else 
+        {
+          
             alert("Missing Fac information!")
         }
               
     } 
-    else if($("#setupFac_act").val() == "DELETE"){
+    else if ($("#setupFac_act").val()  ==  "DELETE")
+    {
         $("#setupFac_checkInputs").text("");
-        if(setupFac_checkInputs()){
+        if (setupFac_checkInputs())
+        {
             facModal_clearForm();   
             setupFac_populateFacModal();
     
@@ -85,13 +92,15 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
             $("#facModal_clear").hide();
     
             $("#facModal").modal();  
-        } else {
-            // $("#setupFac_checkInputs").text("Missing Fac information!")
+        } 
+        else 
+        {
             alert("Missing Fac information!")
         }
        
     }
-    else if($("#setupFac_act").val() == "ADD"){
+    else if ($("#setupFac_act").val()  ==  "ADD")
+    {
         $("#setupFac_checkInputs").text("");
         facModal_clearForm(); 
         $("#facModal_act").val($("#setupFac_act").val()); 
@@ -104,24 +113,25 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
         $("#facModal_clear").show();
 
         $("#facModal").modal(); 
-        $("#setupFac_act").val("");  
+        // $("#setupFac_act").val("");  
     }
-    $("#setupFac_act").val("");
+    // $("#setupFac_act").val("");
 });
 
 
-// -------------------Function---------------------
+// -----------------------------Functions----------------------------
 
 function setupFac_clearTable() {
     $("#setupFac_tableFac").empty();
 }
 
-function setupFac_query(action){
+
+function setupFac_queryFac(action){
     
-    $.post("../php/coQueryFac.php",
+    $.post("./php/coQueryFac.php",
     {     
         act: action,
-        user: currentUser,
+        user: $('#main_currentUser').text(),
 
         fac_id: $("#facModal_fac_id").val(),
         fac: $("#setupFac_fac").val(),
@@ -131,13 +141,17 @@ function setupFac_query(action){
     },
     function (data, status) {       
         var obj = JSON.parse(data);
-        if(obj["rslt"]=="fail"){
+        if (obj["rslt"] == "fail"){
             alert(obj['reason']);
-        }else{
-            if(obj['rows'].length==0){
+        }
+        else
+        {
+            if (obj['rows'].length == 0)
+            {
                 alert("There is no matching data!");
             }
-            else{
+            else
+            {
                 setupFac_tableIndex=0;
                 setupFac_table = obj['rows'];
                 var len = setupFac_table.length; 
@@ -150,17 +164,19 @@ function setupFac_query(action){
     });
 }
 
+
 function setupFac_displayTable(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
     var len = setupFac_table.length;
 
-    if(len>=startIndex){
-        if(len < stopIndex)
+    if (len>=startIndex){
+        if (len < stopIndex)
             stopIndex=len;            
         setupFac_clearTable();
         var a = [];
-        for (var i=0; i<stopIndex; i++) {  
+        for (var i=0; i<stopIndex; i++) 
+        {  
             a.push('<tr> <td style="display:none">' + setupFac_table[i].id + '</td>')  
             a.push('<td style="width:40%">' + setupFac_table[i].fac + '</td>');
             a.push('<td style="width:10%">' +  setupFac_table[i].ftyp + '</td>');
@@ -173,6 +189,7 @@ function setupFac_displayTable(index){
     } 
 }
 
+
 function setupFac_clearForm(){
     $("#facModal_fac_id").val("");
     $("#setupFac_fac").val("");
@@ -180,9 +197,10 @@ function setupFac_clearForm(){
     $("#setupFac_ort").val("");
     $("#setupFac_spcfnc").val("");
     $("#setupFac_portInfor").val("");
-    $("#facAction").val("");
+    $("#setupFac_act").val("");
     $("#setupFac_checkInputs").text("");
 }
+
 
 function setupFac_populateFacModal(){
     $("#facModal_fac").val($("#setupFac_fac").val());
@@ -194,8 +212,9 @@ function setupFac_populateFacModal(){
 
 }
 
+
 function setupFac_checkInputs(){
-    if(($("#setupFac_fac").val() != "") && ($("#setupFac_ftyp").val() != ""))
+    if (($("#setupFac_fac").val() != "") && ($("#setupFac_ftyp").val() != ""))
         return true;
     else return false;
 }

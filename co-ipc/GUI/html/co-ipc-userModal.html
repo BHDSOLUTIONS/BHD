@@ -2,7 +2,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                 <h5 class="modal-title">PORTS MAPPING</h5>
+                 <h5 class="modal-title">USER SETTINGS</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-sm-4 modifyPadding">
                         <label for="userModal_user">USER</label>
-                        <input class="form-control reduceSpace" type="text" id="userModal_user">
+                        <input class="form-control modifyPadding" type="text" id="userModal_user">
                     </div>
                     <div class="col-sm-2 modifyPadding">
                         <label for="userModal_stat">STAT</label>
@@ -50,7 +50,13 @@
                     </div>
                     <div class="col-sm-6 modifyPadding">
                         <label for="userModal_group">GROUP</label>
-                        <input type="text" class="form-control" id="userModal_group">
+                        <select id="userModal_group" class="form-control">
+                            <option>ADMIN</option>
+                            <option>SUPERVISOR</option>
+                            <option>TECH-I</option>
+                            <option>TECH-II</option>
+                            <option>GENERAL</option>
+                        </select>
                     </div>
         
                     <!-- ------------------------------------------ -->
@@ -62,7 +68,7 @@
                     </div>
                     <div class="col-sm-8 modifyPadding">
                         <button class="btn btn-primary" id="userModal_submit">Submit</button>
-                        <button class="btn btn-primary" id="userModal_clear">Cancel</button>
+                        <button class="btn btn-primary" id="userModal_clear">Clear</button>
                         &nbsp;&nbsp;&nbsp;&nbsp;<input type="number" id="userModal_user_id" style="width:50px;">
                         <br>
                         <label id="userModal_result" style="color:red"></label>

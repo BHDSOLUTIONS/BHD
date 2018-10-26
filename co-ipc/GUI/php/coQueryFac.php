@@ -9,27 +9,46 @@
  */
 
  	include "coCommonFunctions.php";
-    
-    // jut a test
   
-    $act = $_POST['act'];
-    $fac_id = $_POST['fac_id'];
-    $fac = $_POST['fac'];
-    $ftyp = $_POST['ftyp'];
-    $ort = $_POST['ort'];
-    $spcfnc = $_POST['spcfnc'];
+    $act = "";
+    if (isset($_POST['act']))
+		$act = $_POST['act'];
+		
+    $user = "";
+    if (isset($_POST['user']))
+		$user = $_POST['user'];
+	$fac_id = 0;
+
+	if (isset($_POST['fac_id']))
+	    $fac_id = $_POST['fac_id'];
+    
+    $fac = "";
+    if (isset($_POST['fac']))
+		$fac = $_POST['fac'];
+    
+    $ftyp = "";
+    if (isset($_POST['ftyp']))
+		$ftyp = $_POST['ftyp'];
+    
+    $ort = "";
+    if (isset($_POST['ort']))
+		$ort = $_POST['ort'];
+		
+	$spcfnc = "";
+	if (isset($_POST['spcfnc']))
+		$spcfnc = $_POST['spcfnc'];
 
 
-	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-	if (mysqli_connect_errno()) {
+	// Dispatch to Functions
+	$dbObj = new Db();
+	if ($dbObj->rslt == "fail") {
 		$result["rslt"] = "fail";
-		$result["reason"] = mysqli_connect_error();
-		mysqli_close($db);
+		$result["reason"] = $dbObj->reason;
 		echo json_encode($result);
 		return;
 	}
-
+	$db = $dbObj->con;
+		
 	if ($act == "query") {
 		$result = queryFac("$act");
 		echo json_encode($result);
@@ -54,19 +73,19 @@
 		return;
 	}
 	
-	if ($act == "add") {
+	if ($act == "ADD" ) {
 		$result = addFac();
 		echo json_encode($result);
 		return;
 	}
 	
-	if ($act == "upd") {
+	if ($act == "UPDATE") {
 		$result = updFac();
 		echo json_encode($result);
 		return;
 	}
 	
-	if ($act == "del") {
+	if ($act == "DELETE") {
 		$result = delFac();
 		echo json_encode($result);
 		return;
@@ -177,44 +196,53 @@
 		return $result;
 	}
 
+
 	function updFac() {
 		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
 		
-		$qry = "update t_facs set ";
-		if ($ftyp != "") {
-			$qry .= "ftyp='" . $ftyp . "'";
-			if ($ort != "") {
-				$qry .= ",ort='" . $ort . "'";
-				if ($spcfnc != "") {
-					$qry .= ",spcfnc='" . $spcfnc . "'";
-				}
-				$qry .= " where fac='" . $fac . "'";
-				$res = $db->query($qry);
-				$qry = "select * FROM t_facs";
-				$res = $db->query($qry);
-				if (!$res) {
-					$result["rslt"] = "fail";
-					$result["reason"] = mysqli_error($db);
-				}
-				else {
-					$rows = [];
-					if ($res->num_rows > 0) {
-						while ($row = $res->fetch_assoc()) {
-							$rows[] = $row;
-						}
+		if ($ftyp != "" || $ort != "" || $spcfnc != "") {
+			$qry = "UPDATE t_facs SET ";
+			if ($ftyp != "") {
+				$qry .= "ftyp='" . $ftyp . "'";
+				if ($ort != "") {
+					$qry .= ",ort='" . $ort . "'";
+					if ($spcfnc != "") {
+						$qry .= ",spcfnc='" . $spcfnc . "'";
 					}
-					$result["rslt"] = "success";
-					$result["rows"] = $rows;
-				}				
+				}
+			}
+			else if ($ort != "") {
+				$qry .= "ort='" . $ort . "'";
+				if ($spcfnc != "") {
+					$qry .= ", spcfn='" . $spcfnc . "'";
+				}
+			}
+			else if ($spcfnc != "") {
+				$qry .= "spcfnc='" . $spcfnc . "'";
+			}
+			$qry .= " where fac='" . $fac . "'";
+			$res = $db->query($qry);
+			
+			$qry = "select * FROM t_facs";
+			$res = $db->query($qry);
+			if (!$res) {
+				$result["rslt"] = "fail";
+				$result["reason"] = mysqli_error($db);
 			}
 			else {
-				$result["rslt"] = "fail";
-				$result["reason"] = "Invalid ORT:" . $ort;
-			}
+				$rows = [];
+				if ($res->num_rows > 0) {
+					while ($row = $res->fetch_assoc()) {
+						$rows[] = $row;
+					}
+				}
+				$result["rslt"] = "success";
+				$result["rows"] = $rows;
+			}				
 		}
 		else {
 			$result["rslt"] = "fail";
-			$result["reason"] = "Invalid FTYP:" . $ftyp;
+			$result["reason"] = "Nothing to update";
 		}
 		mysqli_close($db);
 		return $result;

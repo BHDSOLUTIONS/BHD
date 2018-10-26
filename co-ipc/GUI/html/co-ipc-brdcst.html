@@ -1,0 +1,86 @@
+<div id="brdcst" class="tab-pane fade in">
+    <h4>BULLETIN BOARD</h4>
+   
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="col-sm-4 modifyPadding">
+                    <label for="brdcst_date">DATE</label>
+                    <input class="form-control modifyPadding" type="text" id="brdcst_date">
+                </div>
+                <div class="col-sm-3 modifyPadding">
+                    <label for="brdcst_user">USER</label>
+                    <input class="form-control modifyPadding" type="text" id="brdcst_user">
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="brdcst_sa">SA</label>
+                    <select id="brdcst_sa" class="form-control">
+                        <option></option>
+                        <option>Y</option>
+                        <option>N</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 modifyPadding">
+                    <button class="btn btn-primary" id="brdcst_find">Find</button>
+                </div>
+
+                <div class="col-sm-12 modifyPadding">
+                    <label for="brdcst_detail">MESSAGE DETAILS</label>
+                    <textarea id="brdcst_detail" class="form-group" style="width:100%; min-height: 150px;" readonly></textarea>
+                </div>
+
+                <div class="col-sm-12 modifyPadding">
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="brdcst_act">ACTION</label>
+                        <select id="brdcst_act" class="form-control">
+                            <option></option>
+                            <option>ADD</option>
+                            <option>UPD</option>
+                            <option>DEL</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-1 modifyPadding">
+                        <button class="btn btn-primary" id="brdcst_Clear">Clear</button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-sm-7">
+                <div class="col-sm-12">
+                    <div style="float:left;">
+                        <b>LIST OF NOTIFICATIONS:</b>
+                    </div>
+                    <div style="float:right">
+                        <a  id="brdcst_previous">Previous</a> |
+                        <a  id="brdcst_next">Next</a>
+                        &nbsp&nbsp&nbsp<label id="brdcst_index"></label>
+                    </div>
+                </div>
+               
+
+                <div class="col-sm-12">
+                    <div class="panel panel-default">     
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">USER</th>
+                                    <th style="width:5%">SA</th>
+                                    <th style="width:50%">MSG</th>
+                                    <th style="width:25%">DATE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="brdcst_table">
+                        
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   
+
+       
+    
+</div>

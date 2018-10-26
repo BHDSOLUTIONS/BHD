@@ -1,12 +1,11 @@
-$(document).ready(function() { 
-    
- 
-});
+
+//----------------------Click Events----------------
 
 $("#login").click(function(){
 
-    if($("#newPassword").val() == ""){
-        $.post("../php/coQueryLogin.php",
+   
+    if ($("#newPassword").val() == ""){
+        $.post("./php/coQueryLogin.php",
         {    
             act:"login", 
             uname:$("#username").val(),
@@ -15,22 +14,23 @@ $("#login").click(function(){
         function (data, status) {       
             var obj = JSON.parse(data);
             console.log(obj)
-            if(obj["rslt"]=="fail"){
+            if (obj["rslt"] == "fail")
+            {
                 alert(obj['reason']);
-            }else{
-                if(obj['rows'].length==0){
-                    alert("Wrong username or password!");
-                }
-                else{
-                    if(obj['rows'][0].pw == obj['rows'][0].ssn)
-                        alert("You are the new employee! Please click on first login to change password!")
-                    else
-                        window.open("../php/co-ipc-main.php","_self")
-                }  
+            }
+            else
+            {
+                $("#warningPage").hide();
+                $("#loginPage").hide();
+
+                $("#main_currentUser").text($('#username').val());
+                $("#mainPage").show();
             } 
         });
-    } else {
-        $.post("../php/coQueryLogin.php",
+    } 
+    else 
+    {
+        $.post("./php/coQueryLogin.php",
         {    
             act:"firstlogin", 
             uname:$("#username").val(),
@@ -39,23 +39,32 @@ $("#login").click(function(){
         },
         function (data, status) {       
             var obj = JSON.parse(data);
-            if (obj["rslt"]=="fail") {
+            if (obj["rslt"] == "fail")
+            {
                 alert(obj['reason']);
             }
-            else {
-                window.open("../php/co-ipc-main.php","_self");
-            }  
+            else
+            {
+                $("#warningPage").hide();
+                $("#loginPage").hide();
+
+                $("#main_currentUser").text($('#username').val());
+                $("#mainPage").show();
+            } 
         });
     } 
 })
 
+
 $("#firstlogin").click(function(){
-    if($("#firstlogin").text()=="First time login? Click here!"){
+    if ($("#firstlogin").text() == "First time login? Click here!")
+    {
         $("#newPassword").val("");
         $("#newpw").show();
         $("#firstlogin").text("Go back!")
     }
-    else{
+    else
+    {
         $("#newPassword").val("");
         $("#newpw").hide();
         $("#firstlogin").text("First time login? Click here!")

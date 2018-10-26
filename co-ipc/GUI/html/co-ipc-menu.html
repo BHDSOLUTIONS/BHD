@@ -1,21 +1,4 @@
-<!-- CO-5K: index.html -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>CO-5K IPC</title>
-	<meta charset="utf-8">
-	
-    <meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/co-ipc.css">
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-	
-</head>
-<body>	
+<div id="mainPage" style="display:none;">
 	<div class="container" style="width:100%">
 		<div id="header" class="row" style="border-style:none none solid none;border-color:gray;border-size:1px;background-color:#f5f5f5">
 			<div class="col-sm-4">TELEPATH NETWORKS
@@ -35,7 +18,7 @@
 			</div>
 			<div class="col-sm-4" align="right">
 				<!-- <button id="login-btn">Login</button> -->
-				User: <label id=currentUser></label>
+				User: <label id=main_currentUser></label>
 				<button id="logout">Logout</button>
 			</div>
 			<div id="displayMenu">&#9776; Menu</div>
@@ -47,36 +30,59 @@
 				<div class="sidebar" >
 					<nav class="sidebar-nav">
 						<ul class="nav">
-							<li class="nav-title">IPC MENU</li>
+							<li class="nav-item">
+								<a id="menuBrdcst" data-toggle="pill" class="nav-link" href="#brdcst">
+								<i class="nav-icon cui-speedometer"></i> Broadcast
+								</a>
+							</li>
+							<li class="nav-title">CONFIGURATION</li>
 							<li class="nav-item">
 								<a id="menuFacSet" data-toggle="pill" class="nav-link" href="#setupFac">
-								<i class="nav-icon cui-speedometer"></i> Facility Setup
+								<i class="nav-icon cui-speedometer"></i> Setup Facilities
 								</a>
 							</li>
 							<li class="nav-item">
 								<a id="menuPortMap"data-toggle="pill" class="nav-link" href="#portMap">
-								<i class="nav-icon cui-speedometer"></i> Ports Mapping
+								<i class="nav-icon cui-speedometer"></i> Setup Port Mapping
 								</a>
 							</li>
 							<li class="nav-title">PROVISIONING</li>
 							<li class="nav-item">
 								<a id="menuProv" data-toggle="pill" class="nav-link" href="#prov">
-								<i class="nav-icon cui-speedometer"></i> Provisioning
+								<i class="nav-icon cui-speedometer"></i> Setup Service Connection
 								</a>
 							</li>
 							<li class="nav-item">
-								<a data-toggle="pill" class="nav-link" href="#cfg">
-								<i class="nav-icon cui-speedometer"></i> Configuration
+								<a id="menuBatch" data-toggle="pill" class="nav-link" href="#batch">
+								<i class="nav-icon cui-speedometer"></i> Batch Execution
 								</a>
 							</li>
+							<li class="nav-title">MAINTENANCE</li>
 							<li class="nav-item">
 								<a id="menuAlm" data-toggle="pill" class="nav-link" href="#adminAlm">
 								<i class="nav-icon cui-speedometer"></i> Alarm Admin
 								</a>
 							</li>
 							<li class="nav-item">
+								<a data-toggle="pill" class="nav-link">
+								<i class="nav-icon cui-speedometer"></i> Path Admin
+								</a>
+							</li>
+							<li class="nav-item">
+								<a id="menuMatrix" data-toggle="pill" class="nav-link" href="#matrix">
+								<i class="nav-icon cui-speedometer"></i> Matrix Cards
+								</a>
+							</li>
+							<li class="nav-title">ADMINISTRATION</li>
+							<li class="nav-item">
 								<a id="menuUserSet" data-toggle="pill" class="nav-link" href="#setupUser">
 								<i class="nav-icon cui-speedometer"></i> User Setup
+								</a>
+							</li>
+							<li class="nav-title">REPORT</li>
+							<li class="nav-item">
+								<a id="menuEvent" data-toggle="pill" class="nav-link" href="#event">
+								<i class="nav-icon cui-speedometer"></i> Event Report
 								</a>
 							</li>
 							

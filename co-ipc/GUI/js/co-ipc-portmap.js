@@ -4,6 +4,8 @@
  var pm_tableIndex;
  var pm_maxTableIndex;
 
+//  -------------------------Click Events-------------------------
+
  $(document).on("click","#pm_table tr",function() {
      var dataRow= $(this).children("td").map(function() {
          return $(this).text(); 
@@ -28,6 +30,92 @@
  });
  
  
+$("#pm_cancel").click(function() {
+	pm_clearForm();
+});
+
+
+$('#pm_findFac').click(function() {
+	
+	pm_queryPort("findFac");
+});
+
+
+$('#pm_findCkid').click(function() {
+	pm_queryPort("findCkid");
+});
+
+
+$('#pm_findPort').click(function() {
+	pm_queryPort("findPort");
+});
+
+
+$("#pm_next").click(function() {
+    if (pm_tableIndex < pm_maxTableIndex) {
+        pm_tableIndex++;
+        pm_loadTable(pm_tableIndex);
+    }
+    
+});
+
+
+$("#pm_prev").click(function() {
+    if (pm_tableIndex > 1) {
+        pm_tableIndex--;
+        pm_loadTable(pm_tableIndex);   
+    }
+});
+
+
+$(document).on('mouseup', '[id*=pm_act]', function () {
+    
+    if ($("#pm_act").val()  ==  "MAP") {
+        if ($('#pmModal_port_id').val() > 0) {
+            if ($('#pmModal_fac_id').val() > 0) {
+				alert("PORT already MAPPED");
+			}
+			else {
+				pmModal_clearForm(); 
+				pmModal_populateForm();
+				$('#pmModal_submit').prop('disabled',true);
+				$("#pmModal_table").show();
+				pmModal_queryAvailFac();
+				$("#portMapModal").modal();
+			}
+        }
+        else{
+            alert("Missing PORT");
+			$('#pm_act').val("");
+        }
+              
+    } 
+    else if ($("#pm_act").val()  ==  "UNMAP") {
+        if ($('#pmModal_port_id').val() > 0) {
+			if ($('#pmModal_fac_id').val() > 0) {
+				pmModal_clearForm(); 
+				pmModal_populateForm();
+				$('#pmModal_submit').prop('disabled',false);
+				$("#pmModal_table").hide();
+				$("#portMapModal").modal();
+			}
+			else {
+				alert("Missing FAC");
+				$('#pm_act').val("");
+			}	  
+        }
+        else{
+            alert("Missing PORT");
+			$('#pm_act').val("");
+            
+        }      
+    }
+
+});
+
+
+// -------------------Functions-------------------------------
+
  function pm_clearTable() {
      $("#pm_table").empty();
  }
@@ -38,7 +126,7 @@
     $.post("./php/coQueryPort.php",
     {
         act:	action,
-        user:	"ninh",
+        user:	$('#main_currentUser').val(),
         node:	$("#pm_node").val(),
         slot:	$("#pm_slot").val(),
         pnum:	$("#pm_pnum").val(),
@@ -47,15 +135,15 @@
         fac:	$("#pm_fac").val(),
         fac_id:	$("#pmModal_fac_id").val(),
         port_id:$("#pmModal_port_id").val(),
-        ckt:    $('#pm_ckid').val()
+        ckid:   $('#pm_ckid').val()
     },
     function (data, status) {
         var obj = JSON.parse(data);
-        if(obj["rslt"] == "fail") {
+        if (obj["rslt"]  ==  "fail") {
             alert(obj['reason']);
         }
         else {
-            if (obj['rows'].length == 0){
+            if (obj['rows'].length  ==  0){
                 alert("No record found");
             }
             else{
@@ -80,12 +168,12 @@ function pm_loadTable(index){
     if (len >= startIndex) {
 
         pm_clearTable();
-        if(len < stopIndex)
+        if (len < stopIndex)
             stopIndex=len;
         var a = [];
         for (var i=startIndex; i<stopIndex; i++) {
-            if (pm_tableArray[i].fac == null) pm_tableArray[i].fac = "";
-            if (pm_tableArray[i].ckt == null) pm_tableArray[i].cktid = "";
+            if (pm_tableArray[i].fac  ==  null) pm_tableArray[i].fac = "";
+            if (pm_tableArray[i].ckt  ==  null) pm_tableArray[i].cktid = "";
             a.push('<tr> <td style="display:none">' + pm_tableArray[i].id + '</td>') 
             a.push('<td style="display:none">' + pm_tableArray[i].fac_id + '</td>')   
             a.push('<td style="width:10%">' + pm_tableArray[i].node + '</td>');
@@ -100,69 +188,6 @@ function pm_loadTable(index){
         $("#pm_index").text("From "+(startIndex+1)+" to "+stopIndex);
     }   
 }
-
-
-$("#pm_next").click(function() {
-    if (pm_tableIndex < pm_maxTableIndex) {
-        pm_tableIndex++;
-        pm_loadTable(pm_tableIndex);
-    }
-    
-});
-
-
-$("#pm_prev").click(function() {
-    if (pm_tableIndex > 1) {
-        pm_tableIndex--;
-        pm_loadTable(pm_tableIndex);   
-    }
-});
-
-
-$(document).on('mouseup', '[id*=pm_act]', function () {
-    
-    if ($("#pm_act").val() == "MAP") {
-        if ($('#pmModal_port_id').val() > 0) {
-            if ($('#pmModal_fac_id').val() > 0) {
-				alert("PORT already MAPPED");
-			}
-			else {
-				pmModal_clearForm(); 
-				pmModal_populateForm();
-				$('#pmModal_submit').prop('disabled',true);
-				$("#pmModal_table").show();
-				pmModal_queryAvailFac();
-				$("#portMapModal").modal();
-			}
-        }
-        else{
-            alert("Missing PORT");
-			$('#pm_act').val("");
-        }
-              
-    } 
-    else if ($("#pm_act").val() == "UN-MAP") {
-        if ($('#pmModal_port_id').val() > 0) {
-			if ($('#pmModal_fac_id').val() > 0) {
-				pmModal_clearForm(); 
-				pmModal_populateForm();
-				$('#pmModal_submit').prop('disabled',false);
-				$("#pmModal_table").hide();
-				$("#portMapModal").modal();
-			}
-			else {
-				alert("Missing FAC");
-				$('#pm_act').val("");
-			}	  
-        }
-        else{
-            alert("Missing PORT");
-			$('#pm_act').val("");
-            
-        }      
-    }
-
-});
 
 
 function pmModal_populateForm() {
@@ -190,24 +215,4 @@ function pm_clearForm() {
     $("#pm_act").val("");
 }
 
-
-$("#pm_cancel").click(function() {
-	pm_clearForm();
-});
-
-
-$('#pm_findFac').click(function() {
-	
-	pm_queryPort("findFac");
-});
-
-
-$('#pm_findCkid').click(function() {
-	pm_queryPort("findCkid");
-});
-
-
-$('#pm_findPort').click(function() {
-	pm_queryPort("findPort");
-});
 

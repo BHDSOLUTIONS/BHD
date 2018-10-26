@@ -1,0 +1,56 @@
+<div id="batch" class="tab-pane fade in">
+    <h4>BATCH EXECUTION</h4>
+    
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="col-sm-3 modifyPadding">
+                    <label for="batch_act">ACTION</label>
+                    <select id="batch_act" class="form-control">
+                        <option></option>
+                        <!-- <option>LOAD</option> -->
+                        <option>UPLOAD</option>
+                        <option>EXECUTE</option>
+                        <option>DELETE</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-9 modifyPadding">
+                    <label for="batch_file">BATCH FILE</label>
+                    <select id="batch_file" class="form-control">  
+                    </select>
+
+                    <br>
+                    <input type="number" id="batch_id" style="width:50px;">
+                    <label id="batch_result" style="color:red"></label>
+                </div>
+
+            </div>
+            <div class="col-sm-7">
+                <div class="col-sm-12">
+                    <div style="float:left;">
+                        <b>LIST OF SCRIPTS:</b>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="panel panel-default">     
+                        <table class="table table-fixed" style="table-layout: fixed;">
+                            <thead>
+                                <tr>
+                                    <th style="width:5%">ID</th>
+                                    <th style="width:95%">SCRIPT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="batch_table">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+       
+    
+           
+        
+    </div>

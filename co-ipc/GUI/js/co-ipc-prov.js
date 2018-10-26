@@ -1,95 +1,91 @@
 
-var cktArray;
-var cktTableIndex;
-var maxCktTableIndex;
+var prov_tableCkt;
+var prov_tableCktIndex;
+var prov_maxTableCktIndex;
 
-var cktConArray;
-var cktConTableIndex;
-var maxCktConTableIndex;
+var prov_tableCktCon;
+var prov_tableCktConIndex;
+var prov_maxTableCktConIndex;
 
-//$('#cktcontbl').hide();
 
-$("#searchCkt").click(function(){
-    queryCkt('query');
+$("#prov_findCkid").click(function(){
+    prov_queryCkt('query');
 });
 
-$("#searchCktCon").click(function(){
-    queryCktCon('query');
-});
+$("#prov_findOrd").click(function(){
+    prov_queryCkt('queryOrd');
+})
 
-$("#clrCkt").click(function(){
-    clearCktForm();
-    // clearCktConForm();
-    clearCktConTable();
+
+$("#prov_clear").click(function(){
+    prov_clearForm();
+    prov_clearTableCktCon();
    
 });
 
 
-$("#nextCkt").click(function(){
-    if(cktTableIndex<maxCktTableIndex){
-        cktTableIndex++;
-        displayCkt(cktTableIndex);
+$("#prov_next").click(function(){
+    if (prov_tableCktIndex<prov_maxTableCktIndex){
+        prov_tableCktIndex++;
+        prov_displayTableCkt(prov_tableCktIndex);
     }  
 })
 
-$("#previousCkt").click(function(){
-    if(cktTableIndex>1){
-        cktTableIndex--;
-        displayCkt(cktTableIndex);   
+
+$("#prov_previous").click(function(){
+    if (prov_tableCktIndex>1){
+        prov_tableCktIndex--;
+        prov_displayTableCkt(prov_tableCktIndex);   
     }         
 })
 
-$("#nextCktCon").click(function(){
-    if(cktConTableIndex<maxCktConTableIndex){
-        cktConTableIndex++;
-        displayCktCon(cktConTableIndex);
-    }  
-})
 
-$("#previousCktCon").click(function(){
-    if(cktConTableIndex>1){
-        cktConTableIndex--;
-        displayCktCon(cktConTableIndex);   
-    }         
-})
-
-$(document).on("click","#tableCkt tr",function(){
+$(document).on("click","#prov_tableCkt tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
     //Populate the information 
-	$("#ckt_id").val(dataRow[0]).change();
-	$("#ckid").val(dataRow[1]).change();
-    $("#cls").val(dataRow[2]).change();
-    $("#adsr").val(dataRow[3]).change();
-    $("#prot").val(dataRow[4]).change();
-    $("#ordno").val(dataRow[5]).change();
-    $("#mlo").val(dataRow[6]).change();
-    $("#cktcon_id").val(dataRow[8]).change();
+	$("#prov_ckt_id").val(dataRow[0]).change();
+	$("#prov_ckid").val(dataRow[1]).change();
+    $("#prov_cls").val(dataRow[2]).change();
+    $("#prov_adsr").val(dataRow[3]).change();
+    $("#prov_prot").val(dataRow[4]).change();
+    $("#prov_ordno").val(dataRow[5]).change();
+    $("#prov_mlo").val(dataRow[6]).change();
+    $("#prov_cktcon_id").val(dataRow[8]).change();
 
-    // Refresh cktcon_idx
-    $("#cktcon_idx").val("");
-    $("#cktcontbl").show();
+    // Reset prov_cktcon_idx
+    $("#prov_cktcon_idx").val("");
     
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
     $(this).siblings().removeClass( "addColor" ); //remove class selected from rest of the rows  
     
-    if ($('#cktcon_id').val() != "")
-		queryCktcon($('#cktcon_id').val());
+    if ($('#prov_cktcon_id').val() != "")
+		prov_queryCktCon($('#prov_cktcon_id').val());
 		
 });
 
-$(document).on("click","#tableCktCon tr",function(){
+
+$(document).on("click","#prov_tableCktCon tr",function(){
     var dataRow= $(this).children("td").map(function(){
         return $(this).text();
     }).get();
+
     //Populate the information 
-    $("#cktcon_idx").val(dataRow[0]);
-    $("#ctypModal4DisConn").val(dataRow[1]);
-    $("#ffacModal4DisConn").val(dataRow[2]);
-    $("#tfacModal4DisConn").val(dataRow[3]);
-    
+    $("#prov_cktcon_idx").val(dataRow[0]);
+	$("#provModal_ctyp").val(dataRow[1]);
+	$("#provModal_ffac").val(dataRow[2]);
+	$("#provModal_tfac").val(dataRow[3]);
+	$("#provModal_discCtyp").val(dataRow[1]);
+	$("#provModal_discFfac").val(dataRow[2]);
+	$("#provModal_discTfac").val(dataRow[3]);
+	if ($('#prov_act').val() == "DISCONN") {
+		$('#provModal').modal();
+		prov_populateProvModal();
+		$("#provModal_newConForm").hide();
+		$("#provModal_discConForm").show();
+	}
 
     //Add color to the row
     $(this).addClass("addColor"); //add class selected to current clicked row
@@ -97,276 +93,254 @@ $(document).on("click","#tableCktCon tr",function(){
 });
 
 
-$(document).on('mouseup', '[id = cktAct]', function () {
+$(document).on('mouseup', '[id = prov_act]', function () {
     
-    if ($("#cktAct").val() == "NEW CKT") {
-        
-        //$("#checkProvInfor").text("");
-        clearProvModalForm();
-        $("#cktActModal").val($("#cktAct").val());
+    if ($("#prov_act").val()  ==  "NEW CKT") 
+    {
+        provModal_clearForm();
+        $("#provModal_act").val($("#prov_act").val());
 
-        loadFacX();
-        loadFacY();
+        provModal_loadFacX();
+        provModal_loadFacY();
 
-        $("#ckidModal").prop("disabled",false),
-        $("#clsModal").prop("disabled",false),
-        $("#adsrModal").prop("disabled",false),
-        $("#protModal").prop("disabled",false),
-        $("#ordnoModal").prop("disabled",false),
-        $("#mloModal").prop("disabled",false),
+        $("#provModal_ckid").prop("disabled",false);
+        $("#provModal_cls").prop("disabled",false);
+        $("#provModal_adsr").prop("disabled",false);
+        $("#provModal_prot").prop("disabled",false);
+        $("#provModal_ordno").prop("disabled",false);
+        $("#provModal_mlo").prop("disabled",false);
 
-        $("#cktconModal").show()
-        $("#cktconModal4DisConn").hide();
-        $("#clrCktModal").show();
+        $("#provModal_newConForm").show();
+        $("#provModal_discConForm").hide();
+        $("#provModal_clear").show();
 
         $("#provModal").modal();
-		
-		clearCktForm();
-        clearCktConForm();
-        clearCktConTable();
-        
+		prov_clearForm();
     }
-    else if($("#cktAct").val() == "CONN"){
-        //$("#checkProvInfor").text("");
-        if(checkProvInfor4Conn()){
-            clearProvModalForm();
-            populateProvModal();
-            loadFacX();
-            loadFacY();
+    else if ($("#prov_act").val()  ==  "CONN")
+    {
+        if ($('#prov_ckt_id').val() == "") {
+			alert("Please select a CKT from the LIST OF CKTs");
+			$('#prov_act').val("");
+		}
+		else {
+            provModal_clearForm();
+            prov_populateProvModal();
+            provModal_loadFacX();
+            provModal_loadFacY();
 
-            $("#ckidModal").prop("disabled",true),
-            $("#clsModal").prop("disabled",true),
-            $("#adsrModal").prop("disabled",true),
-            $("#protModal").prop("disabled",true),
-            $("#ordnoModal").prop("disabled",false),
-            $("#mloModal").prop("disabled",true),
+            $("#provModal_ckid").prop("disabled",true);
+            $("#provModal_cls").prop("disabled",true);
+            $("#provModal_adsr").prop("disabled",true);
+            $("#provModal_prot").prop("disabled",true);
+            $("#provModal_ordno").prop("disabled",false);
+            $("#provModal_mlo").prop("disabled",true);
 
-            $("#cktconModal").show()
-            $("#cktconModal4DisConn").hide();
-            $("#clrCktModal").hide();
+            $("#provModal_newConForm").show();
+            $("#provModal_discConForm").hide();
+            $("#provModal_clear").hide();
 
             $("#provModal").modal();
         }
-        else{
-            //$("#checkProvInfor").text("Missing CKT information!")
-            alert ("Please select a CKT");
-            $("#cktAct").val("");
-        }
-        
     }
-    else if($("#cktAct").val() == "DISCONN"){
-        //$("#checkProvInfor").text("");
-        if(checkProvInfor4DisConn()){
-            clearProvModalForm();
-            populateProvModal();
+    else if ($("#prov_act").val()  ==  "DISCONN") {
+        if ($('#prov_ckt_id').val() == "" || $('#prov_cktcon_id').val() == "") {
+			alert("Please select a CKT from the LIST OF CKTs");
+			$('#prov_act').val("");
+		}
+		else if ($('#prov_cktcon_idx').val() == "" || $('#prov_cktcon_idx').val() == 0) {
+			alert("Please select a CON from the LIST OF CONNECTIONS");
+		}
+        else {
+			prov_populateProvModal();
             
-            $("#ckidModal").prop("disabled",true),
-            $("#clsModal").prop("disabled",true),
-            $("#adsrModal").prop("disabled",true),
-            $("#protModal").prop("disabled",true),
-            $("#ordnoModal").prop("disabled",true),
-            $("#mloModal").prop("disabled",true),
-    
-            $("#cktconModal").hide()
-            $("#cktconModal4DisConn").show();
-            $("#clrCktModal").hide();
-    
+            $("#provModal_ckid").prop("disabled",true);
+            $("#provModal_cls").prop("disabled",true);
+            $("#provModal_adsr").prop("disabled",true);
+            $("#provModal_prot").prop("disabled",true);
+            $("#provModal_ordno").prop("disabled",false);
+            $("#provModal_mlo").prop("disabled",true);
+			$("#provModal_act").prop("disabled",true);
+
+            $("#provModal_newConForm").hide();
+            $("#provModal_clear").hide();
+			//$("#provModal_discCtyp").val($('#prov_ctyp').val());
+			//$("#provModal_discFfac").val($('#prov_ffac').val());
+            //$("#provModal_discTfac").val($('#prov_tfac').val());
+            $("#provModal_discConForm").show();
+
             $("#provModal").modal();
         }
-        else{
-            //$("#checkProvInfor").html("Missing CKT information!<br>And a CKT connection must be chosed")
-            alert("Please select a CKT CONNECTION");
-            $("#cktAct").val("");
-            
-        }
-        
     }
    
 })
+
 
 /* Functions section */
 
-function populateProvModal(){
-    $("#ckidModal").val($("#ckid").val()),
-    $("#clsModal").val($("#cls").val()),
-    $("#adsrModal").val($("#adsr").val()),
-    $("#protModal").val($("#prot").val()),
-    $("#ordnoModal").val($("#ordno").val()),
-    $("#mloModal").val($("#mlo").val()),
-    // $("#ctypModal4DisConn").val($("#ctyp").val()),
-    // $("#ffacModal4DisConn").val($("#ffac").val()),
-    // $("#tfacModal4DisConn").val($("#tfac").val()),
-    $("#cktActModal").val($("#cktAct").val())
+function prov_populateProvModal(){
+    $("#provModal_ckid").val($("#prov_ckid").val());
+    $("#provModal_cls").val($("#prov_cls").val());
+    $("#provModal_adsr").val($("#prov_adsr").val());
+    $("#provModal_prot").val($("#prov_prot").val());
+    $("#provModal_ordno").val($("#prov_ordno").val());
+    $("#provModal_mlo").val($("#prov_mlo").val());
+    $("#provModal_act").val($("#prov_act").val());
 }
 
 
-function checkProvInfor4Conn(){
-    if (($("#ckt_id").val() != "") && ($("#cktcon_id").val() != ""))
-        return true;
-    else
-		return false;
-}
-function checkProvInfor4DisConn(){
-    if (($("#ckt_id").val() != "") && ($("#cktcon_id").val() != "") && ($("#cktcon_idx").val() != ""))
-        return true;
-    else
-		return false;
-}
 
-function clearCktTable() {
+function prov_clearTableCkt() {
 	
-    $("#tableCkt").empty();
+    $("#prov_tableCkt").empty();
 }
 
-function clearCktConTable() {
-    $("#tableCktCon").empty();
-    //$("#cktcontbl").hide();
+function prov_clearTableCktCon() {
+	
+    $("#prov_tableCktCon").empty();
 }
 
 
-
-function queryCkt(action) {
+function prov_queryCkt(action) {
     
     $.post("./php/coQueryProv.php",
     {     
         act:	action,
-        user:	"ninh",
-        ckid:	$("#ckid").val(),
-        cls:	$("#cls").val(),
-        adsr:	$("#adsr").val(),
-        prot:	$("#prot").val(),
-        ordno:	$("#ordno").val(),
-        mlo:	$("#mlo").val()
+        user:	$('#main_currentUser').text(),
+        ckid:	$("#prov_ckid").val(),
+        cls:	$("#prov_cls").val(),
+        adsr:	$("#prov_adsr").val(),
+        prot:	$("#prov_prot").val(),
+        ordno:	$("#prov_ordno").val(),
+        mlo:	$("#prov_mlo").val()
        
     },
     function (data, status) {       
         var obj = JSON.parse(data);
-        if(obj["rslt"]=="fail"){
+        if (obj["rslt"] == "fail")
+        {
             alert(obj['reason']);
-        }else{
-            if(obj['rows'].length==0){
+        }
+        else
+        {
+            if (obj['rows'].length == 0)
+            {
                 alert("There is no matching data!");
             }
-            else{
-                cktTableIndex=0;
-                cktArray = obj['rows'];
-                var len = cktArray.length; 
-                maxCktTableIndex = Math.ceil(len/100.0);
-                cktTableIndex++;
-                displayCkt(cktTableIndex);
-                // if(action=="add") alert("Facility is added successfully!");
-                // else if(action=="del") alert("Facility is deleted successfully!");
-                // else if(action=="upd") alert("Facility is updated successfully!");
+            else
+            {
+                prov_tableCktIndex=0;
+                prov_tableCkt = obj['rows'];
+                var len = prov_tableCkt.length; 
+                prov_maxTableCktIndex = Math.ceil(len/100.0);
+                prov_tableCktIndex++;
+                prov_displayTableCkt(prov_tableCktIndex);
             }  
         } 
     });
 }
 
 
-function queryCktcon(cktcon_id){
+function prov_queryCktCon(cktcon_id){
     
     $.post("./php/coQueryProv.php",
     {     
         act:	"queryCktcon",
-        user:	"ninh",
+        user:	$('#main_currentUser').text(),
         cktcon:	cktcon_id
         
     },
     function (data, status) {       
         var obj = JSON.parse(data);
-        if(obj["rslt"]=="fail"){
+        if (obj["rslt"] == "fail"){
             alert(obj['reason']);
-        }else{
-            if(obj['rows'].length==0){
+        }
+        else
+        {
+            if (obj['rows'].length == 0)
+            {
                 alert("There is no matching data!");
             }
-            else{
-                cktConTableIndex=0;
-                cktConArray = obj['rows'];
-                var len = cktConArray.length; 
-                maxCktConTableIndex = Math.ceil(len/100.0);
-                cktConTableIndex++;
-                displayCktCon(cktConTableIndex);
-                // if(action=="add") alert("Facility is added successfully!");
-                // else if(action=="del") alert("Facility is deleted successfully!");
-                // else if(action=="upd") alert("Facility is updated successfully!");
+            else
+            {
+                prov_tableCktConIndex=0;
+                prov_tableCktCon = obj['rows'];
+                var len = prov_tableCktCon.length; 
+                prov_maxTableCktConIndex = Math.ceil(len/100.0);
+                prov_tableCktConIndex++;
+                prov_displayTableCktCon(prov_tableCktConIndex);
             }  
         } 
     });
 }
 
-function displayCkt(index){   
+
+function prov_displayTableCkt(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = cktArray.length;
+    var len = prov_tableCkt.length;
 
-    if(len>=startIndex){
-        if(len < stopIndex)
+    if (len>=startIndex){
+        if (len < stopIndex)
             stopIndex=len;            
-        clearCktTable();
+        prov_clearTableCkt();
         var a = [];
-        for (var i=0; i<stopIndex; i++) {  
-            a.push('<tr> <td style="display:none">' + cktArray[i].id + '</td>');
-            a.push('<td style="width:25%">' + cktArray[i].ckid + '</td>');
-            a.push('<td style="width:10%">' +  cktArray[i].cls + '</td>');
-            a.push('<td style="width:7%">' +  cktArray[i].adsr + '</td>');
-            a.push('<td style="width:7%">' +  cktArray[i].prot + '</td>');
-            a.push('<td style="width:20%">' +  cktArray[i].ordno + '</td>');
-            a.push('<td style="width:7%">' +  cktArray[i].mlo + '</td>');
-            a.push('<td style="width:24%">' +  cktArray[i].date + '</td>');
-            a.push('<td style="display:none">' +  cktArray[i].cktcon + '</td></tr>');
+        for (var i=0; i<stopIndex; i++) 
+        {  
+            a.push('<tr> <td style="display:none">' + prov_tableCkt[i].id + '</td>');
+            a.push('<td style="width:25%">' + prov_tableCkt[i].ckid + '</td>');
+            a.push('<td style="width:10%">' +  prov_tableCkt[i].cls + '</td>');
+            a.push('<td style="width:7%">' +  prov_tableCkt[i].adsr + '</td>');
+            a.push('<td style="width:7%">' +  prov_tableCkt[i].prot + '</td>');
+            a.push('<td style="width:20%">' +  prov_tableCkt[i].ordno + '</td>');
+            a.push('<td style="width:7%">' +  prov_tableCkt[i].mlo + '</td>');
+            a.push('<td style="width:24%">' +  prov_tableCkt[i].date + '</td>');
+            a.push('<td style="display:none">' +  prov_tableCkt[i].cktcon + '</td></tr>');
             
         }
-        document.getElementById("tableCkt").innerHTML = a.join("");
-        $("#indexCkt").text("From " + (startIndex+1) + " to " + stopIndex);
+        document.getElementById("prov_tableCkt").innerHTML = a.join("");
+        $("#prov_index").text("From " + (startIndex+1) + " to " + stopIndex);
     } 
 }
 
 
-function displayCktCon(index){   
+function prov_displayTableCktCon(index){   
     var startIndex=(index-1)*100;
     var stopIndex = index *100;
-    var len = cktConArray.length;
+    var len = prov_tableCktCon.length;
 
-    if(len>=startIndex){
-        if(len < stopIndex)
+    if (len>=startIndex)
+    {
+        if (len < stopIndex)
             stopIndex=len;            
-        clearCktConTable();
+        prov_clearTableCktCon();
         var a = [];
-        for (var i=0; i<stopIndex; i++) {  
-            a.push('<tr> <td style="width:10%">' + cktConArray[i].idx + '</td>')  
-            a.push('<td style="width:20%">' +  cktConArray[i].ctyp + '</td>');
-            a.push('<td style="width:35%">' +  cktConArray[i].ffac + '</td>');
-            a.push('<td style="width:35%">' +  cktConArray[i].tfac + '</td><tr>');
+        for (var i=0; i<stopIndex; i++) 
+        {  
+            a.push('<tr> <td style="width:10%">' + prov_tableCktCon[i].idx + '</td>')  
+            a.push('<td style="width:20%">' +  prov_tableCktCon[i].ctyp + '</td>');
+            a.push('<td style="width:35%">' +  prov_tableCktCon[i].ffac + '</td>');
+            a.push('<td style="width:35%">' +  prov_tableCktCon[i].tfac + '</td><tr>');
         }
-        document.getElementById("tableCktCon").innerHTML = a.join("");
-        //$("#indexCktCon").text("From "+(startIndex+1)+" to "+stopIndex);
+        document.getElementById("prov_tableCktCon").innerHTML = a.join("");
     } 
 }
 
 
-function clearCktForm(){
-    // $("#ck_id").val("").change();
-    $("#ckid").val("").change();
-    $("#cls").val("").change();
-    $("#adsr").val("").change();
-    $("#prot").val("").change();
-    $("#ordno").val("").change();
-    $("#mlo").val("").change();
-    $("#cktAct").val("");
-    $("#ckt_id").val("").change();
-    $("#cktcon_id").val("").change();
-    $("#cktcon_idx").val("").change();
-	clearCktConTable();
+function prov_clearForm(){
+    $("#prov_ckid").val("").change();
+    $("#prov_cls").val("").change();
+    $("#prov_adsr").val("").change();
+    $("#prov_prot").val("").change();
+    $("#prov_ordno").val("").change();
+    $("#prov_mlo").val("").change();
+    $("#prov_act").val("");
+    $("#prov_ckt_id").val("").change();
+    $("#prov_cktcon_id").val("").change();
+    $("#prov_cktcon_idx").val("").change();
+	prov_clearTableCktCon();
 }
 
-function clearCktConForm(){
-
-    $("#ctyp").val("").change();
-    $("#ffac").val("").change();
-    $("#tfac").val("").change();
-    
-}
 
 
 

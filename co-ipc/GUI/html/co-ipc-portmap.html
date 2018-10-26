@@ -33,6 +33,7 @@
                     <option></option>
                     <option>UAS</option>
                     <option>SF</option>
+                    <option>CONN</option>
                 </select>
             </div>
             
@@ -67,23 +68,26 @@
                 <select class="form-control" id="pm_act" >
                     <option></option>
                     <option>MAP</option>
-                    <option>UN-MAP</option>
+                    <option>UNMAP</option>
                     
                 </select>
             </div> 
             <div class="col-sm-6 modifyPadding">
-                <button id="pm_cancel" type="button" class="btn btn-primary">Cancel</button>
+                <button id="pm_cancel" type="button" class="btn btn-primary">Clear</button>
             </div>      
         </div>
         <div class="col-sm-7">
-			<div class="col-sm-6">
-				<label>LIST OF PORTS</label>
-			</div>
-            <div class="col-sm-6">
-                <a  id="pm_prev">Previous</a> |
-                <a  id="pm_next">Next</a>
-                &nbsp&nbsp&nbsp <label id="pm_index"></label>
+            <div class="col-sm-12">
+                <div style="float:left">
+                    <label>LIST OF PORTS:</label>
+                </div>
+                <div style="float:right">
+                    <a  id="pm_prev">Previous</a> |
+                    <a  id="pm_next">Next</a>
+                    &nbsp&nbsp&nbsp <label id="pm_index"></label>
+                </div>
             </div>
+			
             
             <div class="col-sm-12">
                 <div class="panel panel-default">

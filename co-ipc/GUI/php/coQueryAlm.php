@@ -16,22 +16,16 @@
     $remark = $_POST['remark'];
     $user = $_POST['user'];
     
-    //test data
-    //$act="ack";
-	//$ack="";
-	//$user="NINH";
-	//$almid = 1;
-	//$remark = "ABC";
-	
-	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-	if (mysqli_connect_errno()) {
+
+	$dbObj = new Db();
+	if ($dbObj->rslt == "fail") {
 		$result["rslt"] = "fail";
-		$result["reason"] = mysqli_connect_error();
-		mysqli_close($db);
+		$result["reason"] = $dbObj->reason;
 		echo json_encode($result);
 		return;
 	}
+	$db = $dbObj->con;
+	
 	
 	if ($act == "query") {
 		$result = queryAlm();
@@ -39,15 +33,19 @@
 		return;
 	}
 	
-	if ($act == "ack") {
+	if ($act == "ACK") {
 		$result = ackAlm();
 		echo json_encode($result);
 		return;
 	}
 
-	if ($act == "unack") {
+	if ($act == "UN-ACK") {
 		$result = unackAlm();
 		echo json_encode($result);
+		return;
+	}
+
+	if ($act == "CLR") {
 		return;
 	}
 

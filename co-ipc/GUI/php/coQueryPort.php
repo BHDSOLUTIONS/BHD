@@ -10,79 +10,114 @@
 
 	include "coCommonFunctions.php";
 
-    ///Expected inputs
-    $act = $_POST['act'];
-    $user = $_POST['user'];
-    $port_id = $_POST['port_id'];
-    $pnum = $_POST['pnum'];
-    $ptyp = $_POST['ptyp'];
-    $psta = $_POST['psta'];
-	$node = $_POST['node'];
-	$slot = $_POST['slot'];
-	$fac_id = $_POST['fac_id'];
-	$fac = $_POST['fac'];
-	$ftyp = $_POST['ftyp'];
-	$ckid = $_POST['ckid'];
+    /* Initialize Expected inputs */
+    $act = "";
+    if (isset($_POST['act']))
+		$act = $_POST['act'];
+    $user = "";
+    if (isset($_POST['user']))
+		$user = $_POST['user'];
+    $port_id = "";
+    if (isset($_POST['port_id']))
+		$port_id = $_POST['port_id'];
+    $pnum = "";
+    if (isset($_POST['pnum']))
+		$pnum = $_POST['pnum'];
+    $ptyp = "";
+    if (isset($_POST['ptyp']))
+		$ptyp = $_POST['ptyp'];
+    $psta = "";
+    if (isset($_POST['psta']))
+		$psta = $_POST['psta'];
+	$node = "";
+    if (isset($_POST['node']))
+		$node = $_POST['node'];
+	$slot = "";
+    if (isset($_POST['slot']))
+		$slot = $_POST['slot'];
+	$fac_id = "";
+    if (isset($_POST['fac_id']))
+		$fac_id = $_POST['fac_id'];
+	$fac = "";
+    if (isset($_POST['fac']))
+		$fac = $_POST['fac'];
+	$ftyp = "";
+    if (isset($_POST['ftyp']))
+		$ftyp = $_POST['ftyp'];
+	$ckid = "";
+    if (isset($_POST['ckid']))
+		$ckid = $_POST['ckid'];
 	
-	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-	if (mysqli_connect_errno())
-	{
+	
+	/* Dispatch to Functions */
+	
+	$dbObj = new Db();
+	if ($dbObj->rslt == "fail") {
 		$result["rslt"] = "fail";
-		$result["reason"] = mysqli_connect_error();
-		mysqli_close($db);
+		$result["reason"] = $dbObj->reason;
 		echo json_encode($result);
 		return;
 	}
+	$db = $dbObj->con;
 	
 	if ($act == "query" || $act == "findPort") {
 		$result = queryPort($node, $slot, $ptyp, $pnum, $psta);
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
 	if ($act == "findFac") {
 		$result = pmQueryFac($fac);
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
 	if ($act == "findCkid") {
 		$result = pmQueryCkid($ckid);
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
-	if ($act == "map") {
+	if ($act == "MAP") {
 		$result = mapPort($port_id, $fac_id);
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
-	if ($act == "unmap") {
+	if ($act == "UNMAP") {
 		$result = unmapPort($port_id, $fac_id);
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
 	else {
  		$result["rslt"] = "fail";
 		$result["reason"] = "ACTION " . $act . " is under development or not supported";
 		echo json_encode($result);
+		mysqli_close($db);
 		return;
 	}
 
 
+	/* Functions section */
 	function mapPort($port_id, $fac_id) {
-		global $db;
+		global $db, $user;
 		
+		$evtLog = new EvtLog($user, "PORTMAP", "MAP"); 
 		$result =[];
 		if (!($fac_id > 0)) {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing FAC";
+			$evtLog->log($result["rslt"], $result["reason"]);
 			return $result;
 		}
 		
-		$map = getMap($port_id, $fac_id, "map");
+		$map = getMap($port_id, $fac_id, "MAP");
 		if ($map["rslt"] == "fail") {
-			$result = $map;
-			mysqli_close($db);
-			return;
+			$result["rslt"] = "fail";
+			$result["reason"] = "Denied: PORT STAT: " + $map->psta;
+			$evtLog->log($result["rslt"], $result["reason"]);
+			return $result;
 		}
 		
 		$node = $map["rows"][0]["node"];
@@ -92,31 +127,46 @@
 		$port = $node . "-" . $slot . "-" . $ptyp . "-" . $pnum;
 		$psta = $map["rows"][0]["psta"];
 		$ssta = $map["rows"][0]["ssta"];
+		/*
 		$evt = "PT_MAP";
 		$sms = getSms($psta, $ssta, $evt);
 		if ($sms["rslt"] == "fail") {
 			$result = $sms;
-			mysqli_close($db);
+			$evtLog->log($sms["rslt"], $sms["reason"]);
 			return;
 		}
 			
 		$npsta = $sms["rows"][0]["npsta"];
 		$nssta = $sms["rows"][0]["nssta"];
+		*/
+		
+		$sms = new Sms($psta, $ssta, "PT_MAP");
+		if ($sms->rslt == "fail") {
+			$result["rslt"] = "fail";
+			$result["reason"] = $sms->reason;
+			return $result;
+		}
+		$npsta = $sms->npsta;
+		$nssta = $sms->nssta;
+		
 		$qry = "UPDATE t_ports SET fac_id=" . $fac_id . ", psta='" . $npsta . "', ssta='" . $nssta . "' WHERE id=" . $port_id;
 		$res = $db->query($qry);
 		$qry = "UPDATE t_facs SET port_id=" . $port_id . ", port='" . $port . "' WHERE id=" . $fac_id;
 		$res = $db->query($qry);
-				
+		
+		$evtLog->log("success", "mapPort");
 		return queryPort("", "", "", "", "");
 	}
 
+
 	function unmapPort($port_id, $fac_id) {
-		global $db;
+		global $db, $user;
 		
+		$evtLog = new EvtLog($user, "PORTMAP", "UNMAP"); 
 		$result =[];
-		$map = getMap($port_id, $fac_id, "unmap");
+		$map = getMap($port_id, $fac_id, "UNMAP");
 		if ($map["rslt"] == "fail") {
-			mysqli_close($db);
+			$evtLog->log("fail", $map["reason"]);
 			return $map;
 		}
 		$node = $map["rows"][0]["node"];
@@ -126,24 +176,41 @@
 		$port = $node . "-" . $slot . "-" . $ptyp . "-" . $pnum;
 		$psta = $map["rows"][0]["psta"];
 		$ssta = $map["rows"][0]["ssta"];
+		
+		/*
 		$evt = "PT_UNMAP";
 		
 		$sms = getSms($psta, $ssta, $evt);
-		
 		if ($sms["rslt"] == "fail") {
-			mysqli_close($db);
-			return $sms;
+			$result["rslt"] = "fail";
+			$result["reason"] = "Denied: PORT status must be SF";
+			$evtLog->log($result["rslt"], $result["reason"]);
+
+			return $result;
 		}
 		$npsta = $sms["rows"][0]["npsta"];
 		$nssta = $sms["rows"][0]["nssta"];
+		*/
+		$sms = new Sms($psta, $ssta, "PT_UNMAP");
+		if ($sms->rslt == "fail") {
+			$result["rslt"] = "fail";
+			$result["reason"] = $sms->reason;
+			return $result;
+		}
+		$npsta = $sms->npsta;
+		$nssta = $sms->nssta;
+		
 		$qry = "UPDATE t_ports SET fac_id=" . 0 . ", psta='" . $npsta . "', ssta='" . $nssta . "' WHERE id=" . $port_id;
 		$res = $db->query($qry);
 		$qry = "UPDATE t_facs SET port_id=" . 0 . ", port='' WHERE id=" . $fac_id;
 		$res = $db->query($qry);
-				
+		
+		$evtLog->log("success", "unmapPort");
+		
 		return queryPort("", "", "", "", "");
 	}
 	
+	/*
 	function getSms($psta, $ssta, $evt) {
 		global $db;
 
@@ -169,12 +236,12 @@
 		}
 		return $result;
 	}
-	
+	*/
 		
 	function getMap($port_id, $fac_id, $typ) {
 		global $db;
 		
-		if ($typ == "map")
+		if ($typ == "MAP")
 			$qry = "SELECT * from t_ports, t_facs WHERE t_ports.id=" . $port_id . " AND t_facs.id=" . $fac_id . " AND t_facs.port =''";
  		else
 			$qry = "SELECT * from t_ports, t_facs WHERE t_ports.id=" . $port_id . " AND t_facs.id=" . $fac_id . " AND t_facs.port <>''";

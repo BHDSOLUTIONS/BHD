@@ -45,19 +45,19 @@
                 <!-- ------------------------------------------------ -->
                 <div class="col-sm-6 modifyPadding">
                     <label for="pmModal_fac">FAC</label>
-                    <input type="text" class="form-control" id="pmModal_fac" placeholder="Select a FAC from table" readonly>
+                    <input type="text" class="form-control" id="pmModal_fac" readonly>
                 </div>
                 <div class="col-sm-2 modifyPadding">
                     <label for="pmModal_ftyp">FTYP</label>
-                    <input type="text" class="form-control" id="pmModal_ftyp" placeholder="" readonly>
+                    <input type="text" class="form-control" id="pmModal_ftyp" readonly>
                 </div>
                 <div class="col-sm-2 modifyPadding">
                     <label for="pmModal_ort">ORT</label>
-                    <input type="text" class="form-control" id="pmModal_ort" placeholder="" readonly>
+                    <input type="text" class="form-control" id="pmModal_ort" readonly>
                 </div>
                 <div class="col-sm-2 modifyPadding">
                     <label for="pmModal_spcfnc">SPCFNC</label>
-                    <input type="text" class="form-control" id="pmModal_spcfnc" placeholder="" readonly>
+                    <input type="text" class="form-control" id="pmModal_spcfnc" readonly>
                 </div>
                 
                 <!-- ------------------------------------------------ -->
@@ -78,7 +78,7 @@
                 <div id="pmModal_table" class="col-sm-12" style="border-radius: 10px;border: 2px solid #EDEDED; padding:5px;">
                     <!--
                     <div class="col-sm-8 modifyPadding">
-                        <input type="text" class="form-control" id="facPortModal4Find" placeholder="FAC Number: Ex. 9017-00000-01L">
+                        <input type="text" class="form-control" id="facPortModal4Find" >
                     </div>
                     <div class="col-sm-2 modifyPadding">
                         <select class="form-control" id="ftypPortModal4Find">
@@ -95,12 +95,18 @@
                     -->
                     <div class="col-sm-6 modifyPadding">
 						<label id="pmModal_info"></label>
-					</div>
-                    <div class="col-sm-6 modifyPadding">
-					    <a  id="previousFacModal">Previous</a> |
-                        <a  id="nextFacModal">Next</a>
-                        &nbsp&nbsp&nbsp <label id="pmModal_index"></label>
                     </div>
+                    <div class="col-sm-12">
+                        <div style="float:left;">
+                            <b>LIST OF FACILITIES:</b>
+                        </div>
+                        <div style="float:right;">
+                            <a  id="previousFacModal">Previous</a> |
+                            <a  id="nextFacModal">Next</a>
+                            &nbsp&nbsp&nbsp <label id="pmModal_index"></label>
+                        </div>
+                    </div>
+                   
                     
                     <div class="col-sm-12 modifyPadding">
                         <table class="table table-fixed">

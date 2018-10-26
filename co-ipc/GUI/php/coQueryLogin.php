@@ -3,12 +3,14 @@
  * Copy Right @ 2018
  * BHD Solutions, LLC.
  * Project: CO-IPC
- * Filename: coQueryUser.php
+ * Filename: coQueryLogin.php
  * Change history: 
- * 2018-16-05: created (Thanh)
+ * 2018-10-16: created (Thanh)
  */
-    session_start();
+
+    include "coCommonFunctions.php";
     
+   
 	$uname = "";
 	if(isset($_POST['uname']))
 		$uname = $_POST['uname'];
@@ -25,34 +27,64 @@
     if(isset($_POST['newpw']))
         $newpw = $_POST['newpw'];
 
-	//$db = mysqli_connect("localhost", "root", "Qaz!2345", "co5k");
-	$db = mysqli_connect("localhost", "ninh", "c0nsulta", "co5k");
-	if (mysqli_connect_errno())
-	{
+
+ 	$dbObj = new Db();
+	if ($dbObj->rslt == "fail") {
 		$result["rslt"] = "fail";
-		$result["reason"] = mysqli_connect_error();
-		mysqli_close($db);
+		$result["reason"] = $dbObj->reason;
 		echo json_encode($result);
 		return;
 	}
+	$db = $dbObj->con;
+	
+   
+    if ($act == "login") {
+		$result = userLogin();
+		echo json_encode($result);
+		mysqli_close($db);
+		return;
+	}
     
-    if($act == "login"){
-        $qry = "select * FROM t_users where uname = '$uname' and pw = '$pw'"; 
-  
+    if($act =="firstlogin"){
+		$result = userFirstLogin();
+		echo json_encode($result);
+		mysqli_close($db);
+		return;
+	}
+	else {
+ 		$result["rslt"] = "fail";
+		$result["reason"] = "Invalid ACTION";
+		echo json_encode($result);
+		return;
+	}
+
+
+
+	function userLogin() {
+		global $db, $uname, $pw;
+		
+        $evtLog = new EvtLog($uname,"USERS","LOGIN");
+        
+        $qry = "SELECT id, ssn FROM t_users WHERE uname = '$uname' and pw = '$pw'"; 
         $res = $db->query($qry);
         if (!$res) {
            
             $result["rslt"] = "fail";
             $result["reason"] = mysqli_error($db);
-        }
+		}
         else {
-            
             $rows = [];
             if ($res->num_rows == 1) {
                 while ($row = $res->fetch_assoc()) {
                     $rows[] = $row;
-                }  
-                $qry = "update t_users set stat = 'ACTIVE', lastlogin=now() where uname = '$uname' and pw= '$pw'"; 
+                }
+                if ($rows[0]["ssn"] == $pw) {
+					$result["rslt"] = "fail";
+					$result["reason"] = "Please use First Time Login and provide NEW PASSWORD";
+					return $result;
+				}
+				$id = $rows[0]["id"];
+                $qry = "UPDATE t_users set stat = 'ACTIVE', lastlogin=login, login=now() WHERE id=" . $id; 
       
                 $res = $db->query($qry);
                 if (!$res) {
@@ -63,22 +95,45 @@
                 else
                 {
                     $result["rslt"] = "success";
-                    $result["rows"] = $rows;
-
-                    $_SESSION['uname'] = $uname;
-                    $_SESSION['password'] = $pw;
-
-                }
-                
+                    $result["reason"] = "userLogin";
+				}   
             }
-            
-            
+            else {
+				$result["rslt"] = "fail";
+				$result["reason"] = "Invalid USERNAME or PASSWORD";
+			}
         }
-        mysqli_close($db);
-        echo json_encode($result);
+		$evtLog->log($result["rslt"], $result["reason"]);
+		return $result;
     }
-    else if($act =="firstlogin"){
-        $qry = "select * FROM t_users where uname = '$uname' and pw = '$pw'";
+        
+
+
+	function userFirstLogin() {
+		global $db, $uname, $pw, $newpw;
+		
+		$evtLog = new EvtLog($uname,"USERS","FIRST-LOGIN");
+		
+		if ($uname == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing USERNAME";
+			return $result;
+		}
+		
+		if ($pw == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing PASSWORD";
+			return $result;
+		}
+		
+		if ($newpw == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing NEW PASSWORD";
+			return $result;
+		}
+			
+		
+        $qry = "SELECT id FROM t_users where uname = '$uname' and pw = ssn";
 
         $res = $db->query($qry);
         if (!$res) {
@@ -88,54 +143,31 @@
         }
         else{
             $rows = [];
-            // echo '<pre>'; print_r($res); echo '</pre>';
             if ($res->num_rows > 0) {
-                if($res->num_rows == 1){
-                    while ($row = $res->fetch_assoc()) {
-                        $rows[] = $row;
-                    }  
-                    if($rows[0]['pw'] == $rows[0]['ssn']){
-                        $qry = "update t_users set pw = '$newpw', stat = 'ACTIVE', lastlogin=now() where uname = '$uname' and pw= '$pw'"; 
-      
-                        $res = $db->query($qry);
-                        if (!$res) {
-                           
-                            $result["rslt"] = "fail";
-                            $result["reason"] = mysqli_error($db);
-                        }
-                        else {
-                            $rows = [];
-                            
-                            $result["rslt"] = "success";
-                            $result["rows"] = $rows;
-
-                            $_SESSION['uname'] = $uname;
-                            $_SESSION['password'] = $newpw;
-                                
-                        } 
-                        
-                    }
-                    else{
-                        $result["rslt"] = "fail";
-                        $result["reason"] = "This is not your first time login!";
-                    }
+                while ($row = $res->fetch_assoc()) {
+                    $rows[] = $row;
                 }
-                else{
+                $id = $rows[0]["id"]; 
+                $qry = "UPDATE t_users SET pw = '$newpw', stat = 'ACTIVE', lastlogin=now(), login=now() WHERE id=" . $id; 
+      
+                $res = $db->query($qry);
+                if (!$res) {
                     $result["rslt"] = "fail";
-                    $result["reason"] = "There are duplicated accounts with this username and password!";
+                    $result["reason"] = mysqli_error($db);
                 }
-                
-            }
-            else{
-
-                $result["rslt"] = "fail";
-                $result["reason"] = "Wrong username and password!";
-            }
+                else {
+                    $result["rslt"] = "success";
+                    $result["reason"] = "userFirstLogin";
+                } 
+			}
+			else{
+				$result["rslt"] = "fail";
+                $result["reason"] = "This is not first login!";
+			}
         }
-      
-        mysqli_close($db);
-        echo json_encode($result);
-    }
+        $evtLog->log($result["rslt"], $result["reason"]);
+		return $result;
+	}
    
 
 ?>

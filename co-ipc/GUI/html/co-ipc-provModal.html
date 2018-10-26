@@ -10,13 +10,13 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-4 modifyPadding">
-                        <label for="ckidModal">CKID</label>
-                        <input type="text" class="form-control" id="ckidModal">
+                        <label for="provModal_ckid">CKID</label>
+                        <input type="text" class="form-control" id="provModal_ckid">
                     </div>
                         
                     <div class="col-sm-2 modifyPadding">
-                        <label for="clsModal">CLS</label>
-                        <select class="form-control" id="clsModal" style="padding:2px 0 0 0">
+                        <label for="provModal_cls">CLS</label>
+                        <select class="form-control" id="provModal_cls" style="padding:2px 0 0 0">
                             <option></option>
                             <option>RES</option>
                             <option>BUS</option>
@@ -24,8 +24,8 @@
                     </div>
         
                     <div class="col-sm-2 modifyPadding">
-                        <label for="adsrModal">ADSR</label>
-                        <select class="form-control" id="adsrModal" style="padding:2px 0 0 0">
+                        <label for="provModal_adsr">ADSR</label>
+                        <select class="form-control" id="provModal_adsr" style="padding:2px 0 0 0">
                             <option></option>
                             <option>SSM</option>
                             <option>SSP</option>
@@ -33,8 +33,8 @@
                     </div>   
         
                     <div class="col-sm-2 modifyPadding">
-                        <label for="protModal">PROT</label>
-                        <select class="form-control" id="protModal" style="padding:2px 0 0 0">
+                        <label for="provModal_prot">PROT</label>
+                        <select class="form-control" id="provModal_prot" style="padding:2px 0 0 0">
                             <option></option>
                             <option>Y</option>
                             <option>N</option>
@@ -44,13 +44,13 @@
                     <!-- ----------------------------------------- -->
         
                     <div class="col-sm-4 modifyPadding">
-                        <label for="ordnoModal">ORDNO</label>
-                        <input type="text" class="form-control" id="ordnoModal">
+                        <label for="provModal_ordno">ORDNO</label>
+                        <input type="text" class="form-control" id="provModal_ordno">
                     </div>
                     
                     <div class="col-sm-2 modifyPadding">
-                        <label for="mloModal">MLO</label>
-                        <select class="form-control" id="mloModal" style="padding:2px 0 0 0">
+                        <label for="provModal_mlo">MLO</label>
+                        <select class="form-control" id="provModal_mlo" style="padding:2px 0 0 0">
                             <option></option>
                             <option>Y</option>
                             <option>N</option>
@@ -59,10 +59,10 @@
         
                     <!-- ------------------------------------------------- -->
                     
-                    <div id="cktconModal" class="col-sm-12 modifyPadding">
+                    <div id="provModal_newConForm" class="col-sm-12 modifyPadding">
                         <div class="col-sm-2 modifyPadding">
-                            <label for="ctypModal">CTYP</label>
-                            <select class="form-control" id="ctypModal" style="padding:2px 0 0 0">
+                            <label for="provModal_ctyp">CTYP</label>
+                            <select class="form-control" id="provModal_ctyp" style="padding:2px 0 0 0">
                                 <option></option>
                                 <option>GEN</option>
                                 <option>LPBK</option>
@@ -70,66 +70,63 @@
                             </select>
                         </div>  
                         <div class="col-sm-5 modifyPadding">
-                            <label for="ffacModal">FAC(X)</label>
-                            <select class="form-control" id="ffacModal"> 
+                            <label for="provModal_ffac">FAC(X)</label>
+                            <select class="form-control" id="provModal_ffac"> 
                             </select>
                         </div> 
                         <div class="col-sm-5 modifyPadding">
-                            <label for="tfacModal">FAC(Y)</label>
-                            <select class="form-control" id="tfacModal">
+                            <label for="provModal_tfac">FAC(Y)</label>
+                            <select class="form-control" id="provModal_tfac">
                             </select>
                         </div> 
                     </div>
 
                     <!-- ----------------------------------- -->
-
-                    <div id="cktconModal4DisConn" class="col-sm-12 modifyPadding">
+					
+                    <div id="provModal_discConForm" class="col-sm-12 modifyPadding">
                         <div class="col-sm-2 modifyPadding">
-                            <label for="ctypModal4DisConn">CTYP</label>
-                            <select class="form-control" id="ctypModal4DisConn" style="padding:2px 0 0 0" disabled>
-                                <option></option>
-                                <option>GEN</option>
-                                <option>LPBK</option>
-                                <option>MTL</option>
-                            </select>
+                            <label for="provModal_discCtyp">CTYP</label>
+                            <input type="text" class="form-control" id="provModal_discCtyp" readonly> 
                         </div>  
                         <div class="col-sm-5 modifyPadding">
-                            <label for="ffacModal4DisConn">FAC(X)</label>
-                            <input type="text" class="form-control" id="ffacModal4DisConn" readonly> 
+                            <label for="provModal_discFfac">FAC(X)</label>
+                            <input type="text" class="form-control" id="provModal_discFfac" readonly> 
                         
                         </div> 
                         <div class="col-sm-5 modifyPadding">
-                            <label for="tfacModal4DisConn">FAC(Y)</label>
-                            <input type="text" class="form-control" id="tfacModal4DisConn" readonly>
+                            <label for="provModal_discTfac">FAC(Y)</label>
+                            <input type="text" class="form-control" id="provModal_discTfac" readonly>
                         
                         </div> 
                     </div>
+                    
                     <!-- ---------------------------------------------------- -->
 
                     <div class="col-sm-12 modifyPadding">
                         <div class="col-sm-3 modifyPadding"> 
-                            <label for="cktActModal">ACTION</label>    
-                            <!-- <select class="form-control" id="cktAct" style="padding:2px 0 0 0" >
+                            <label for="provModal_act">ACTION</label>    
+                            <!-- <select class="form-control" id="prov_act" style="padding:2px 0 0 0" >
                                 <option></option>
                                 <option>New CKT</option>
                                 <option>Connect</option>
                                 <option>Disconnect</option>
                             </select> -->
-                            <input type="text" class="form-control" id="cktActModal" readonly>
+                            <input type="text" class="form-control" id="provModal_act" readonly>
                         </div>
                         
                         <div class="col-sm-8 modifyPadding">
-                            <button id="submitCktModal" type="button" class="btn btn-primary">Submit</button>
-                            <button id="clrCktModal" type="button" class="btn btn-primary">Cancel</button>
+                            <button id="provModal_submit" type="button" class="btn btn-primary">Submit</button>
+                            <button id="provModal_clear" type="button" class="btn btn-primary">Clear</button>
                             <!-- moded to co-ipc-prov.html 
                             <input id="ckt_id" type="text" style="width:50px">
                             <input id="cktcon_id" type="text" style="width:50px">
                             <input id="cktcon_idx" type="text" style="width:50px">
                             -->
                             <br>
-                            <label id="resultProvModal" style="color:red"></label>
+                            <label id="provModal_result" style="color:red"></label>
                         </div>
                     </div>
+
                     <!-- ---------------------------------------------- -->
         
                     
