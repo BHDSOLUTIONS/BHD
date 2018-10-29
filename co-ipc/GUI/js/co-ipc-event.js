@@ -193,9 +193,9 @@ function event_displayTable(index){
             a.push('<td style="width:15%">' + event_table[i].user + '</td>');
             a.push('<td style="width:20%">' +  event_table[i].fnc + '</td>');
             a.push('<td style="width:20%">' +  event_table[i].evt + '</td>');
-            a.push('<td style="width:25%">' +  event_table[i].rslt + '</td>');
+            a.push('<td style="width:23%">' +  event_table[i].rslt + '</td>');
             a.push('<td style="display:none">' +  event_table[i].detail + '</td>');
-            a.push('<td style="width:20%">' +  event_table[i].time + '</td>');
+            a.push('<td style="width:22%">' +  event_table[i].time + '</td>');
         }
         document.getElementById("event_table").innerHTML = a.join("");
         $("#event_index").text("From "+(startIndex+1)+" to "+stopIndex);

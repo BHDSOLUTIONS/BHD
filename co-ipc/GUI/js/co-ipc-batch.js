@@ -1,5 +1,5 @@
 
-var batch_list;
+var batch_list = [];
 // ----------------------Click Events-----------------------------
 
 $(document).on("click","#batch_table tr",function(){            
@@ -35,10 +35,13 @@ $(document).on('mouseup', '[id = batch_act]', function () {
 
 })
 
-$("#batch_file").change(function(){
-    var index = $("#batch_file").val();
-    $("#batch_id").val(batch_list[index].id)
-    batch_queryBatch("queryBats")
+$("#batch_file").change(function() {
+    alert("batch_list.length=" + batch_list.length);
+    if (batch_list.length > 0) {
+		var index = $("#batch_file").val();
+		$("#batch_id").val(batch_list[index].id);
+		batch_queryBatch("queryBats");
+	}
     // batch_displayTable(index);
 })
 
@@ -63,44 +66,36 @@ function batch_queryBatch(action){
         }
         else
         {
-            if (obj['rows'].length == 0)
-            {
-                alert("There is no batch file in database!");
-            }
-            else
-            {
-                if (action == "queryBats") {
-                    $("#batch_table").empty();
-                    var a = [];
-                    var length = obj['rows'].length;
-                    for (var i=0; i<length; i++) 
-                    {  
-                        a.push('<tr> <td style="display:none">' + obj['rows'][i].id + '</td>')  
-                        a.push('<td style="display:none">' + obj['rows'][i].batch_id + '</td>')
-                        a.push('<td style="width:5%">' +  obj['rows'][i].cmd_id + '</td>');
-                        a.push('<td style="width:95%; word-wrap: break-word">' + obj['rows'][i].cmd + '</td></tr>');
-                    }
-                    document.getElementById("batch_table").innerHTML = a.join("");
-                    
+            if (action == "queryBats") {
+                $("#batch_table").empty();
+                var a = [];
+                var length = obj['rows'].length;
+                for (var i=0; i<length; i++) 
+                {  
+                    a.push('<tr> <td style="display:none">' + obj['rows'][i].id + '</td>')  
+                    a.push('<td style="display:none">' + obj['rows'][i].batch_id + '</td>')
+                    a.push('<td style="width:5%">' +  obj['rows'][i].cmd_id + '</td>');
+                    a.push('<td style="width:95%; word-wrap: break-word">' + obj['rows'][i].cmd + '</td></tr>');
                 }
-                else if (action == "query" || action == "delete"){
-                    var a = [];
-                    batch_list = obj['rows'];
-                    a.push('<option></option>');
-
-                    for (var i=0; i<obj["rows"].length; i++) 
-                    {  
-                        a.push('<option value = "'+ i +'">' + batch_list[i].filename + '</option>');
-                    }
-
-                    $("#batch_file").empty();
-                    document.getElementById("batch_file").innerHTML = a.join("");
-                    if (action == "delete")
-                        $("#batch_result").text("The batch file is deleted successfully!");
-                }
+                document.getElementById("batch_table").innerHTML = a.join("");
                 
-              
-            }  
+            }
+            else if (action == "query" || action == "delete"){
+                var a = [];
+                batch_list = obj['rows'];
+                a.push('<option>Select a Batch File</option>');
+
+                for (var i=0; i<obj["rows"].length; i++) 
+                {  
+                    a.push('<option value = "'+ i +'">' + batch_list[i].filename + '</option>');
+                }
+
+                $("#batch_file").empty();
+                document.getElementById("batch_file").innerHTML = a.join("");
+                if (action == "delete")
+                    $("#batch_result").text("The batch file is deleted successfully!");
+            }
+  
         } 
     });
 
@@ -112,6 +107,7 @@ function batch_clearForm(){
     $("#batch_file").val("");
     $("#batch_table").empty();
     $("#batch_id").val("");
+    $("#batch_result").text("");
     // $("#batch_table").empty();
 }
 

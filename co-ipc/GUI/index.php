@@ -1,7 +1,6 @@
 
 <?php	
-	session_start();
-
+	
 	include './html/co-ipc-header.html';
 	include './html/co-ipc-warning.html';
 	include './html/co-ipc-login.html';
@@ -16,7 +15,8 @@
 	include './html/co-ipc-event.html';
 	include './html/co-ipc-brdcst.html';
 	include './html/co-ipc-batch.html';
-	include './co-ipc-closeContainerTag.html';
+	include './html/co-ipc-ord.html';
+	include './html/co-ipc-closeContainerTag.html';
 	include './html/co-ipc-facModal.html';
 	include './html/co-ipc-portMapModal.html';
 	include './html/co-ipc-provModal.html';
@@ -31,17 +31,14 @@
 
 <script>
 
-var main_currentUser;
 $(document).ready(function() { 
 
-	setupFac_queryFac('query');
-	main_currentUser = '<?php echo ($_SESSION['uname']) ?>'
-	
-	if (main_currentUser =='')
+	//setupFac_queryFac('query');
+	brdcst_queryBrdcst('query');
+	if ($("main_currentUser").text() == '')
 	{
 		$("#warningPage").show();
 		$("#loginPage").hide();
-
 		$("#mainPage").hide();
 
 	}
@@ -49,7 +46,6 @@ $(document).ready(function() {
 	{
 		$("#warningPage").hide();
 		$("#loginPage").hide();
-		$("#main_currentUser").text(main_currentUser);
 		$("#mainPage").show();
 	}
 
@@ -61,17 +57,6 @@ $("#continue").click(function(){
 	$("#mainPage").hide();
 })
 
-
-// var timeSinceLastInterAct = 0;
-
-// $(document).mousemove(function() {
-// 	timeSinceLastMove= new Date();
-// });
-
-// $(document).keyup(function() {
-
-//     timeSinceLastMove= new Date();
-// });
 </script>
 
 

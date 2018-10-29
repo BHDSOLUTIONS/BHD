@@ -4,6 +4,38 @@ $(window).resize(checkWinSize)
 
 // ---------------------Click Events-----------------------
 
+$("#logout").click(function () {
+	
+    $.post("./php/coQueryLogout.php",
+    {    
+        user:	$("#main_currentUser").text()
+    },
+    function (data, status) {       
+        var obj = JSON.parse(data);
+        if (obj["rslt"] == "fail")
+        {
+            alert(obj['reason']);
+        }
+        else
+        {
+            $("#warningPage").show();
+            $("#loginPage").hide();
+            $("#main_currentUser").text("");
+            $("#mainPage").hide();
+			brdcst_clearForm();
+			pm_clearForm();
+			prov_clearForm();
+			prov_clearTableCktCon();
+			setupFac_clearForm();
+			matrix_clearForm();
+			batch_clearForm();
+			adminAlm_clearForm();
+			setupUser_clearForm();
+			event_clearForm();
+        } 
+    });
+});
+
 
 $("#menuFacSet").click(function(){
     setupFac_clearForm()

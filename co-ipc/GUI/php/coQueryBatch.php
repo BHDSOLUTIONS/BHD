@@ -60,6 +60,10 @@ include "coCommonFunctions.php";
     else {
         $result["rslt"] = "fail";
         $result["reason"] = "This action is under development!";
+
+        echo json_encode($result);
+		mysqli_close($db);
+		return;
     }
 
     function queryBatch($filename){

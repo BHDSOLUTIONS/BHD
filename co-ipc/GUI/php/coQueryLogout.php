@@ -11,11 +11,11 @@
  
     include "coCommonFunctions.php";
     
-    session_start();
+    //session_start();
 
-	$uname = "";
-	if(isset($_POST['uname']))
-		$uname = $_POST['uname'];
+	$user = "";
+	if(isset($_POST['user']))
+		$user = $_POST['user'];
 
     
   	$dbObj = new Db();
@@ -28,9 +28,9 @@
 	$db = $dbObj->con;
 	
    
-    $evtLog = new EvtLog($uname,"USERS","LOGOUT");
+    $evtLog = new EvtLog($user,"USERS","LOGOUT");
    
-    $qry = "update t_users set stat = 'INACTIVE' where uname = '$uname'"; 
+    $qry = "update t_users set stat = 'INACTIVE' where uname = '$user'"; 
 
     $res = $db->query($qry);
     if (!$res) {
@@ -39,15 +39,21 @@
         $result["reason"] = mysqli_error($db);
     }
     else {
-        $result["rslt"] = "success";
-		$result["reason"] = "userLogout";
+		if ($db->affected_rows == 0) {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Invalid USER";
+		}
+		else {
+			$result["rslt"] = "success";
+			$result["reason"] = "userLogout";
+		}
     }
     $evtLog->log($result["rslt"], $result["reason"]);
     mysqli_close($db);
     echo json_encode($result);
     
-    session_unset(); 
-    session_destroy();
+    //session_unset(); 
+    //session_destroy();
 
 
 ?>

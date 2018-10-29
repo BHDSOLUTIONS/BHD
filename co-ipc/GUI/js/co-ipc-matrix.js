@@ -55,27 +55,13 @@ $(document).on('mouseup', '[id = matrix_act]', function () {
     {
         matrixModal_clearForm();
         if ($("#matrixModal_card_id").val() !=""){
-            if ($("#matrix_act").val()  ==  "LCK")
-            {
-                
-               
-            } 
-            else if ($("#matrix_act").val()  ==  "UN-LCK")
-            {
-                
-            } 
-            else if ($("#matrix_act").val()  ==  "REFRESH")
-            {
-    
-            }
             matrix_populateMatrixModal()
             $("#matrixModal").modal();
         }
         else
-            alert("Missing matrix card information!")
+            alert("Please select a CARD from LIST OF MATRIX CARDS")
         
     }
-    
 
 })
 

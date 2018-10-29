@@ -129,14 +129,20 @@ function provModal_cktCon(action) {
         }
         else
         {
-            prov_tableCktConIndex = 0;
-            prov_tableCktCon = obj['rows'];
-            var len = prov_tableCktCon.length; 
-            maxCktConTableIndex = Math.ceil(len/100.0);
-            prov_tableCktConIndex++;
-            prov_displayTableCktCon(prov_tableCktConIndex);
-            $('#prov_act').val("");
-            $("#provModal_result").text(obj["rslt"]);
+			$("#provModal_result").text(obj["rslt"]);
+            if (obj["rows"].length > 0) {
+				prov_tableCktConIndex = 0;
+				prov_tableCktCon = obj['rows'];
+				var len = prov_tableCktCon.length; 
+				maxCktConTableIndex = Math.ceil(len/100.0);
+				prov_tableCktConIndex++;
+				prov_displayTableCktCon(prov_tableCktConIndex);
+			}
+			else {
+				provModal_clearForm();
+				prov_queryCkt('query');
+			}
+			$('#prov_act').val("");
         } 
     });
 }

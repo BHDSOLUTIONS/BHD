@@ -54,23 +54,7 @@
 	if (isset($_POST['detail']))
 		$detail = $_POST['detail'];
 
-    // Take these out - when check in - these are dummy data for testing
-    /*
-    $act = "add";
-	$uname = "tracy";
-	$user = "tracy";
-	$sa = "all";
-    $msg="highmaint";  $detail="turn ALL internet off ";
-    $id=2;
-    //---------
-    $stamp=5;
-    $wcc= "mwcc";
-    $frm_id="mfrm_id";
-    $msg="lowlow";
-    $detail="turn ONON everything";
-    */
-
-
+    
 	// Dispatch to Functions
 	$dbObj = new Db();
 	if ($dbObj->rslt == "fail") {
@@ -82,25 +66,25 @@
 	$db = $dbObj->con;
 	
 	
-	if ($act == "query") {
+	if ($act == "query" || $act == "find") {
 		$result = queryBroadcast($uname, $sa);
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
 	}
-	else if ($act == "add") {
+	else if ($act == "ADD") {
 		$result = addBroadcast();
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
 	}
-	else if ($act == "del") {
+	else if ($act == "DELETE") {
 		$result = delBroadcast();
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
 	}
-	else if ($act == "upd") {
+	else if ($act == "UPDATE") {
 		$result = updBroadcast();
 		echo json_encode($result);
 		mysqli_close($db);
@@ -119,9 +103,7 @@
 	function queryBroadcast($uname, $sa) {
 		global $db, $user;
 
-		//$time = date("Y-m-d H:i:s", strtotime("now " . $days . " days"));
-			
-		$qry = "SELECT * FROM t_brdcst WHERE user LIKE '%$uname%' AND sa LIKE '%$sa%' ";
+		$qry = "SELECT * FROM t_brdcst WHERE user LIKE '%$uname%' AND sa LIKE '%$sa%' ORDER BY date DESC";
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";

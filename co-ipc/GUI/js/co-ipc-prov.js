@@ -9,7 +9,7 @@ var prov_maxTableCktConIndex;
 
 
 $("#prov_findCkid").click(function(){
-    prov_queryCkt('query');
+    prov_queryCkt('queryCkid');
 });
 
 $("#prov_findOrd").click(function(){
@@ -225,17 +225,17 @@ function prov_queryCkt(action) {
         {
             if (obj['rows'].length == 0)
             {
-                alert("There is no matching data!");
-            }
-            else
-            {
-                prov_tableCktIndex=0;
-                prov_tableCkt = obj['rows'];
-                var len = prov_tableCkt.length; 
-                prov_maxTableCktIndex = Math.ceil(len/100.0);
-                prov_tableCktIndex++;
-                prov_displayTableCkt(prov_tableCktIndex);
-            }  
+                if (action == "queryCkid" || action == "queryOrd") {
+					alert("No Record Found");
+					return;
+				}
+			}
+            prov_tableCktIndex=0;
+            prov_tableCkt = obj['rows'];
+            var len = prov_tableCkt.length; 
+            prov_maxTableCktIndex = Math.ceil(len/100.0);
+            prov_tableCktIndex++;
+            prov_displayTableCkt(prov_tableCktIndex);
         } 
     });
 }

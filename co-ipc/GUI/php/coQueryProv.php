@@ -80,8 +80,8 @@
 	}
 	$db = $dbObj->con;
 		
-	if ($act == "query") {
-		$result = queryCkt();
+	if ($act == "query" || $act == "queryCkid") {
+		$result = queryCkt("Y");
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
@@ -256,9 +256,10 @@
             $evtLog->log($result["rslt"], $result["reason"]);
 			return $result;
         }
+        $numofcon = $numofcon -1;
         
 		// update t_ckts
-		if (($numofcon -1) == 0) {
+		if ($numofcon == 0) {
 			$qry = "DELETE FROM t_ckts WHERE id=" . $ckt_id;
 		}
 		else {
@@ -273,7 +274,10 @@
         }
 		$evtLog->log("sucess", "provDisconnect");
 
-		return queryCktcon($cktcon);
+		if ($numofcon == 0)
+			return queryCkt("N");
+		else
+			return queryCktcon($cktcon);
 	}
 
 
@@ -613,7 +617,7 @@
 			return $result;
         }
 		$evtLog->log("success", "provNewCkt");
-		return queryCkt();
+		return queryCkt("N");
 	}
 
 
@@ -724,41 +728,42 @@
 	}
 		
 	
-	function queryCkt() {
+	function queryCkt($filter) {
 		global $db, $ckid, $cls, $adsr, $prot;
 		
 		$qry = "SELECT t_ckts.id as id, t_ckts.ckid, t_ckts.cls, t_ckts.adsr, t_ckts.prot, t_ckts.ordno, t_ckts.mlo, t_ckts.date,t_ckts.cktcon FROM t_ckts";
-		if ($ckid !="" || $cls != "" || $adsr != "" || $prot != "") {
-			if ($ckid != "") {
-				$qry .= " WHERE ckid LIKE '%$ckid%'";
-				if ($cls != "") {
-					$qry .= " AND cls LIKE '%$cls%'";
+		if ($filter == "Y") {
+			if ($ckid !="" || $cls != "" || $adsr != "" || $prot != "") {
+				if ($ckid != "") {
+					$qry .= " WHERE ckid LIKE '%$ckid%'";
+					if ($cls != "") {
+						$qry .= " AND cls LIKE '%$cls%'";
+					}
+					if ($adsr != "") {
+						$qry .= " AND adsr LIKE '%$adsr%'";
+					}
+					if ($prot != "") {
+						$qry .= " AND prot LIKE '%$prot%'";
+					}
 				}
-				if ($adsr != "") {
-					$qry .= " AND adsr LIKE '%$adsr%'";
+				else if ($cls != "" ) {
+					$qry .= " WHERE cls LIKE '%$cls%'";
+					if ($adsr != "") {
+						$qry .= " AND adsr LIKE '%$adsr%'";
+					}
+					if ($prot != "") {
+						$qry .= " AND prot LIKE '%$prot%'";
+					}
 				}
-				if ($prot != "") {
-					$qry .= " AND prot LIKE '%$prot%'";
+				else if ($adsr != "") {
+					$qry .= " WHERE adsr LIKE '%$adsr%'";
+					if ($prot != "") {
+						$qry .= " AND prot LIKE '%$prot%'";
+					}
 				}
-			}
-			else if ($cls != "" ) {
-				$qry .= " WHERE cls LIKE '%$cls%'";
-				if ($adsr != "") {
-					$qry .= " AND adsr LIKE '%$adsr%'";
+				else if ($prot != "") {
+					$qry .= " WHERE prot LIKE '%$prot%'";
 				}
-				if ($prot != "") {
-					$qry .= " AND prot LIKE '%$prot%'";
-				}
-
-			}
-			else if ($adsr != "") {
-				$qry .= " WHERE adsr LIKE '%$adsr%'";
-				if ($prot != "") {
-					$qry .= " AND prot LIKE '%$prot%'";
-				}
-			}
-			else if ($prot != "") {
-				$qry .= " WHERE prot LIKE '%$prot%'";
 			}
 		}
 		

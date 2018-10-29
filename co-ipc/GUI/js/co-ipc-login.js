@@ -13,17 +13,18 @@ $("#login").click(function(){
         },
         function (data, status) {       
             var obj = JSON.parse(data);
-            console.log(obj)
             if (obj["rslt"] == "fail")
             {
                 alert(obj['reason']);
             }
             else
             {
+                $("#main_currentUser").text($('#username').val());
+                $("#username").val("");
+                $("#password").val("");
+                $("#newPassword").val("");
                 $("#warningPage").hide();
                 $("#loginPage").hide();
-
-                $("#main_currentUser").text($('#username').val());
                 $("#mainPage").show();
             } 
         });
@@ -45,11 +46,13 @@ $("#login").click(function(){
             }
             else
             {
+                $("#main_currentUser").text($('#username').val());
+                $("#username").val("");
+                $("#password").val("");
+                $("#newPassword").val("");
                 $("#warningPage").hide();
                 $("#loginPage").hide();
-
-                $("#main_currentUser").text($('#username').val());
-                $("#mainPage").show();
+				$("#mainPage").show();
             } 
         });
     } 

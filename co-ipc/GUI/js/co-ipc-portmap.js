@@ -13,8 +13,8 @@
      
 
      //Populate the information 
-     $("#pmModal_port_id").val(dataRow[0]).change();
-     $("#pmModal_fac_id").val(dataRow[1]).change();
+     $("#pm_port_id").val(dataRow[0]).change();
+     $("#pm_fac_id").val(dataRow[1]).change();
      $("#pm_node").val(dataRow[2]).change();
      $("#pm_slot").val(dataRow[3]).change();
      $("#pm_pnum").val(dataRow[4]).change();
@@ -71,9 +71,9 @@ $("#pm_prev").click(function() {
 $(document).on('mouseup', '[id*=pm_act]', function () {
     
     if ($("#pm_act").val()  ==  "MAP") {
-        if ($('#pmModal_port_id').val() > 0) {
-            if ($('#pmModal_fac_id').val() > 0) {
-				alert("PORT already MAPPED");
+        if ($('#pm_port_id').val() > 0) {
+            if ($('#pm_fac_id').val() > 0) {
+				alert("This PORT is already MAPPED");
 			}
 			else {
 				pmModal_clearForm(); 
@@ -85,14 +85,14 @@ $(document).on('mouseup', '[id*=pm_act]', function () {
 			}
         }
         else{
-            alert("Missing PORT");
+            alert("Please select a PORT from LIST OF PORTS");
 			$('#pm_act').val("");
         }
               
     } 
     else if ($("#pm_act").val()  ==  "UNMAP") {
-        if ($('#pmModal_port_id').val() > 0) {
-			if ($('#pmModal_fac_id').val() > 0) {
+        if ($('#pm_port_id').val() > 0) {
+			if ($('#pm_fac_id').val() > 0) {
 				pmModal_clearForm(); 
 				pmModal_populateForm();
 				$('#pmModal_submit').prop('disabled',false);
@@ -100,12 +100,12 @@ $(document).on('mouseup', '[id*=pm_act]', function () {
 				$("#portMapModal").modal();
 			}
 			else {
-				alert("Missing FAC");
+				alert("This PORT has not been MAPPED");
 				$('#pm_act').val("");
 			}	  
         }
         else{
-            alert("Missing PORT");
+            alert("Please select a PORT from LIST OF PORTS");
 			$('#pm_act').val("");
             
         }      
@@ -133,8 +133,8 @@ $(document).on('mouseup', '[id*=pm_act]', function () {
         ptyp:	$("#pm_ptyp").val(),
         psta:	$("#pm_psta").val(),
         fac:	$("#pm_fac").val(),
-        fac_id:	$("#pmModal_fac_id").val(),
-        port_id:$("#pmModal_port_id").val(),
+        fac_id:	$("#pm_fac_id").val(),
+        port_id:$("#pm_port_id").val(),
         ckid:   $('#pm_ckid').val()
     },
     function (data, status) {
@@ -210,8 +210,8 @@ function pm_clearForm() {
     $("#pm_psta").val("");
     $("#pm_fac").val("");
     $("#pm_ckid").val("");
-    $("#pmModal_port_id").val("");
-    $("#pmModal_fac_id").val("");
+    $("#pm_port_id").val("");
+    $("#pm_fac_id").val("");
     $("#pm_act").val("");
 }
 

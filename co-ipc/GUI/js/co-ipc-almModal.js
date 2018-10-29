@@ -33,11 +33,12 @@ function almModal_queryAlm(action){
     $.post("./php/coQueryAlm.php",
     {     
         act:action,
-        user:$('#main_currentUser').text(),
-        id:$("#almModal_alm_id").val(),
-        ack : $("#almModal_ack").val(),
-        almid : $("#almModal_almId").val(),
-        remark : $("#almModal_remark").val() 
+        user:	$('#main_currentUser').text(),
+        id:		$("#almModal_id").val(),
+        ack: 	$("#almModal_ack").val(),
+        almid: 	$("#almModal_almId").val(),
+        almid: 	$("#almModal_cond").val(),
+        remark: $("#almModal_remark").val() 
     },
     function (data, status) {       
         var obj = JSON.parse(data);

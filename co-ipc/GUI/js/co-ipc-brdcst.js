@@ -12,7 +12,7 @@ $(document).on("click","#brdcst_table tr",function(){
     }).get();
 
     //Populate the information 
-    $("#brdcstModal_id").val(dataRow[0]).change();
+    $("#brdcst_id").val(dataRow[0]).change();
    
     $("#brdcst_user").val(dataRow[1]).change();
      
@@ -28,7 +28,7 @@ $(document).on("click","#brdcst_table tr",function(){
 
 
 $("#brdcst_find").click(function(){
-    brdcst_queryBrdcst("query");
+    brdcst_queryBrdcst("find");
 })
 
 
@@ -64,37 +64,39 @@ $(document).on('mouseup', '[id = brdcst_act]', function () {
 
             $("#brdcstModal_user").val($("#main_currentUser").text());
             $("#brdcstModal_act").val($("#brdcst_act").val());
-
-            $("#brdcstModal_title").prop("disabled",false)
-            $("#brdcstModal_sa").prop("disabled",false)
-            $("#brdcstModal_detail").prop("disabled",false)
-
+            $("#brdcstModal_title").prop("disabled",false);
+            $("#brdcstModal_sa").prop("disabled",false);
+            $("#brdcstModal_detail").prop("disabled",false);
             $("#brdcstModal").modal();
-            
+            brdcst_clearForm();
         } 
-        else if ($("#brdcst_act").val()  ==  "UPD")
+        else if ($("#brdcst_act").val()  ==  "UPDATE")
         {
-            if ($("#brdcstModal_id").val() !=""){
-                $("#brdcstModal_title").prop("disabled",false)
-                $("#brdcstModal_sa").prop("disabled",false)
-                $("#brdcstModal_detail").prop("disabled",false)
-                brdcst_populateBrdcstModal()
+            if ($("#brdcst_id").val() !="") {
+                $("#brdcstModal_title").prop("disabled",false);
+                $("#brdcstModal_sa").prop("disabled",false);
+                $("#brdcstModal_detail").prop("disabled",false);
+                brdcst_populateBrdcstModal();
                 $("#brdcstModal").modal();
             }
-            else
-                alert("Missing message information!")
+            else {
+                alert("Please select a MSG from the LIST OF NOTICICATIONS");
+                brdcst_clearForm();
+			}
         } 
-        else if ($("#brdcst_act").val()  ==  "DEL") {
+        else if ($("#brdcst_act").val()  ==  "DELETE") {
 
-            if ($("#brdcstModal_id").val() !=""){
-                $("#brdcstModal_title").prop("disabled",true)
-                $("#brdcstModal_sa").prop("disabled",true)
-                $("#brdcstModal_detail").prop("disabled",true)
+            if ($("#brdcst_id").val() !="") {
+                $("#brdcstModal_title").prop("disabled",true);
+                $("#brdcstModal_sa").prop("disabled",true);
+                $("#brdcstModal_detail").prop("disabled",true);
                 brdcst_populateBrdcstModal()
-                $("#brdcstModal").modal();
+                $("#brdcstModal").modal();;
             }
-            else
-                alert("Missing message information!")
+            else {
+                alert("Please select a MSG from the LIST OF NOTICICATIONS")
+                brdcst_clearForm();
+			}
         }
     }
     
@@ -108,11 +110,9 @@ function brdcst_queryBrdcst(action){
     $.post("./php/coQueryBroadcast.php",
     {     
         act:    action,
-        user:   "ninh",
+        user:   $("#main_currentUser").text(),
         uname:  $("#brdcst_user").val(),
-        sa:     $("#brdcst_sa").val(),
-       
-        
+        sa:     $("#brdcst_sa").val()
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -124,18 +124,17 @@ function brdcst_queryBrdcst(action){
         {
             if (obj['rows'].length == 0)
             {
-                alert("There is no matching data!");
-            }
-            else
-            {
-                brdcst_tableIndex=0;
-                brdcst_table = obj['rows'];
-                var len = brdcst_table.length; 
-                brdcst_maxTableIndex = Math.ceil(len/100.0);
-                brdcst_tableIndex++;
-                brdcst_displayTable(brdcst_tableIndex);
-              
-            }  
+                if (action == "find") {
+					alert("No Record Found");
+					return;
+				}
+			}
+			brdcst_tableIndex=0;
+			brdcst_table = obj['rows'];
+			var len = brdcst_table.length; 
+			brdcst_maxTableIndex = Math.ceil(len/100.0);
+			brdcst_tableIndex++;
+			brdcst_displayTable(brdcst_tableIndex);
         } 
     });
 }
@@ -169,12 +168,11 @@ function brdcst_displayTable(index){
 
 
 function brdcst_clearForm(){
-    $("#brdcstModal_id").val("");
+    $("#brdcst_id").val("");
     $("#brdcst_date").val("");
     $("#brdcst_user").val("");
     $("#brdcst_sa").val("");
     $("#brdcst_detail").val("");
-
     $("#brdcst_act").val("");
 }
 
@@ -189,14 +187,13 @@ function brdcst_populateBrdcstModal(){
     $("#brdcstModal_sa").val($("#brdcst_sa").val());
     $("#brdcstModal_title").val(msgTitle);
     $("#brdcstModal_detail").val($("#brdcst_detail").val());
-   
     $("#brdcstModal_act").val($("#brdcst_act").val());
     
 }
 
 
 function brdcst_checkInfor(){
-    if ($("#brdcstModal_id").val() != "")
+    if ($("#brdcst_id").val() != "")
         return true;
     else return false;
 }

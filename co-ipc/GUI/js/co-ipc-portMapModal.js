@@ -78,8 +78,8 @@ function pmModal_queryPort(action) {
         ptyp:	$("#pmModal_ptyp").val(),
         psta:	$("#pmModal_psta").val(),
         fac:	$("#pmModal_fac").val(),
-        fac_id:	$("#pmModal_fac_id").val(),
-        port_id:$("#pmModal_port_id").val(),
+        fac_id:	$("#pm_fac_id").val(),
+        port_id:$("#pml_port_id").val(),
         ckt:    ""
     },
     function (data, status) {

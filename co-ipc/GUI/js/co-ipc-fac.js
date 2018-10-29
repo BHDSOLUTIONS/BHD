@@ -10,7 +10,7 @@ $(document).on("click","#setupFac_tableFac tr",function(){
     }).get();
 
     //Populate the information 
-    $("#facModal_fac_id").val(dataRow[0]);
+    $("#setupFac_fac_id").val(dataRow[0]);
     $("#setupFac_fac").val(dataRow[1]);
     $("#setupFac_ftyp").val(dataRow[2]);
     $("#setupFac_ort").val(dataRow[3]);
@@ -55,8 +55,7 @@ $('#setupFac_findFOS').click(function() {
 $(document).on('mouseup', '[id *= setupFac_act]', function () {
 
     if ($("#setupFac_act").val()  ==  "UPDATE"){
-        $("#setupFac_checkInputs").text("");
-        if (setupFac_checkInputs())
+        if ($("#setupFac_fac_id").val() != "")
         {
             facModal_clearForm();   
             setupFac_populateFacModal();
@@ -67,20 +66,17 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
             $("#facModal_spcfnc").prop("disabled",false);
             $("#facModal_clear").prop("disabled",false);
             $("#facModal_clear").show();
-    
             $("#facModal").modal(); 
         } 
         else 
         {
-          
-            alert("Missing Fac information!")
+            alert("Please select a FAC from the LIST OF FACILITIES")
         }
               
     } 
     else if ($("#setupFac_act").val()  ==  "DELETE")
     {
-        $("#setupFac_checkInputs").text("");
-        if (setupFac_checkInputs())
+        if ($("#setupFac_fac_id").val() != "")
         {
             facModal_clearForm();   
             setupFac_populateFacModal();
@@ -90,32 +86,26 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
             $("#facModal_ort").prop("disabled",true);
             $("#facModal_spcfnc").prop("disabled",true);
             $("#facModal_clear").hide();
-    
             $("#facModal").modal();  
         } 
         else 
         {
-            alert("Missing Fac information!")
+            alert("Please select a FAC from the LIST OF FACILITIES")
         }
        
     }
     else if ($("#setupFac_act").val()  ==  "ADD")
     {
-        $("#setupFac_checkInputs").text("");
+        setupFac_clearForm(); 
         facModal_clearForm(); 
         $("#facModal_act").val($("#setupFac_act").val()); 
-        // setupFac_populateFacModal(); 
-
         $("#facModal_fac").prop("disabled",false);
         $("#facModal_ftyp").prop("disabled",false);
         $("#facModal_ort").prop("disabled",false);
         $("#facModal_spcfnc").prop("disabled",false);
         $("#facModal_clear").show();
-
         $("#facModal").modal(); 
-        // $("#setupFac_act").val("");  
     }
-    // $("#setupFac_act").val("");
 });
 
 
@@ -132,8 +122,7 @@ function setupFac_queryFac(action){
     {     
         act: action,
         user: $('#main_currentUser').text(),
-
-        fac_id: $("#facModal_fac_id").val(),
+        fac_id: $("#setupFac_fac_id").val(),
         fac: $("#setupFac_fac").val(),
         ftyp: $("#setupFac_ftyp").val(),
         ort: $("#setupFac_ort").val(),
@@ -148,18 +137,17 @@ function setupFac_queryFac(action){
         {
             if (obj['rows'].length == 0)
             {
-                alert("There is no matching data!");
+                if (action != "query") {
+					alert("No Record Found");
+					return;
+				}
             }
-            else
-            {
-                setupFac_tableIndex=0;
-                setupFac_table = obj['rows'];
-                var len = setupFac_table.length; 
-                setupFac_maxTableIndex = Math.ceil(len/100.0);
-                setupFac_tableIndex++;
-                setupFac_displayTable(setupFac_tableIndex);
-                
-            }  
+            setupFac_tableIndex=0;
+            setupFac_table = obj['rows'];
+            var len = setupFac_table.length; 
+            setupFac_maxTableIndex = Math.ceil(len/100.0);
+            setupFac_tableIndex++;
+            setupFac_displayTable(setupFac_tableIndex);
         } 
     });
 }
@@ -191,7 +179,7 @@ function setupFac_displayTable(index){
 
 
 function setupFac_clearForm(){
-    $("#facModal_fac_id").val("");
+    $("#setupFac_fac_id").val("");
     $("#setupFac_fac").val("");
     $("#setupFac_ftyp").val("");
     $("#setupFac_ort").val("");
