@@ -1,10 +1,11 @@
 #menu {
   float: left;
-  min-height:580px; 
+  height:580px; 
   border:1px solid gray; 
   padding-left: 10px;
   padding-top: 10px;
-  width:210px;
+  width:150px;
+  overflow-y: auto;
 }
 #mainView{
   min-height:580px; 
@@ -50,7 +51,7 @@
     overflow: hidden;
     position: absolute;
     background-color: white;
-   
+    overflow-y: auto;
     transition: 0.5s;
 
     }
@@ -72,15 +73,6 @@ input[type=number]::-webkit-outer-spin-button {
 .modifyPadding{
   padding: 5px 5px 5px 5px;
 }
-
-.modifyPadding select{
-  padding:0 0 0 2px;
-}
-
-.modifyPadding input{
-  padding:0 0 0 5px;
-}
-
 .line-up{
     float:left;
     padding:0px 20px;
