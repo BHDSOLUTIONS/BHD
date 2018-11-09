@@ -124,8 +124,33 @@
     }
 
 	
+	
 	function addBroadcast() {
 		global $db, $user, $stamp, $date, $wcc, $frm_id, $sa, $msg, $detail;
+
+		if ($user == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing USER";
+			return $result;
+		}
+
+		if ($msg == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing MSG TITLE";
+			return $result;
+		}
+
+		if ($detail == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing MSG DETAILS";
+			return $result;
+		}
+
+		if ($sa == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing SA";
+			return $result;
+		}
 
 		$qry = "INSERT INTO t_brdcst VALUES (0,0,'" . $user . "', now(),'','', '" .  $sa . "','" .  $msg . "','" .  $detail . "')";
 		$res = $db->query($qry);
@@ -138,21 +163,27 @@
 		    $result =  queryBroadcast("", "");
         }
 		return $result;
-    }
-
+	}
+	
 	function delBroadcast() {
-		global $db, $user, $stamp, $date, $wcc, $frm_id, $sa, $msg, $detail, $uname;
+		global $db, $user, $id, $stamp, $date, $wcc, $frm_id, $sa, $msg, $detail, $uname;
 
-        if($uname != $user ) {
-            // Check for authorized user - only the user who has added the Broadcast - can delete the broadcast
-            // if not - others can not delete the Broadcast
-            $result["rslt"] = "fail";
-            $result["reason"] = "Unauthorized users : You can not delete this Broadcast";
-		    return $result;
+        // if($uname != $user ) {
+        //     // Check for authorized user - only the user who has added the Broadcast - can delete the broadcast
+        //     // if not - others can not delete the Broadcast
+        //     $result["rslt"] = "fail";
+        //     $result["reason"] = "Unauthorized users : You can not delete this Broadcast";
+		//     return $result;
 
-        }
+		// }
+		
+		if ($id == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Invalid BROADCAST MESSAGE";
+			return $result;
+		}
 
-		$qry = "DELETE FROM t_brdcst WHERE user LIKE '%$uname%' AND sa LIKE '%$sa%' ";
+		$qry = "DELETE FROM t_brdcst WHERE id=" . $id;
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
@@ -164,21 +195,45 @@
         }
 		return $result;
     }
+
 
 	function updBroadcast() {
-		global $db, $user, $stamp, $date, $wcc, $frm_id, $sa, $msg, $detail, $uname, $id;
+		global $db, $id, $user, $stamp, $date, $wcc, $frm_id, $sa, $msg, $detail, $uname;
 
-        if($uname != $user ) {
-            // Check for authorized user - only the user who has added the Broadcast - can delete the broadcast
-            // if not - others can not delete the Broadcast
-            $result["rslt"] = "fail";
-            $result["reason"] = "Unauthorized users : You can not update this Broadcast";
-		    return $result;
+        // if($uname != $user ) {
+        //     // Check for authorized user - only the user who has added the Broadcast - can delete the broadcast
+        //     // if not - others can not delete the Broadcast
+        //     $result["rslt"] = "fail";
+        //     $result["reason"] = "Unauthorized users : You can not update this Broadcast";
+		//     return $result;
 
-        }
+        // }
 
-		$qry = "UPDATE t_brdcst SET date=now(), wcc='" . $wcc . "' , frm_id='" . $frm_id . "' , sa='" . $sa . "' ,
-        msg='" . $msg . "' , detail='" . $detail . "'  WHERE id=" . $id ;
+		if ($id == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing MESSAGE";
+			return $result;
+		}
+
+		if ($sa == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing SA";
+			return $result;
+		}
+
+		if ($msg == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Invalid MSG TITLE";
+			return $result;
+		}
+
+		if ($detail == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Invalid MSG DETAILS";
+			return $result;
+		}
+
+		$qry = "UPDATE t_brdcst SET date=now(), sa='" . $sa . "', msg='" . $msg . "' , detail='" . $detail . "'  WHERE id=" . $id ;
 		$res = $db->query($qry);
         if (!$res) {
             $result["rslt"] = "fail";
@@ -190,5 +245,6 @@
         }
 		return $result;
     }
+
 	
 ?>

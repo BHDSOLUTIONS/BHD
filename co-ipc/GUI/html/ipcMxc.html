@@ -1,0 +1,93 @@
+<div id="mxc" class="tab-pane fade in">
+    <h4>LOCK/UNLOCK MATRIX CARDS</h4>
+   
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="col-sm-3 modifyPadding">
+                    <label for="mxc_node_txt">NODE</label>
+                    <input class="form-control modifyPadding" type="text" id="mxc_node_txt">
+                </div>
+                <div class="col-sm-3 modifyPadding">
+                    <label for="mxc_slot_txt">SLOT</label>
+                    <input class="form-control modifyPadding" type="text" id="mxc_slot_txt">
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="mxc_type_sel" >TYPE</label>
+                    <select id="mxc_type_sel" class="form-control">
+                        <option></option>
+                        <option>MIO</option>
+                        <option>MRE</option>
+                        <option>RM</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="mxc_stat_sel" >STAT</label>
+                    <select id="mxc_stat_sel" class="form-control">
+                        <option></option>
+                        <option>INS</option>
+                        <option>OOS</option>
+                        <option>LCK</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <button class="btn btn-primary" id="mxc_find_btn">Find</button>
+                </div>
+
+                <!------------------------------------------>
+
+                <div class="col-sm-3 modifyPadding">
+                    <label for="mxc_act_sel">ACTION</label>
+                    <select id="mxc_act_sel" class="form-control">
+                        <option></option>
+                        <option>LCK</option>
+                        <option>UN-LCK</option>
+                        <option>REFRESH</option>
+
+                    </select>
+                </div>
+                <div class="col-sm-6 modifyPadding"> 
+                    <button class="btn btn-primary" id="mxc_clear_btn">Clear</button>
+                    <br>
+
+                </div>
+                
+
+            </div>
+            <div class="col-sm-7">
+                <div class="col-sm-12">
+                    <div style="float:left;">
+                        <b>LIST OF MATRIX CARDS:</b>
+                    </div>
+                    <div style="float:right">
+                        <a  id="mxc_previous">Previous</a> |
+                        <a  id="mxc_next">Next</a>
+                        &nbsp&nbsp&nbsp<label id="mxc_index_lbl"></label>
+                    </div>
+                </div>
+               
+
+                <div class="col-sm-12">
+                    <div class="panel panel-default">     
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th style="width:30%">NODE</th>
+                                    <th style="width:10%">SLOT</th>
+                                    <th style="width:30%">TYPE</th>
+                                    <th style="width:30%">STAT</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mxc_tbl">
+                        
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+   
+
+       
+    
+</div>

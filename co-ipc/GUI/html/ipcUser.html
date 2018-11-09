@@ -1,0 +1,138 @@
+<div id="user" class="tab-pane fade in">
+        <h4>SETUP USERS</h4>
+       
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="user_user_txt">USER</label>
+                        <input class="form-control modifyPadding" type="text" id="user_user_txt">
+                    </div>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="user_stat_sel" >STAT</label>
+                        <select id="user_stat_sel" class="form-control">
+                            <option></option>
+                            <option>ACTIVE</option>
+                            <option>INACTIVE</option>
+                            <option>LCK</option>
+                            <option>DISABLED</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5 modifyPadding">
+                        <label for="user_lastLogin_txt">LAST LOGIN</label>
+                        <input type="text" class="form-control" id="user_lastLogin_txt" readonly>
+                    </div>
+                    <div class="col-sm-1 modifyPadding">
+                        <button class="btn btn-primary" id="user_findUser_btn">Find</button>
+                    </div>
+
+                    <!------------------------------------------>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="user_FN_txt">FNAME</label>
+                        <input type="text" class="form-control" id="user_FN_txt">
+                    </div>
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="user_LN_txt">LNAME</label>
+                        <input type="text" class="form-control" id="user_LN_txt">
+                    </div>
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="user_ssn_txt">SSN</label>
+                        <input type="text" class="form-control" id="user_ssn_txt" readonly>
+                    </div>
+                    <div class="col-sm-1 modifyPadding">
+                        <button class="btn btn-primary" id="user_findNameSsn_btn">Find</button>
+                    </div>
+
+                    <!------------------------------------------>
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="user_tel">TEL</label>
+                        <input type="tel" class="form-control" id="user_tel">
+                    </div>
+                    <div class="col-sm-7 modifyPadding">
+                        <label for="user_email">EMAIL</label>
+                        <input type="email" class="form-control" id="user_email">
+                    </div>
+                    <div class="col-sm-1 modifyPadding">
+                        <button class="btn btn-primary" id="user_findTelEmail_btn">Find</button>
+                    </div>
+
+                    <!-- ------------------------------------------ -->
+                    <div class="col-sm-6 modifyPadding">
+                        <label for="user_title_txt">TITLE</label>
+                        <input type="text" class="form-control" id="user_title_txt">
+                    </div>
+                    <div class="col-sm-5 modifyPadding">
+                        <label for="user_group_sel">GROUP</label>
+                        <select id="user_group_sel" class="form-control">
+                            <option></option>
+                            <option>ADMIN</option>
+                            <option>SUPERVISOR</option>
+                            <option>TECH-I</option>
+                            <option>TECH-II</option>
+                            <option>GENERAL</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1 modifyPadding">
+                        <button class="btn btn-primary" id="user_findTitleGrp_btn">Find</button>
+                    </div>
+                    <!-- ------------------------------------------ -->
+                    <hr>
+
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="user_act_sel">ACTION</label>
+                        <select id="user_act_sel" class="form-control">
+                            <option></option>
+                            <option>ADD</option>
+                            <option>UPDATE</option>
+                            <option>LOCK</option>
+                            <option>UNLOCK</option>
+							<option>DISABLE</option>
+							<option>ENABLE</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 modifyPadding"> 
+                        <button class="btn btn-primary" id="user_clear_btn">Clear</button>
+                        
+                    </div>
+                    
+
+                </div>
+                <div class="col-sm-7">
+                    <div class="col-sm-12">
+                        <div style="float:left;">
+                            <b>LIST OF USERS:</b>
+                        </div>
+                        <div style="float:right">
+                            <a  id="user_previous">Previous</a> |
+                            <a  id="user_next">Next</a>
+                            &nbsp&nbsp&nbsp<label id="user_index_lbl"></label>
+                        </div>
+                    </div>
+                   
+
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">     
+                            <table class="table table-fixed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%">USER</th>
+                                        <th style="width:15%">STAT</th>
+                                        <th style="width:20%">TITLE</th>
+                                        <th style="width:20%">GROUP</th>
+                                        <th style="width:25%">TEL</th>
+  
+                                    </tr>
+                                </thead>
+                                <tbody id="user_tbl">
+                            
+                                </tbody>
+                            </table>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+       
+
+           
+        
+    </div>

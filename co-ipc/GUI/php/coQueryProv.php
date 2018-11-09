@@ -671,7 +671,7 @@
 	function queryFacXY($ptyp) {
 		global $db;
 		
-		$qry = "SELECT t_facs.fac FROM t_facs left join t_ports on t_facs.port_id=t_ports.id WHERE t_ports.ptyp='" . $ptyp . "' AND t_ports.psta='SF'";
+		$qry = "SELECT t_facs.fac, t_facs.port FROM t_facs left join t_ports on t_facs.port_id=t_ports.id WHERE t_ports.ptyp='" . $ptyp . "' AND t_ports.psta='SF'";
 	
         $res = $db->query($qry);
         if (!$res) {
@@ -795,7 +795,7 @@
             return $result;
 		}
 
-		$qry = "SELECT t_cktcon.idx, t_cktcon.ctyp, t_facs.fac, t_facs.id from t_facs, t_cktcon left join t_ports on";
+		$qry = "SELECT t_cktcon.idx, t_cktcon.ctyp, t_facs.fac, t_facs.id, t_facs.port from t_facs, t_cktcon left join t_ports on";
 		$qry .= " (t_cktcon.fp_id=t_ports.id or t_cktcon.tp_id=t_ports.id) where t_cktcon.con =" . $cktcon;
         $qry .= " AND t_facs.id=t_ports.fac_id";
         $res = $db->query($qry);
@@ -813,9 +813,11 @@
 						$con["idx"] = $row["idx"];
 						$con["ctyp"] = $row["ctyp"];
 						$con["ffac"] = $row["fac"];
+						$con["fport"] = $row["port"];
                     }
                     else {
 						$con["tfac"] = $row["fac"];
+						$con["tport"] = $row["port"];
 						$rows[] = $con;
 						$con = [];
 					}

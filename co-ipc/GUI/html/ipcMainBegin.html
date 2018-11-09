@@ -1,0 +1,145 @@
+<div id="mainPage" style="display:none;">
+	<div class="container" style="width:100%">
+		<div id="header" class="row" style="border-style:none none solid none;border-color:gray;border-size:1px;background-color:#f5f5f5">
+			<div class="col-sm-4">TELEPATH NETWORKS
+				<div><small>Software Version: 0.01</small></div>
+				<div><small>2018-10-29</small></div>
+		
+			</div>
+			<div class="col-sm-4" align="center">
+				<h3>Intelligent Provisioning Center</h3>
+				<div class="row">
+					
+					<div id="header_alm" class="col-xs-4" align="center"><small>Alarm: None</small></div>
+					<div id="header_temp" class="col-xs-4" align="center"><small>Temp: 92F</small></div>
+					<div id="header_volt" class="col-xs-4" align="center"><small>Voltage: 44V</small></div>
+					
+				</div>
+				
+			</div>
+			<div class="col-sm-4" align="right">
+				<!-- <button id="login-btn">Login</button> -->
+				User: <label id="main_currentUser"></label>
+				<button id="logout">Logout</button>
+			</div>
+			<div id="displayMenu">&#9776; Menu</div>
+		</div>
+		
+		<div class="row" >
+
+			<div id="menu" display="block">
+				<div class="sidebar" >
+					<div>
+						<a id="menu_sysview" data-toggle="pill" class="nav-link" href="#sysview">
+						<i class="nav-icon cui-speedometer"></i> System Overview
+						</a> <br>
+
+						<a id="menu_brdcst" data-toggle="pill" class="nav-link" href="#brdcst">
+						<i class="nav-icon cui-speedometer"></i> Broadcast Notification
+						</a><br>	
+					</div>
+				
+					<hr style="margin: 3px">
+
+					<label id="configMenu">CONFIGURATION</label>
+					<div id="configSubMenu" style="display: none">
+						
+						<a id="menu_wc" data-toggle="pill" class="nav-link" href="#wc">
+						<i class="nav-icon cui-speedometer"></i> Setup Wire Center
+						</a><br>
+					
+						<a id="menu_fac" data-toggle="pill" class="nav-link" href="#fac">
+						<i class="nav-icon cui-speedometer"></i> Setup Facilities
+						</a><br>
+				
+						<a id="menu_portmap"data-toggle="pill" class="nav-link" href="#portmap">
+						<i class="nav-icon cui-speedometer"></i> Setup Port Mapping
+						</a><br>
+						
+						
+					</div>
+
+					<hr style="margin: 3px">
+					
+					<label id="provMenu">PROVISIONING</label>
+					<div id="provSubMenu" style="display: none">
+						
+						<a id="menu_svc" data-toggle="pill" class="nav-link" href="#svc">
+						<i class="nav-icon cui-speedometer"></i> Service Connection
+						</a><br>
+				
+						<a id="menu_batch" data-toggle="pill" class="nav-link" href="#batchExc">
+						<i class="nav-icon cui-speedometer"></i> Batch Execution
+						</a><br>
+				
+						<a id="menu_ord" data-toggle="pill" class="nav-link" href="#ord">
+						<i class="nav-icon cui-speedometer"></i> Setup Order
+						</a><br>
+						
+					</div>
+					
+					<hr style="margin: 3px">
+
+					<label id="maintnMenu">MAINTENANCE</label>
+					<div id="maintnSubMenu" style="display: none">
+						
+						<a id="menuMaint" data-toggle="pill" class="nav-link" href="#maint">
+						<i class="nav-icon cui-speedometer"></i> Maintenance Connection
+						</a><br>
+					
+						<a id="menu_mxc" data-toggle="pill" class="nav-link" href="#mxc">
+						<i class="nav-icon cui-speedometer"></i> Lock/Unlock Matrix Cards
+						</a><br>
+					
+						<a id="menu_alm" data-toggle="pill" class="nav-link" href="#alm">
+						<i class="nav-icon cui-speedometer"></i> Alarm Administration
+						</a><br>
+					
+						<a id="menuPath" data-toggle="pill" class="nav-link" href="#adminPath">
+						<i class="nav-icon cui-speedometer"></i> Path Administration
+						</a><br>
+					
+						<a id="menuDbBkup" data-toggle="pill" class="nav-link" href="#bkupDb">
+						<i class="nav-icon cui-speedometer"></i> Backup/Restore Database
+						</a><br>
+					
+						<a id="menuSwUpd" data-toggle="pill" class="nav-link" href="#updSw">
+						<i class="nav-icon cui-speedometer"></i> Software Update
+						</a><br>
+						
+					</div>
+					
+					<hr style="margin: 3px">
+
+					<label id="adminMenu">ADMINISTRATION</label>
+					<div id="adminSubMenu" style="display: none">
+						
+						<a id="menu_user" data-toggle="pill" class="nav-link" href="#user">
+						<i class="nav-icon cui-speedometer"></i> Setup Users
+						</a><br>
+					
+						<a id="menuIpcRef" data-toggle="pill" class="nav-link" href="#ipcRef">
+						<i class="nav-icon cui-speedometer"></i> IPC References
+						</a><br>
+							
+					</div>	
+					
+					<hr style="margin: 3px">
+
+					<label id="reportMenu">REPORT</label>
+					<div id="reportSubMenu" style="display: none">
+						
+						<a id="menu_evtlog" data-toggle="pill" class="nav-link" href="#evtlog">
+						<i class="nav-icon cui-speedometer"></i> Event Report
+						</a><br>
+					
+						<a id="menu_mxStg" data-toggle="pill" class="nav-link" href="#mxStg">
+						<i class="nav-icon cui-speedometer"></i> Matrix Stages Test
+						</a><br>
+					
+					</div>
+
+				</div>
+			</div>
+			
+			<div id="mainView" class="tab-content" >

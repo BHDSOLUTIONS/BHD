@@ -1,0 +1,87 @@
+<div id="alm" class="tab-pane fade in">
+        <h4>ALARM ADMINISTRATION</h4>
+
+        <div class="row">
+            <div class="col-sm-4">
+               
+                <div class="col-sm-4 modifyPadding">
+                    <label for="alm_almId_num">ALMID</label>
+                    <input type="number" class="form-control" id="alm_almId_num" readonly>
+                </div>
+
+                <div class="col-sm-4 modifyPadding">
+                    <label for="alm_ack_txt">ACK</label>
+                    <input type="text" class="form-control" id="alm_ack_txt" readonly>
+                </div>
+        
+                <div class="col-sm-4 modifyPadding">
+                    <label for="alm_cond_txt">COND</label>
+                    <input type="text" class="form-control" id="alm_cond_txt" readonly>
+                </div>
+        
+				<div class="col-sm-12 modifyPadding">
+                    <label for="alm_remark_txt">REMARK</label>
+                    <textarea id="alm_remark_txt" class="form-group" style="width:100%; min-height: 100px;" readonly>
+                        
+                    </textarea>
+                </div>
+            
+
+                <div class="col-sm-4 modifyPadding">
+                    <label for="alm_act_sel">ACTION</label>
+                    <select class="form-control" id="alm_act_sel">
+                        <option></option>
+                        <option>ACK</option>
+                        <option>UN-ACK</option>
+                        <option>CLR</option>
+                    </select>
+                </div>
+                <!-- <div class="col-sm-12">
+                    <label id="checkAlmInfor" style="color:red"></label>
+                </div> -->
+                
+               
+            </div>
+
+            <div class="col-sm-8">
+                <div class="col-sm-12" >
+                    <div style="float:left;">
+                        <b>
+                            LIST OF ALARMS:
+                        </b>
+                    </div>
+                    <div style="float: right;">
+                        <a  id="alm_previous">Previous</a> |
+                        <a  id="alm_next">Next</a>
+                        &nbsp&nbsp&nbsp <label id="alm_index_lbl"></label>
+                    </div>
+                        
+                </div>
+                <div class="col-sm-12">
+                    <div class="panel panel-default" style="table-layout: fixed;">     
+                        <table class="table table-fixed">
+                            <thead>
+                                <tr>
+                                    <th style="width:10%">ALMID</th>
+                                    <th style="width:15%">ACK</th>
+                                    <th style="width:5%">SA</th>
+                                    
+                                    <th style="width:10%">SRC</th>
+                                    <th style="width:10%">TYPE</th>
+                                    <th style="width:15%">COND</th>
+                                    <th style="width:10%">SEV</th>
+                                    <th style="width:25%">DATETIME</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alm_tbl">
+                        
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>

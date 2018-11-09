@@ -1,0 +1,168 @@
+<div id="svc" class="tab-pane fade in">
+    <h4>SETUP SERVICE CONNECTION</h4>
+		<div class="row">
+        <div class="col-sm-5">
+            <div class="col-sm-4 modifyPadding">
+                <label for="svc_ckid_txt">CKID</label>
+                <input type="text" class="form-control" id="svc_ckid_txt">
+            </div>
+                
+            <div class="col-sm-2 modifyPadding">
+                <label for="svc_cls_sel">CLS</label>
+                <select class="form-control" id="svc_cls_sel" style="padding:2px 0 0 0">
+                    <option></option>
+                    <option>RES</option>
+                    <option>BUS</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="svc_adsr_sel">ADSR</label>
+                <select class="form-control" id="svc_adsr_sel" style="padding:2px 0 0 0">
+                    <option></option>
+                    <option>SSM</option>
+                    <option>SSP</option>
+                </select>
+            </div>   
+
+            <div class="col-sm-2 modifyPadding">
+                <label for="svc_prot_sel">PROT</label>
+                <select class="form-control" id="svc_prot_sel" style="padding:2px 0 0 0">
+                    <option></option>
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </div>
+
+            <div class="col-sm-2 modifyPadding">
+                <button id="svc_findCkid_btn" class="btn btn-primary">Find</button>
+            </div> 
+            
+            <!-- ----------------------------------------- -->
+
+            <div class="col-sm-4 modifyPadding">
+                <label for="svc_ordno_txt">ORDNO</label>
+                <input type="text" class="form-control" id="svc_ordno_txt">
+            </div>
+            
+            <div class="col-sm-2 modifyPadding">
+                <label for="svc_mlo_sel">MLO</label>
+                <select class="form-control" id="svc_mlo_sel" style="padding:2px 0 0 0">
+                    <option></option>
+                    <option>Y</option>
+                    <option>N</option>
+                </select>
+            </div> 
+
+            <div class="col-sm-4">
+            </div> 
+            
+            <div class="col-sm-2 modifyPadding">
+                <button id="svc_findOrd_btn" class="btn btn-primary">Find</button>
+            </div> 
+
+            <!-- ------------------------------------------------- -->
+			<div class="col-sm-12 modifyPadding">
+            <div class="col-sm-3 modifyPadding"> 
+                <label for="svc_act_sel">ACTION</label>    
+                <select class="form-control" id="svc_act_sel" style="padding:2px 0 0 0" >
+                    <option></option>
+                    <option>NEW CKT</option>
+                    <option>CONN</option>
+                    <option>DISCONN</option>
+                </select>
+            </div>
+            
+            <div class="col-sm-8 modifyPadding">
+                <button id="svc_clear_btn" type="button" class="btn btn-primary">Clear</button>
+                <!-- 3 input fields to be hidden after testing -->
+                <input id="svc_ckt_id_num" type="hidden" style="width:50px">
+                <input id="svc_cktcon_id_num" type="hidden" style="width:50px">
+                <input id="svc_cktcon_idx_num" type="hidden" style="width:50px">
+
+                <!-- <br> -->
+                <!-- <label id="checkProvInfor" style="color:red"></label> -->
+            </div>
+			</div>
+            <!-- ---------------------------------------------- -->
+            <!-- 
+            <div id="cktcon" class="col-sm-12 modifyPadding">
+                <div class="col-sm-2 modifyPadding">
+                    <label for="ctyp">CTYP</label>
+                    <select class="form-control" id="ctyp" style="padding:2px 0 0 0">
+                        <option></option>
+                        <option>GEN</option>
+                        <option>LPBK</option>
+                        <option>MTL</option>
+                    </select>
+                </div>  
+                <div class="col-sm-5 modifyPadding">
+                    <label for="ffac">FAC(X)</label>
+                    <input type="text" class="form-control" id="ffac">
+                </div> 
+                <div class="col-sm-5 modifyPadding">
+                    <label for="tfac">FAC(Y)</label>
+                    <input type="text" class="form-control" id="tfac">
+                </div> 
+            </div>
+             -->
+
+            <div id="svc_cktcontbl" class="col-sm-12 modifyPadding">
+                <label>LIST OF CONNECTIONS:</label>
+                <div class="panel panel-default">
+                    <table class="table table-fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">ID</th>
+                                <th style="width:11%">CTYP</th>
+                                <th style="width:42%">FAC(X)</th>
+                                <th style="width:42%">FAC(Y)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="svc_tblCktCon" style="height:150px;">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+           
+                   
+        </div>
+        <div class="col-sm-7 modifyPadding">
+            <div class="col-sm-12">
+                <div style="float:left;">
+                    <b>LIST OF CKTs:</b>
+                </div>
+
+                <div style="float:right">
+                    <a  id="svc_previous">Previous</a> |
+                    <a  id="svc_next">Next</a>
+                    &nbsp&nbsp&nbsp <label id="svc_index_lbl"></label>
+                </div>
+            </div>
+           
+            
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <table class="table table-fixed">
+                        <thead style="width:97%">
+                            <tr>
+                                <th style="width:25%">CKID</th>
+                                <th style="width:10%">CLS</th>
+                                <th style="width:7%">ADSR</th>
+                                <th style="width:7%">PROT</th>
+                                <th style="width:20%">ORDNO</th>
+                                <th style="width:7%">MLO</th>
+                                <th style="width:24%">DATE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="svc_tblCkt" style="height:420px">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

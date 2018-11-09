@@ -1,0 +1,57 @@
+<div id="almModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+             <h5 class="modal-title">ALARM ADMINISTRATION</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-3 modifyPadding">
+                    <label for="almModal_almId_num">ALMID</label>
+                    <input type="number" class="form-control" id="almModal_almId_num" readonly>
+                </div>
+
+                <div class="col-sm-3 modifyPadding">
+                    <label for="almModal_ack_txt">ACK</label>
+                    <input type="text" class="form-control" id="almModal_ack_txt" readonly>
+                </div>
+        
+                <div class="col-sm-4 modifyPadding">
+                    <label for="almModal_cond_txt">COND</label>
+                    <input type="text" class="form-control" id="almModal_cond_txt" readonly>
+                </div>
+        
+				<div class="col-sm-12 modifyPadding">
+                    <label for="almModal_remark_txt">REMARK</label>
+                    <textarea id="almModal_remark_txt" class="form-group" style="width:100%; min-height: 100px;"></textarea>
+                </div>
+            
+
+                <div class="col-sm-3 modifyPadding">
+                    <label for="almModal_act_txt">ACTION</label>
+                    <input type="text" class="form-control" id="almModal_act_txt" readonly>
+                </div>
+
+                <div class="col-sm-8 modifyPadding">
+                    <button class="btn btn-primary" id="almModal_submit_btn">Submit</button>
+                    <button class="btn btn-primary" id="almModal_clear_btn">Clear</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="number" id="almModal_id_num" style="width:50px;">
+                    <br>
+                    <label id="almModal_result_txt" style="color:red"></label>
+                </div>
+                    
+     
+            </div>
+            
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+
+

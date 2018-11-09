@@ -1,0 +1,175 @@
+<div id="ord" class="tab-pane fade in">
+    <h4>SETUP FLOW-THROUGH ORDER</h4>
+   
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-2 modifyPadding">
+                    <label for="ord_no_txt">ORDNO</label>
+                    <input class="form-control modifyPadding" type="text" id="ord_no_txt">
+                </div>
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_ot_sel" >OT</label>
+                    <select id="ord_ot_sel" class="form-control">
+                        <option></option>
+                        <option>NC</option>
+                        <option>CH</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="ord_dd_date">DD</label>
+                    <input type="date" class="form-control" id="ord_dd_date">
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="ord_fdd_date">FDD</label>
+                    <input type="date" class="form-control" id="ord_fdd_date">
+                </div>
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_wc_sel" >WC</label>
+                    <select id="ord_wc_sel" class="form-control">
+                        <option></option>
+                        <option>ATT</option>
+                        <option>VZN</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_pri_sel" >PRI</label>
+                    <select id="ord_pri_sel" class="form-control">
+                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 modifyPadding">
+                    <button class="btn btn-primary" id="ord_addOrd_btn" style="width:80px">ADD</button>
+                </div>
+
+            </div>
+                <!------------------------------------------>
+            <div class="col-sm-12">
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_cktyp_sel">CKTYP</label>
+                    <select id="ord_cktyp_sel" class="form-control">
+                        <option></option>
+                        <option>TN</option>
+                        <option>CKID</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 modifyPadding">
+                    <label for="ord_ctid_txt">CTID</label>
+                    <input type="text" class="form-control" id="ord_ctid_txt">
+                </div>
+
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_adsr_sel" >ADSR</label>
+                    <select id="ord_adsr_sel" class="form-control">
+                        <option></option>
+                        <option>SSM</option>
+                        <option>SSP</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_oc_sel" >OC</label>
+                    <select id="ord_oc_sel" class="form-control">
+                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                    </select>
+                </div>
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_act_sel" >ACT</label>
+                    <select id="ord_act_sel" class="form-control">
+                        <option></option>
+                        <option>I</option>
+                        <option>O</option>
+                        <option>C</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-2"></div>
+
+                <div class="col-sm-1 modifyPadding">
+                    <button class="btn btn-primary" id="ord_addCkt_btn" style="width:80px">ADD</button>
+                </div>
+
+                <div class="col-sm-2 modifyPadding">
+                    <button class="btn btn-primary" id="ord_doneCkt_btn">DONE WITH CKT</button>
+                </div>
+            </div>
+
+                <!------------------------------------------>
+            <div class="col-sm-12">
+                <div class="col-sm-1 modifyPadding">
+                    <label for="ord_con_sel">CON</label>
+                    <select id="ord_con_sel" class="form-control">
+                        <option></option>
+                        <option>IN</option>
+                        <option>OUT</option>
+                    </select>
+                </div>
+                
+                <div class="col-sm-4" style="border:2px solid #004C4C; background-color: #EDEDED;">
+                    <div class="col-sm-6 modifyPadding">
+                        <label for="ord_facId1_txt">FAC ID</label>
+                        <input type="text" class="form-control" id="ord_facId1_txt">
+                    </div>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="ord_facTyp1_txt">TYPE</label>
+                        <select id="ord_facTyp1_txt" class="form-control">
+                            <option></option>
+                            <option>CP</option>
+                            <option>OE</option>
+                            <option>TP</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="ord_frloc1_txt">FRLOC</label>
+                        <input type="text" class="form-control" id="ord_frloc1_txt">
+                    </div>
+                </div>
+
+                <div class="col-sm-4" style="border:2px solid #004C4C; background-color: #EDEDED">
+                    <div class="col-sm-6 modifyPadding">
+                        <label for="ord_facId2_txt">FAC ID</label>
+                        <input type="text" class="form-control" id="ord_facId2_txt">
+                    </div>
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="ord_facTyp2_sel">TYPE</label>
+                        <select id="ord_facTyp2_sel" class="form-control">
+                            <option></option>
+                            <option>CP</option>
+                            <option>OE</option>
+                            <option>TP</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="ord_frloc2_txt">FRLOC</label>
+                        <input type="text" class="form-control" id="ord_frloc2_txt">
+                    </div>
+                </div>
+
+                <div class="col-sm-1 modifyPadding">
+                    <button class="btn btn-primary" id="ord_addCon_btn" style="width:80px">ADD</button>
+                </div>
+
+                <div class="col-sm-2 modifyPadding">
+                    <button class="btn btn-primary" id="ord_doneCon_btn">DONE WITH CON</button>
+                </div>
+            </div>
+            <!-- ----------------------------------------------------------- -->
+       
+            <div class="col-sm-12" style="margin:10px 0 0 0;" >
+                <label for="ord_script_txt">ORDER SCRIPT</label>  <a style="float:right;" id="ord_clrScript">Clear All</a>
+                <textarea id="ord_script_txt" style="width:100%; height: 250px; background-color:#EDEDED" readonly></textarea>
+            </div>
+
+            <div class="col-sm-12" style="align-content: center">
+                <button class="btn btn-primary" id="ord_saveOrd_btn" style="margin: 0;">SAVE ORDER</button>
+                &nbsp&nbsp&nbsp <label id="ord_result_lbl" style="color:red"></label>
+            </div>
+                
+        </div>
+
+</div>

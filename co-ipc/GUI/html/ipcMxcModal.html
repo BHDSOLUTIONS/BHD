@@ -1,0 +1,61 @@
+<div id="mxcModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+             <h5 class="modal-title">LOCK/UNLOCK MATRIX CARD</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-3 modifyPadding">
+                    <label for="mxcModal_node_txt">NODE</label>
+                    <input class="form-control modifyPadding" type="text" id="mxcModal_node_txt" readonly>
+                </div>
+                <div class="col-sm-3 modifyPadding">
+                    <label for="mxcModal_slot_txt">SLOT</label>
+                    <input class="form-control modifyPadding" type="text" id="mxcModal_slot_txt" readonly>
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="mxcModal_type_sel">TYPE</label>
+                    <select id="mxcModal_type_sel" class="form-control" disabled>
+                        <option>MIO</option>
+                        <option>MRE</option>
+                        <option>RM</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 modifyPadding">
+                    <label for="mxcModal_stat_sel">STAT</label>
+                    <select id="mxcModal_stat_sel" class="form-control" disabled>
+                        <option>INS</option>
+                        <option>OOS</option>
+                        <option>LCK</option>
+                    </select>
+                </div>
+ 
+                <!-- ------------------------------------------ -->
+                <!-- <hr> -->
+
+                <div class="col-sm-3 modifyPadding">
+                    <label for="mxcModal_act_txt">ACTION</label>
+                    <input type="text" class="form-control" id="mxcModal_act_txt" readonly>
+                </div>
+                <div class="col-sm-8 modifyPadding">
+                    <button class="btn btn-primary" id="mxcModal_submit_btn">Submit</button>
+                    <button class="btn btn-primary" id="mxcModal_clear_btn" style="display:none;">Clear</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<input type="hidden" id="mxcModal_id_num" style="width:50px;">
+                    <br>
+                    <label id="mxcModal_result_lbl" style="color:red"></label>
+                </div>
+     
+            </div>
+            
+        </div>
+    </div>
+    </div>
+  </div>
+
+
+
+

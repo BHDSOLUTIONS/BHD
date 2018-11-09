@@ -23,9 +23,9 @@
     if(isset($_POST['act']))
         $act = $_POST['act'];
 
-    $newpw = "";
-    if(isset($_POST['newpw']))
-        $newpw = $_POST['newpw'];
+    $login_displayFirstLogin = "";
+    if(isset($_POST['login_displayFirstLogin']))
+        $login_displayFirstLogin = $_POST['login_displayFirstLogin'];
 
 
  	$dbObj = new Db();
@@ -45,7 +45,7 @@
 		return;
 	}
     
-    /*if($act =="firstlogin"){
+    /*if($act =="firstLogin"){
 		$result = userFirstLogin();
 		echo json_encode($result);
 		mysqli_close($db);
@@ -61,7 +61,7 @@
 
 
 	function userLogin() {
-		global $db, $uname, $pw, $newpw;
+		global $db, $uname, $pw, $login_displayFirstLogin;
 		
         $evtLog = new EvtLog($uname,"USERS","LOGIN");
         if ($uname == "") {
@@ -93,14 +93,14 @@
                 }
                 $id = $rows[0]["id"];
                 if ($rows[0]["ssn"] == $rows[0]["pw"]) {
-					if ($newpw == "") {
+					if ($login_displayFirstLogin == "") {
 						$result["rslt"] = "fail";
 						$result["reason"] = "Please use First Time Login and provide NEW PASSWORD";
 						$evtLog->log($result["rslt"], $result["reason"]);
 						return $result;
 					}
 					else {
-						$qry = "UPDATE t_users set stat='ACTIVE',lastlogin=now(),login=now(),pw='" . $newpw . "',pwdate=now() WHERE id=" . $id;
+						$qry = "UPDATE t_users set stat='ACTIVE',lastlogin=now(),login=now(),pw='" . $login_displayFirstLogin . "',pwdate=now() WHERE id=" . $id;
 					}
 				}
 				else {
@@ -129,7 +129,7 @@
 
 	/*
 	function userFirstLogin() {
-		global $db, $uname, $pw, $newpw;
+		global $db, $uname, $pw, $login_displayFirstLogin;
 		
 		$evtLog = new EvtLog($uname,"USERS","FIRST-LOGIN");
 		
@@ -145,7 +145,7 @@
 			return $result;
 		}
 		
-		if ($newpw == "") {
+		if ($login_displayFirstLogin == "") {
 			$result["rslt"] = "fail";
 			$result["reason"] = "Missing NEW PASSWORD";
 			return $result;
@@ -165,7 +165,7 @@
                     $rows[] = $row;
                 }
                 $id = $rows[0]["id"]; 
-                $qry = "UPDATE t_users SET pw = '$newpw', stat = 'ACTIVE', lastlogin=now(), login=now() WHERE id=" . $id; 
+                $qry = "UPDATE t_users SET pw = '$login_displayFirstLogin', stat = 'ACTIVE', lastlogin=now(), login=now() WHERE id=" . $id; 
       
                 $res = $db->query($qry);
                 if (!$res) {

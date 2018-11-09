@@ -19,7 +19,8 @@
 		
 		public function __construct() {
 			$this->host = "localhost";
-			$this->dbname = "co5k"; $this->ui = "ninh"; $this->pw = "c0nsulta";
+			$this->dbname = "co5k"; $this->ui = "ninh"; $this->pw = "C0nsulta!!!";
+			//$this->dbname = "co5k"; $this->ui = "ninh"; $this->pw = "c0nsulta";
 			//$this->dbname = "co5k"; $this->ui = "root"; $this->pw = "Qaz!2345";
 			//$this->dbname = "wizzis5_co5k"; $this->ui = "wizzis5_co5kuser"; $this->pw = "co5kuser1";
 			

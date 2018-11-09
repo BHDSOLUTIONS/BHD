@@ -38,6 +38,9 @@
 	if (isset($_POST['spcfnc']))
 		$spcfnc = $_POST['spcfnc'];
 
+	$range ="";
+	if (isset($_POST['range']))
+		$range = $_POST['range'];
 
 	// Dispatch to Functions
 	$dbObj = new Db();
@@ -74,7 +77,14 @@
 	}
 	
 	if ($act == "ADD" ) {
-		$result = addFac();
+		if ($range == ""){
+			$result = addFac($fac);
+		} 
+		else {
+			$result = addFacs();
+		}
+		// In this case, $db is reused multiple times before close
+		mysqli_close($db);
 		echo json_encode($result);
 		return;
 	}
@@ -137,8 +147,8 @@
 		return $result;
 	}
    
-	function addFac() {
-		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
+	function addFac($fac) {
+		global $db, $ftyp, $ort, $spcfnc;
 		
 		$qry = "insert into t_facs values(0,'";
 		if ($fac != "") {
@@ -192,8 +202,80 @@
 			$result["rslt"] = "fail";
 			$result["reason"] = "Invalid FAC:" . $fac;
 		}
-		mysqli_close($db);
+		
+		// mysqli_close($db);
 		return $result;
+	}
+
+
+	function addFacs(){
+		global $fac, $range;
+
+		//last dash position
+		$dashPos = strrpos($fac,'-');  
+		//In case there is no dash in Fac
+		if($dashPos == "") 
+    		$dashPos = -1;
+		// string length of fac
+		$facLength= strlen($fac) -1; 	 
+
+		// Initialize postion of digits
+		$digitFirstPos=-1;
+		$digitLastPos=-1;
+
+		for($i = $facLength; $i > $dashPos; $i--) {
+			if ( is_numeric($fac[$i])) {
+				if ($digitLastPos == -1) {
+					$digitLastPos = $i;
+					$digitFirstPos = $i;
+				}          
+				else if ($i == ($digitFirstPos -1))
+					$digitFirstPos = $i;
+			}
+		}
+		
+		if ($digitLastPos == -1)
+		{
+			$result["rslt"] = "fail";
+			$result["reason"] = "There is no digit in the last block of fac string!";
+		}
+		else {
+			
+			$digitNum = $digitLastPos - $digitFirstPos + 1;
+
+			$startValue = (int)(substr($fac, $digitFirstPos, $digitNum)); 
+			$maxValue = pow(10, $digitNum)-1; 
+			
+			$maxRange = $maxValue - $startValue +1; 
+
+			//convert $range from string to int number
+			$rangeFac = (int)$range;
+			if ($rangeFac > $maxRange) {
+				$result["rslt"] = "fail";
+				$result["reason"] = "The range is too big. The maximum range is ".$maxRange."!";
+			}
+			else {
+				for ($i=0; $i < $rangeFac ; $i++) {
+					//update the digit number
+					$currentValue = $startValue + $i; 
+					//convert to string format
+					$digitString = str_pad($currentValue,$digitNum,"0",STR_PAD_LEFT); 
+					//replace the digitString into fac
+					$updatedFac = substr_replace($fac,$digitString, $digitFirstPos, $digitNum); 
+					$result = addFac($updatedFac); 
+					if ($result['rslt'] == "fail"){
+						$result['stopIndex'] = $i;
+						break;
+					}
+					
+
+				}
+			}
+
+		}
+
+		return $result;
+		
 	}
 
 
@@ -250,7 +332,7 @@
 
 	
 	function delFac() {
-		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc;
+		global $db, $act, $fac_id, $fac, $ftyp, $ort, $spcfnc, $port;
 		
 		if ($fac == "") {
 			$result["rslt"] = "fail";
@@ -258,7 +340,13 @@
 			mysqli_close($db);
 			return $result;
 		}
-			
+		
+		if ($port == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Denied. FAC is currently mapped";
+			return $result;
+		}
+		
 		$qry = "delete from t_facs where fac='" . $fac . "'";
 		$res = $db->query($qry);
 		if (!$res) {

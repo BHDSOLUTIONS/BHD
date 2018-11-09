@@ -1,0 +1,134 @@
+<div id="svcModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">SERVICE CONNECTION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="svcModal_ckid_txt">CKID</label>
+                        <input type="text" class="form-control" id="svcModal_ckid_txt">
+                    </div>
+                        
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="svcModal_cls_sel">CLS</label>
+                        <select class="form-control" id="svcModal_cls_sel" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>RES</option>
+                            <option>BUS</option>
+                        </select>
+                    </div>
+        
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="svcModal_adsr_sel">ADSR</label>
+                        <select class="form-control" id="svcModal_adsr_sel" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>SSM</option>
+                            <option>SSP</option>
+                        </select>
+                    </div>   
+        
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="svcModal_prot_sel">PROT</label>
+                        <select class="form-control" id="svcModal_prot_sel" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>Y</option>
+                            <option>N</option>
+                        </select>
+                    </div>
+        
+                    <!-- ----------------------------------------- -->
+        
+                    <div class="col-sm-4 modifyPadding">
+                        <label for="svcModal_ordno_txt">ORDNO</label>
+                        <input type="text" class="form-control" id="svcModal_ordno_txt">
+                    </div>
+                    
+                    <div class="col-sm-2 modifyPadding">
+                        <label for="svcModal_mlo_sel">MLO</label>
+                        <select class="form-control" id="svcModal_mlo_sel" style="padding:2px 0 0 0">
+                            <option></option>
+                            <option>Y</option>
+                            <option>N</option>
+                        </select>
+                    </div> 
+        
+                    <!-- ------------------------------------------------- -->
+                    
+                    <div id="svcModal_newConForm" class="col-sm-12 modifyPadding">
+                        <div class="col-sm-2 modifyPadding">
+                            <label for="svcModal_ctyp_sel">CTYP</label>
+                            <select class="form-control" id="svcModal_ctyp_sel" style="padding:2px 0 0 0">
+                                <option></option>
+                                <option>GEN</option>
+                                <option>LPBK</option>
+                                <option>MLPT</option>
+                            </select>
+                        </div>  
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="svcModal_ffac_sel">FAC(X)</label>
+                            <select class="form-control" id="svcModal_ffac_sel"> 
+                            </select>
+                        </div> 
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="svcModal_tfac_sel">FAC(Y)</label>
+                            <select class="form-control" id="svcModal_tfac_sel">
+                            </select>
+                        </div> 
+                    </div>
+
+                    <!-- ----------------------------------- -->
+					
+                    <div id="svcModal_discConForm" class="col-sm-12 modifyPadding">
+                        <div class="col-sm-2 modifyPadding">
+                            <label for="svcModal_discCtyp_txt">CTYP</label>
+                            <input type="text" class="form-control" id="svcModal_discCtyp_txt" readonly> 
+                        </div>  
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="svcModal_discFfac_txt">FAC(X)</label>
+                            <input type="text" class="form-control" id="svcModal_discFfac_txt" readonly> 
+                        
+                        </div> 
+                        <div class="col-sm-5 modifyPadding">
+                            <label for="svcModal_discTfac_txt">FAC(Y)</label>
+                            <input type="text" class="form-control" id="svcModal_discTfac_txt" readonly>
+                        
+                        </div> 
+                    </div>
+                    
+                    <!-- ---------------------------------------------------- -->
+
+                    <div class="col-sm-12 modifyPadding">
+                        <div class="col-sm-3 modifyPadding"> 
+                            <label for="svcModal_act_txt">ACTION</label>    
+                            <input type="text" class="form-control" id="svcModal_act_txt" readonly>
+                        </div>
+                        
+                        <div class="col-sm-8 modifyPadding">
+                            <button id="svcModal_submit_btn" type="button" class="btn btn-primary">Submit</button>
+                            <button id="svcModal_clear_btn" type="button" class="btn btn-primary">Clear</button>
+                            <!-- moded to co-ipc-prov.html 
+                            <input id="ckt_id" type="text" style="width:50px">
+                            <input id="cktcon_id" type="text" style="width:50px">
+                            <input id="cktcon_idx" type="text" style="width:50px">
+                            -->
+                            <br>
+                            <label id="svcModal_result_txt" style="color:red"></label>
+                        </div>
+                    </div>
+
+                    <!-- ---------------------------------------------- -->
+                </div>
+                
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+

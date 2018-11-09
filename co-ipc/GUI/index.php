@@ -1,33 +1,34 @@
 
 <?php	
 	
-	include './html/co-ipc-header.html';
-	include './html/co-ipc-warning.html';
-	include './html/co-ipc-login.html';
+	include './html/ipcHeader.html';
+	include './html/ipcWarning.html';
+	include './html/ipcLogin.html';
 
-	include './html/co-ipc-menu.html';
-	include './html/co-ipc-fac.html';
-	include './html/co-ipc-portmap.html';
-	include './html/co-ipc-prov.html';
-	include './html/co-ipc-alarm.html';
-	include './html/co-ipc-user.html';
-	include './html/co-ipc-matrix.html';
-	include './html/co-ipc-event.html';
-	include './html/co-ipc-brdcst.html';
-	include './html/co-ipc-batch.html';
-	include './html/co-ipc-ord.html';
-	include './html/co-ipc-sysView.html';
-	include './html/co-ipc-wc.html';
-	include './html/co-ipc-closeContainerTag.html';
-	include './html/co-ipc-facModal.html';
-	include './html/co-ipc-portMapModal.html';
-	include './html/co-ipc-provModal.html';
-	include './html/co-ipc-almModal.html';
-	include './html/co-ipc-userModal.html';
-	include './html/co-ipc-matrixModal.html';
-	include './html/co-ipc-brdcstModal.html';
-	include './html/co-ipc-batchModal.html';
-	include './html/co-ipc-footer.html';
+	include './html/ipcMainBegin.html';
+	include './html/ipcFac.html';
+	include './html/ipcPortmap.html';
+	include './html/ipcSvc.html';
+	include './html/ipcAlm.html';
+	include './html/ipcUser.html';
+	include './html/ipcMxc.html';
+	include './html/ipcEvtLog.html';
+	include './html/ipcBrdcst.html';
+	include './html/ipcBatchExc.html';
+	include './html/ipcOrd.html';
+	include './html/ipcSysView.html';
+	include './html/ipcWc.html';
+	include './html/ipcWcModal.html';
+	include './html/ipcMainEnd.html';
+	include './html/ipcFacModal.html';
+	include './html/ipcPortmapModal.html';
+	include './html/ipcSvcModal.html';
+	include './html/ipcAlmModal.html';
+	include './html/ipcUserModal.html';
+	include './html/ipcMxcModal.html';
+	include './html/ipcBrdcstModal.html';
+	include './html/ipcBatchExcModal.html';
+	include './html/ipcFooter.html';
 	
 ?>
 
@@ -35,29 +36,27 @@
 
 $(document).ready(function() { 
 
-	//setupFac_queryFac('query');
-
-	brdcst_queryBrdcst('query');
+	sysviewRefeshPage();
 	opt_queryOpt("queryOpt");
 	if ($("main_currentUser").text() == '')
 	{
-		$("#warningPage").show();
-		$("#loginPage").hide();
+		$("#warning").show();
+		$("#login").hide();
 		$("#mainPage").hide();
 
 	}
 	else
 	{
-		$("#warningPage").hide();
-		$("#loginPage").hide();
+		$("#warning").hide();
+		$("#login").hide();
 		$("#mainPage").show();
 	}
 
 });
 
-$("#continue").click(function(){
-    $("#warningPage").hide();
-    $("#loginPage").show();
+$("#warning_continue_btn").click(function(){
+    $("#warning").hide();
+    $("#login").show();
 	$("#mainPage").hide();
 })
 

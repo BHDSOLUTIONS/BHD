@@ -66,6 +66,12 @@
 		mysqli_close($db);
 		return;
 	}
+	if ($act == "queryNode") {
+		$result = pmQueryNode();
+		echo json_encode($result);
+		mysqli_close($db);
+		return;
+	}
 	if ($act == "findFac") {
 		$result = pmQueryFac($fac);
 		echo json_encode($result);
@@ -133,18 +139,6 @@
 		$port = $node . "-" . $slot . "-" . $ptyp . "-" . $pnum;
 		$psta = $map["rows"][0]["psta"];
 		$ssta = $map["rows"][0]["ssta"];
-		/*
-		$evt = "PT_MAP";
-		$sms = getSms($psta, $ssta, $evt);
-		if ($sms["rslt"] == "fail") {
-			$result = $sms;
-			$evtLog->log($sms["rslt"], $sms["reason"]);
-			return;
-		}
-			
-		$npsta = $sms["rows"][0]["npsta"];
-		$nssta = $sms["rows"][0]["nssta"];
-		*/
 		
 		$sms = new Sms($psta, $ssta, "PT_MAP");
 		if ($sms->rslt == "fail") {
@@ -183,20 +177,6 @@
 		$psta = $map["rows"][0]["psta"];
 		$ssta = $map["rows"][0]["ssta"];
 		
-		/*
-		$evt = "PT_UNMAP";
-		
-		$sms = getSms($psta, $ssta, $evt);
-		if ($sms["rslt"] == "fail") {
-			$result["rslt"] = "fail";
-			$result["reason"] = "Denied: PORT status must be SF";
-			$evtLog->log($result["rslt"], $result["reason"]);
-
-			return $result;
-		}
-		$npsta = $sms["rows"][0]["npsta"];
-		$nssta = $sms["rows"][0]["nssta"];
-		*/
 		$sms = new Sms($psta, $ssta, "PT_UNMAP");
 		if ($sms->rslt == "fail") {
 			$result["rslt"] = "fail";
@@ -216,33 +196,6 @@
 		return queryPort("", "", "", "", "");
 	}
 	
-	/*
-	function getSms($psta, $ssta, $evt) {
-		global $db;
-
-		$qry = "SELECT * FROM t_sms WHERE evt='" . $evt . "' AND psta='" . $psta . "' AND ssta='" . $ssta . "'";
-        $res = $db->query($qry);
-        if (!$res) {
-            $result["rslt"] = "fail";
-            $result["reason"] = mysqli_error($db);
-        }
-        else {
-            $rows = [];
-			if ($res->num_rows > 0) {
-                while ($row = $res->fetch_assoc()) {
-                    $rows[] = $row;
-                }
-				$result["rslt"] = "success";
-				$result["rows"] = $rows;
-            }
-            else {
-				$result["rslt"] = "fail";
-				$result["reason"] = "Invalid SMS";
-			}
-		}
-		return $result;
-	}
-	*/
 		
 	function getMap($port_id, $fac_id, $typ) {
 		global $db;
@@ -275,11 +228,32 @@
 	}
 		
 	
+	function pmQueryNode() {
+		global $db;
+
+		$qry = "SELECT * FROM t_nodes";
+        $res = $db->query($qry);
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+        }
+        else {
+            $rows = [];
+            $result["rslt"] = "success";
+			if ($res->num_rows > 0) {
+                while ($row = $res->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+            }
+            $result["rows"] = $rows;
+		}
+		return $result;
+	}
+
 	
 	function queryPort($node, $slot, $ptyp, $pnum, $psta) {
 		global $db;
-		
-		
+			
 		$qry = "SELECT t_ports.id as id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, ";
 		$qry .= "t_facs.id as fac_id, t_facs.fac, t_ckts.ckid ";
 		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";
