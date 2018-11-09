@@ -65,6 +65,7 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
             $("#facModal_ort").prop("disabled",false);
             $("#facModal_spcfnc").prop("disabled",false);
             $("#facModal_clear").prop("disabled",false);
+            $("#facModal_range_show").hide();
             $("#facModal_clear").show();
             $("#facModal").modal(); 
         } 
@@ -85,6 +86,7 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
             $("#facModal_ftyp").prop("disabled",true);
             $("#facModal_ort").prop("disabled",true);
             $("#facModal_spcfnc").prop("disabled",true);
+            $("#facModal_range_show").hide();
             $("#facModal_clear").hide();
             $("#facModal").modal();  
         } 
@@ -96,13 +98,13 @@ $(document).on('mouseup', '[id *= setupFac_act]', function () {
     }
     else if ($("#setupFac_act").val()  ==  "ADD")
     {
-        setupFac_clearForm(); 
         facModal_clearForm(); 
         $("#facModal_act").val($("#setupFac_act").val()); 
         $("#facModal_fac").prop("disabled",false);
         $("#facModal_ftyp").prop("disabled",false);
         $("#facModal_ort").prop("disabled",false);
         $("#facModal_spcfnc").prop("disabled",false);
+        $("#facModal_range_show").show();
         $("#facModal_clear").show();
         $("#facModal").modal(); 
     }

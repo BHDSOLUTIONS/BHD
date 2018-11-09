@@ -16,6 +16,8 @@
 	include './html/co-ipc-brdcst.html';
 	include './html/co-ipc-batch.html';
 	include './html/co-ipc-ord.html';
+	include './html/co-ipc-sysView.html';
+	include './html/co-ipc-wc.html';
 	include './html/co-ipc-closeContainerTag.html';
 	include './html/co-ipc-facModal.html';
 	include './html/co-ipc-portMapModal.html';
@@ -34,7 +36,9 @@
 $(document).ready(function() { 
 
 	//setupFac_queryFac('query');
+
 	brdcst_queryBrdcst('query');
+	opt_queryOpt("queryOpt");
 	if ($("main_currentUser").text() == '')
 	{
 		$("#warningPage").show();

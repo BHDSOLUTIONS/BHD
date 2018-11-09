@@ -37,6 +37,29 @@ $("#logout").click(function () {
 });
 
 
+$("#configMenu").click(function(){
+    $("#configSubMenu").toggle();
+   
+})
+
+$("#provMenu").click(function(){
+    $("#provSubMenu").toggle();
+})
+
+
+$("#maintnMenu").click(function(){
+    $("#maintnSubMenu").toggle();
+})
+$("#adminMenu").click(function(){
+    $("#adminSubMenu").toggle();
+})
+
+$("#reportMenu").click(function(){
+    $("#reportSubMenu").toggle();
+})
+
+
+
 $("#menuFacSet").click(function(){
     setupFac_clearForm()
     setupFac_queryFac('query');
@@ -86,6 +109,14 @@ $("#menuBrdcst").click(function(){
 $("#menuBatch").click(function(){
     batch_clearForm()
     batch_queryBatch('query');
+})
+
+$("#menuSysView").click(function(){
+    sysView_refeshPage();
+})
+
+$("#menuWcSet").click(function(){
+    wc_clearForm();
 })
 
 $(document).on("click","#displayMenu",function(){

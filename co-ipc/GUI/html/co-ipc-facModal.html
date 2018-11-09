@@ -12,15 +12,32 @@
         </div>
         <div class="modal-body">
             <div class="row">
- 
-                <div class="col-sm-9 modifyPadding">
-                    <label for="facModal_fac">FAC</label>
-                    <input type="text" class="form-control" id="facModal_fac">
+                <div class="col-sm-12" style="padding:0px;">
+                    <div class="col-sm-7 modifyPadding">
+                        <label for="facModal_fac">FAC</label>
+                        <input type="text" class="form-control" id="facModal_fac">
+                    </div>
+    
+                    <div id="facModal_range_show" class="col-sm-2 modifyPadding">
+                        <label for="facModal_range">RANGE</label>
+                        <select class="form-control" id="facModal_range">
+                            <option></option>
+                            <option>5</option>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                            <option>1000</option>
+                        </select>
+                    </div> 
+    
+                    <div class="col-sm-3 modifyPadding">
+                        <label for="facModal_portInfo">PORT</label>
+                        <input type="text" class="form-control" id="facModal_portInfor" readonly>
+                    </div> 
                 </div>
-                <div class="col-sm-3 modifyPadding">
-                    <label for="facModal_portInfo">PORT</label>
-                    <input type="text" class="form-control" id="facModal_portInfo" readonly>
-                </div> 
+               
 
                 <!-- --------------------------------------------- -->
                 

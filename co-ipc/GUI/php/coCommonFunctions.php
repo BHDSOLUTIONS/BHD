@@ -334,11 +334,12 @@
 	}
 	
 			
-
-
+    // Support functions
 	function userPermission($fnc, $user) {
 		//temporary permit all users
 		return true;
 	}
-  
+ 
+
+
 ?>

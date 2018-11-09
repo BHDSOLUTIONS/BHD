@@ -20,6 +20,7 @@ function facModal_clearForm(){
     $("#facModal_spcfnc").val("").change();
     $("#facModal_portInfor").val("").change();
     $("#facModal_result").text("");
+    $("#facModal_range").val("");
 }
 $("#facModal_clear").click(facModal_clearForm);
 
@@ -34,7 +35,8 @@ function facModal_queryFac(action){
         fac: 	$("#facModal_fac").val(),
         ftyp: 	$("#facModal_ftyp").val(),
         ort: 	$("#facModal_ort").val(),
-        spcfnc: $("#facModal_spcfnc").val()
+        spcfnc: $("#facModal_spcfnc").val(),
+        range:  $("#facModal_range").val()
     },
     function (data, status) {       
         var obj = JSON.parse(data);
@@ -50,6 +52,7 @@ function facModal_queryFac(action){
             setupFac_maxTableIndex = Math.ceil(len/100.0);
             setupFac_tableIndex++;
             setupFac_displayTable(setupFac_tableIndex);
+            $("#facModal_result").text(obj['rslt']);
         } 
     });
 }

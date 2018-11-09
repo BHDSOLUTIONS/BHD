@@ -1,16 +1,18 @@
 #menu {
   float: left;
-  height:580px; 
+  height:680px; 
   border:1px solid gray; 
   padding-left: 10px;
   padding-top: 10px;
-  width:150px;
+  width:210px;
   overflow-y: auto;
+  
 }
 #mainView{
-  min-height:580px; 
+  height:680px; 
   border:1px solid gray; ;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 #header{
@@ -26,13 +28,13 @@
 
 
 @media only screen and (max-width: 768px) {
-    /*for mobile phone */
-    [class*="col-sm-3"] {
-        width: 100%;
-    }
-    .btn-primary{
-      margin:10px;
-    }
+  /*for mobile phone */
+  [class*="col-sm-3"] {
+      width: 100%;
+  }
+  .btn-primary{
+    margin:10px;
+  }
 
 }
 #displayMenu{
@@ -60,29 +62,38 @@
   }
 }
 
+textarea {
+  resize: none;
+}
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0; 
 }
 /* ---------------------------------------------------------- */
 
 .modifyPadding{
   padding: 5px 5px 5px 5px;
 }
+
+.modifyPadding select{
+  padding:0 0 0 2px;
+}
+
+.modifyPadding input{
+  padding:0 0 0 5px;
+}
+
 .line-up{
-    float:left;
-    padding:0px 20px;
+  float:left;
+  padding:0px 20px;
 }
-.port {
-    margin: 2px;
-    min-width: 18%;
-}
-.port:hover {
-    background-color: lightblue;
+
+button:focus {
+  outline: none;
 }
 
 .btn-primary { 
@@ -94,21 +105,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 .btn-primary:hover, 
 .btn-primary:focus, 
-.btn-primary:active, 
 .btn-primary.active, 
 .open .dropdown-toggle.btn-primary { 
   color: #ffffff; 
   background-color: #0295A8; 
   border-color: #130269; 
 } 
- 
-.ckt {
-    margin: 2px;
-    min-width: 45%;
-}
-.ckt:hover {
-    background-color: lightblue;
-}
 
 .table-fixed thead {
   width: 98%;
@@ -138,13 +140,94 @@ input[type=number]::-webkit-outer-spin-button {
   content: "\200b";
  } 
 
+ td, th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+ }
+
 .addColor{
   color: blue;
 }
-/* button:disabled,
+
+button:disabled,
 button[disabled]{
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
-} */
+}
 
+/* --------------------SYSTEM OVERVIEW---------------------- */
+
+
+.sysView_node {
+  min-height: 80px;
+  width:100%;
+}
+
+.sysView_node button {
+  background-color: #EEEEEE;
+  font-size:70%; 
+  text-align: left;
+  min-width: 80px;
+  height: 80px;
+
+  margin-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.sysView_mio {
+  margin-top:10px;
+  border-bottom: solid black 2px;
+  width: 100%;
+  min-height: 45px;
+
+}
+
+.sysView_mio a {
+  min-width:45px;
+  height: 40px;
+
+  margin-left: 20px;
+  overflow: hidden;
+  
+}
+
+.sysView_XY {
+  width:100%;
+  min-height: 35px;
+}
+
+
+#sysView_portDisplay {
+  padding: 2px;
+  width:100%;
+  
+}
+
+.addBorder {
+
+  box-shadow: 0px 0px 0px 5px #00A4E9 inset;
+  box-sizing: border-box;
+}
+
+.addBGColor {
+  background-color: #E5E5E5;
+  
+}
+
+.addPortStyle {
+  width: 18%;
+  height: 70px;
+  padding: 0px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 1px;
+
+  background-color: #EEEEEE;
+}

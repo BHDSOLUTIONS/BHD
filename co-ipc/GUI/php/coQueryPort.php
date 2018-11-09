@@ -90,6 +90,12 @@
 		mysqli_close($db);
 		return;
 	}
+	if ($act == "QUERYMIO") {
+		$result = queryMio();
+		echo json_encode($result);
+		mysqli_close($db);
+		return;
+	}
 	else {
  		$result["rslt"] = "fail";
 		$result["reason"] = "ACTION " . $act . " is under development or not supported";
@@ -305,11 +311,42 @@
 	}
 
 	
-	
+	function queryMio() {
+		global $db, $node, $slot, $ptyp;
+		$qry = "SELECT t_ports.id as id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, ";
+		$qry .= "t_facs.id as fac_id, t_facs.fac, t_ckts.ckid ";
+		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";
+		$qry .= " WHERE t_ports.ptyp = '$ptyp' AND t_ports.node = '$node'";
+		$qry .= " AND t_ports.slot = '$slot'";
+        
+        $res = $db->query($qry);
+        if (!$res) {
+            $result["rslt"] = "fail";
+            $result["reason"] = mysqli_error($db);
+        }
+        else {
+            $rows = [];
+            $result["rslt"] = "success";
+			if ($res->num_rows > 0) {
+                while ($row = $res->fetch_assoc()) {
+                    if($row["ckid"] == null)
+						$row["ckid"] = "";
+					if ($row["fac"] == null)
+						$row["fac"] = "";
+					if ($row["fac_id"] == null)
+						$row["fac_id"] = "0";
+					$rows[] = $row;
+                }
+            }
+            $result["rows"] = $rows;
+		}
+		return $result;
+	}
+
+
 	function pmQueryFac($fac) {
 		global $db;
-		
-		
+
 		$qry = "SELECT t_ports.id as id, t_ports.node, t_ports.slot, t_ports.pnum, t_ports.ptyp, t_ports.psta, ";
 		$qry .= "t_facs.id as fac_id, t_facs.fac, t_ckts.ckid ";
 		$qry .= "FROM t_ports LEFT JOIN t_facs ON t_ports.fac_id = t_facs.id LEFT JOIN t_ckts ON t_ports.ckt_id = t_ckts.id";

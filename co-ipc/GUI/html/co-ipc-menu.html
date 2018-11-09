@@ -30,94 +30,140 @@
 			<div id="menu" display="block">
 				<div class="sidebar" >
 					<nav class="sidebar-nav">
-						<ul class="nav">
-							<li class="nav-item">
-								<a id="menuBrdcst" data-toggle="pill" class="nav-link" href="#brdcst">
-								<i class="nav-icon cui-speedometer"></i> Broadcast Notification
-								</a>
-							</li>
-							<li class="nav-title">CONFIGURATION</li>
-							<li class="nav-item">
-								<a id="menuWcSet" data-toggle="pill" class="nav-link" href="#setupWc">
-								<i class="nav-icon cui-speedometer"></i> Setup Wire Center
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuFacSet" data-toggle="pill" class="nav-link" href="#setupFac">
-								<i class="nav-icon cui-speedometer"></i> Setup Facilities
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuPortMap"data-toggle="pill" class="nav-link" href="#portMap">
-								<i class="nav-icon cui-speedometer"></i> Setup Port Mapping
-								</a>
-							</li>
-							<li class="nav-title">PROVISIONING</li>
-							<li class="nav-item">
-								<a id="menuProv" data-toggle="pill" class="nav-link" href="#prov">
-								<i class="nav-icon cui-speedometer"></i> Service Connection
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuBatch" data-toggle="pill" class="nav-link" href="#batch">
-								<i class="nav-icon cui-speedometer"></i> Batch Execution
-								</a>
-							</li>
-							<li class="nav-title">MAINTENANCE</li>
-							<li class="nav-item">
-								<a id="menuSysView" data-toggle="pill" class="nav-link" href="#sysView">
-								<i class="nav-icon cui-speedometer"></i> System Overview
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuMaint" data-toggle="pill" class="nav-link" href="#maint">
-								<i class="nav-icon cui-speedometer"></i> Maintenance Connection
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuMatrix" data-toggle="pill" class="nav-link" href="#matrixCard">
-								<i class="nav-icon cui-speedometer"></i> Lock/Unlock Matrix Cards
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuAlm" data-toggle="pill" class="nav-link" href="#adminAlm">
-								<i class="nav-icon cui-speedometer"></i> Alarm Administration
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuPath" data-toggle="pill" class="nav-link" href="#adminPath">
-								<i class="nav-icon cui-speedometer"></i> Path Administration
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuDbBkup" data-toggle="pill" class="nav-link" href="#bkupDb">
-								<i class="nav-icon cui-speedometer"></i> Backup/Restore Database
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuSwUpd" data-toggle="pill" class="nav-link" href="#updSw">
-								<i class="nav-icon cui-speedometer"></i> Software Update
-								</a>
-							</li>
-							<li class="nav-title">ADMINISTRATION</li>
-							<li class="nav-item">
-								<a id="menuUserSet" data-toggle="pill" class="nav-link" href="#setupUser">
-								<i class="nav-icon cui-speedometer"></i> Setup Users
-								</a>
-							</li>
-							<li class="nav-item">
-								<a id="menuIpcRef" data-toggle="pill" class="nav-link" href="#ipcRef">
-								<i class="nav-icon cui-speedometer"></i> IPC References
-								</a>
-							</li>
-							<li class="nav-title">REPORT</li>
-							<li class="nav-item">
-								<a id="menuEvent" data-toggle="pill" class="nav-link" href="#event">
-								<i class="nav-icon cui-speedometer"></i> Event Report
-								</a>
-							</li>
-							
-						</ul>
+						
+						<div>
+							<ul class="nav">
+								<li class="nav-item">
+									<a id="menuSysView" data-toggle="pill" class="nav-link" href="#sysView">
+									<i class="nav-icon cui-speedometer"></i> System Overview
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuBrdcst" data-toggle="pill" class="nav-link" href="#brdcst">
+									<i class="nav-icon cui-speedometer"></i> Broadcast Notification
+									</a>
+								</li>
+							</ul>
+						</div>
+					
+						<hr style="margin: 3px">
+
+						<label id="configMenu" class="nav-title">CONFIGURATION</label>
+						<div id="configSubMenu" style="display: none">
+							<ul class="nav">
+								<li class="nav-item">
+									<a id="menuWcSet" data-toggle="pill" class="nav-link" href="#wc">
+									<i class="nav-icon cui-speedometer"></i> Setup Wire Center
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuFacSet" data-toggle="pill" class="nav-link" href="#setupFac">
+									<i class="nav-icon cui-speedometer"></i> Setup Facilities
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuPortMap"data-toggle="pill" class="nav-link" href="#portMap">
+									<i class="nav-icon cui-speedometer"></i> Setup Port Mapping
+									</a>
+								</li>
+							</ul>
+						</div>
+
+						<hr style="margin: 3px">
+						
+						<label id="provMenu" class="nav-title">PROVISIONING</label>
+						<div id="provSubMenu" style="display: none">
+							<ul class="nav">
+								<li class="nav-item">
+									<a id="menuProv" data-toggle="pill" class="nav-link" href="#prov">
+									<i class="nav-icon cui-speedometer"></i> Service Connection
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuBatch" data-toggle="pill" class="nav-link" href="#batch">
+									<i class="nav-icon cui-speedometer"></i> Batch Execution
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuOrd" data-toggle="pill" class="nav-link" href="#ord">
+									<i class="nav-icon cui-speedometer"></i> Setup Order
+									</a>
+								</li>
+								
+							</ul>
+						</div>
+						
+						<hr style="margin: 3px">
+
+						<label id="maintnMenu" class="nav-title">MAINTENANCE</label>
+						<div id="maintnSubMenu" style="display: none">
+							<ul class="nav">
+								<li class="nav-item">
+									<a id="menuMaint" data-toggle="pill" class="nav-link" href="#maint">
+									<i class="nav-icon cui-speedometer"></i> Maintenance Connection
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuMatrix" data-toggle="pill" class="nav-link" href="#matrixCard">
+									<i class="nav-icon cui-speedometer"></i> Lock/Unlock Matrix Cards
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuAlm" data-toggle="pill" class="nav-link" href="#adminAlm">
+									<i class="nav-icon cui-speedometer"></i> Alarm Administration
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuPath" data-toggle="pill" class="nav-link" href="#adminPath">
+									<i class="nav-icon cui-speedometer"></i> Path Administration
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuDbBkup" data-toggle="pill" class="nav-link" href="#bkupDb">
+									<i class="nav-icon cui-speedometer"></i> Backup/Restore Database
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuSwUpd" data-toggle="pill" class="nav-link" href="#updSw">
+									<i class="nav-icon cui-speedometer"></i> Software Update
+									</a>
+								</li>
+							</ul>
+						</div>
+						
+						<hr style="margin: 3px">
+
+						<label id="adminMenu" class="nav-title">ADMINISTRATION</label>
+						<div id="adminSubMenu" style="display: none">
+							<ul class="nav">
+								<li class="nav-item">
+									<a id="menuUserSet" data-toggle="pill" class="nav-link" href="#setupUser">
+									<i class="nav-icon cui-speedometer"></i> Setup Users
+									</a>
+								</li>
+								<li class="nav-item">
+									<a id="menuIpcRef" data-toggle="pill" class="nav-link" href="#ipcRef">
+									<i class="nav-icon cui-speedometer"></i> IPC References
+									</a>
+								</li>
+								
+							</ul>
+						</div>	
+						
+						<hr style="margin: 3px">
+
+						<label id="reportMenu" class="nav-title">REPORT</label>
+						<div id="reportSubMenu" style="display: none">
+							<ul class="nav">
+								<li class="nav-item">
+									<a id="menuEvent" data-toggle="pill" class="nav-link" href="#event">
+									<i class="nav-icon cui-speedometer"></i> Event Report
+									</a>
+								</li>
+							</ul>
+						</div>
+						
+								
 					</nav>
 				</div>
 			</div>

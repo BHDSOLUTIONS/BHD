@@ -45,12 +45,12 @@
 		return;
 	}
     
-    if($act =="firstlogin"){
+    /*if($act =="firstlogin"){
 		$result = userFirstLogin();
 		echo json_encode($result);
 		mysqli_close($db);
 		return;
-	}
+	}*/
 	else {
  		$result["rslt"] = "fail";
 		$result["reason"] = "Invalid ACTION";
@@ -61,11 +61,24 @@
 
 
 	function userLogin() {
-		global $db, $uname, $pw;
+		global $db, $uname, $pw, $newpw;
 		
         $evtLog = new EvtLog($uname,"USERS","LOGIN");
-        
-        $qry = "SELECT id, ssn FROM t_users WHERE uname = '$uname' and pw = '$pw'"; 
+        if ($uname == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing Username";
+			$evtLog->log($result["rslt"], $result["reason"]);
+			return $result;
+		}
+		
+		if ($pw == "") {
+			$result["rslt"] = "fail";
+			$result["reason"] = "Missing Password";
+			$evtLog->log($result["rslt"], $result["reason"]);
+			return $result;
+		}
+		
+        $qry = "SELECT * FROM t_users WHERE uname = '$uname' and pw = '$pw'"; 
         $res = $db->query($qry);
         if (!$res) {
            
@@ -74,26 +87,32 @@
 		}
         else {
             $rows = [];
-            if ($res->num_rows == 1) {
+            if ($res->num_rows > 0) {
                 while ($row = $res->fetch_assoc()) {
                     $rows[] = $row;
                 }
-                if ($rows[0]["ssn"] == $pw) {
-					$result["rslt"] = "fail";
-					$result["reason"] = "Please use First Time Login and provide NEW PASSWORD";
-					return $result;
+                $id = $rows[0]["id"];
+                if ($rows[0]["ssn"] == $rows[0]["pw"]) {
+					if ($newpw == "") {
+						$result["rslt"] = "fail";
+						$result["reason"] = "Please use First Time Login and provide NEW PASSWORD";
+						$evtLog->log($result["rslt"], $result["reason"]);
+						return $result;
+					}
+					else {
+						$qry = "UPDATE t_users set stat='ACTIVE',lastlogin=now(),login=now(),pw='" . $newpw . "',pwdate=now() WHERE id=" . $id;
+					}
 				}
-				$id = $rows[0]["id"];
-                $qry = "UPDATE t_users set stat = 'ACTIVE', lastlogin=login, login=now() WHERE id=" . $id; 
-      
+				else {
+					$qry = "UPDATE t_users set stat = 'ACTIVE', lastlogin=login, login=now() WHERE id=" . $id; 
+				}
                 $res = $db->query($qry);
                 if (!$res) {
                    
                     $result["rslt"] = "fail";
                     $result["reason"] = mysqli_error($db);
                 }
-                else
-                {
+                else {
                     $result["rslt"] = "success";
                     $result["reason"] = "userLogin";
 				}   
@@ -108,7 +127,7 @@
     }
         
 
-
+	/*
 	function userFirstLogin() {
 		global $db, $uname, $pw, $newpw;
 		
@@ -133,11 +152,9 @@
 		}
 			
 		
-        $qry = "SELECT id FROM t_users where uname = '$uname' and pw = ssn";
-
+        $qry = "SELECT * FROM t_users where uname = '$uname' and pw = '" . $pw . "'";
         $res = $db->query($qry);
         if (!$res) {
-           
             $result["rslt"] = "fail";
             $result["reason"] = mysqli_error($db);
         }
@@ -162,12 +179,12 @@
 			}
 			else{
 				$result["rslt"] = "fail";
-                $result["reason"] = "This is not first login!";
+                $result["reason"] = "Invalid UserName or Password";
 			}
         }
         $evtLog->log($result["rslt"], $result["reason"]);
 		return $result;
-	}
+	}*/
    
 
 ?>
